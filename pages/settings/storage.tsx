@@ -320,8 +320,12 @@ export default function StorageManagement() {
 }
 StorageManagement.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout showToTopButton={false} showShareButton={false}>
-      <SettingsLayout sidebarActiveIndex={4}>{page}</SettingsLayout>
+    <Layout
+      showToTopButton={false}
+      showShareButton={false}
+      sidebarActiveIndex={2}
+    >
+      <SettingsLayout settingsSidebarActiveIndex={4}>{page}</SettingsLayout>
     </Layout>
   );
 };

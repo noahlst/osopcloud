@@ -80,7 +80,11 @@ export default function Settings() {
 }
 Settings.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout showToTopButton={false} showShareButton={false}>
+    <Layout
+      showToTopButton={false}
+      showShareButton={false}
+      sidebarActiveIndex={2}
+    >
       {page}
     </Layout>
   );

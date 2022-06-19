@@ -620,7 +620,11 @@ export default function Home({
   );
 }
 Home.getLayout = function getLayout(page: ReactElement) {
-  return <Layout showToTopButton={true}>{page}</Layout>;
+  return (
+    <Layout showToTopButton={true} sidebarActiveIndex={0}>
+      {page}
+    </Layout>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async () => {

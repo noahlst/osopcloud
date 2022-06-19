@@ -736,7 +736,11 @@ export default function Composer() {
 }
 Composer.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout showToTopButton={false} showShareButton={false}>
+    <Layout
+      showToTopButton={false}
+      showShareButton={false}
+      sidebarActiveIndex={1}
+    >
       {page}
     </Layout>
   );
