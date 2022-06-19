@@ -1,5 +1,5 @@
 // Design
-import { Icon, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "@chakra-ui/react";
 
 // Start component
 export default function Logo() {

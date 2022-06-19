@@ -147,7 +147,25 @@ export default function Composer() {
         <Flex direction={{ base: "column", sm: "row" }}>
           <Suspense fallback={<Loading />}>
             <Stack direction="row" spacing={5}>
-              <Heading>{name}</Heading>
+              {composerGreeting ? (
+                <Heading>{name}</Heading>
+              ) : (
+                <Editable
+                  // @ts-ignore
+                  value={name || ""}
+                >
+                  <EditablePreview as={Heading} fontWeight={600} />
+                  <Center>
+                    <Input
+                      as={EditableInput}
+                      onChange={(e) => {
+                        writeStorage("composerName", e.target.value);
+                      }}
+                      size="lg"
+                    />
+                  </Center>
+                </Editable>
+              )}
               <Center display={{ base: "none", lg: "flex" }}>
                 <Stack direction="row" spacing={2}>
                   <Badge colorScheme="almondScheme">Composer</Badge>
