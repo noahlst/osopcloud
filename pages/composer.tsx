@@ -34,7 +34,6 @@ import {
   Text,
   Textarea,
   Tr,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { FiArrowRight, FiMinus, FiPlus, FiX } from "react-icons/fi";
 
@@ -42,7 +41,6 @@ import { FiArrowRight, FiMinus, FiPlus, FiX } from "react-icons/fi";
 import DeleteComposerDataOverlay from "components/composer/DeleteComposerDataOverlay";
 import ExportComposerDataOverlay from "components/composer/ExportComposerDataOverlay";
 import URLManagementOverlay from "components/composer/URLManagementOverlay";
-import ManageColoursOverlay from "components/composer/ManageColoursOverlay";
 
 // Storage
 import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
@@ -53,9 +51,7 @@ import Layout from "components/layouts/Layout";
 import { useState } from "react";
 
 // Start page
-export default function Create() {
-  const defaultHeadingColour = useColorModeValue("almond", "sandstone");
-
+export default function Composer() {
   // Storage
   const [name] = useLocalStorage("composerName");
   const [description] = useLocalStorage("composerDescription");
@@ -71,7 +67,6 @@ export default function Create() {
   );
   const [startup] = useLocalStorage("composerStartup");
   const [authors, setAuthors] = useLocalStorage("composerAuthors", []);
-  const [projectColour] = useLocalStorage("composerProjectColour");
 
   // Composer greeting
   const openComposerGreeting = () => {
@@ -128,12 +123,12 @@ export default function Create() {
         <title>Composer &mdash; Osopcloud</title>
         <meta
           name="description"
-          content="Create an operating system page ready for publication on Osopcloud."
+          content="Composer an operating system page ready for publication on Osopcloud."
         />
         <meta name="og:title" content="Osopcloud Composer" />
         <meta
           name="og:description"
-          content="Create an OS page for Osopcloud."
+          content="Composer an OS page for Osopcloud."
         />
       </Head>
 
@@ -152,13 +147,7 @@ export default function Create() {
         <Flex direction={{ base: "column", sm: "row" }}>
           <Suspense fallback={<Loading />}>
             <Stack direction="row" spacing={5}>
-              <Heading
-                color={
-                  projectColour ? `#${projectColour}` : defaultHeadingColour
-                }
-              >
-                {name}
-              </Heading>
+              <Heading>{name}</Heading>
               <Center display={{ base: "none", lg: "flex" }}>
                 <Stack direction="row" spacing={2}>
                   <Badge colorScheme="almondScheme">Composer</Badge>
@@ -216,18 +205,17 @@ export default function Create() {
               {/* This can't be a Stack because the first child might not be shown on small windows */}
               <Box flex={1} mb={{ base: 5, sm: 0 }}>
                 <Stack direction="column" spacing={5}>
-                  <Editable
+                  <Textarea
                     // @ts-ignore
-                    value={description || "Click to edit the description..."}
-                  >
-                    <EditablePreview />
-                    <Textarea
-                      as={EditableInput}
-                      onChange={(e) => {
-                        writeStorage("composerDescription", e.target.value);
-                      }}
-                    />
-                  </Editable>
+                    value={description}
+                    onChange={(e) => {
+                      writeStorage("composerDescription", e.target.value);
+                    }}
+                    placeholder={`Write about ${name}`}
+                    borderRadius="xl"
+                    shadow="inner"
+                    h={150}
+                  />
                   <Table size="sm" variant="simple">
                     <Tbody>
                       <Tr>
@@ -398,7 +386,7 @@ export default function Create() {
                         <Td>
                           <Editable
                             // @ts-ignore
-                            value={basedOn || "Click to edit..."}
+                            value={basedOn || "Click to Edit..."}
                           >
                             <EditablePreview />
                             <Input
@@ -416,7 +404,7 @@ export default function Create() {
                         <Td>
                           <Editable
                             // @ts-ignore
-                            value={desktop || "Click to edit..."}
+                            value={desktop || "Click to Edit..."}
                           >
                             <EditablePreview />
                             <Input
@@ -437,7 +425,7 @@ export default function Create() {
                         <Td>
                           <Editable
                             // @ts-ignore
-                            value={shell || "Click to edit..."}
+                            value={shell || "Click to Edit..."}
                           >
                             <EditablePreview />
                             <Input
@@ -620,7 +608,7 @@ export default function Create() {
                         <Td>
                           <Editable
                             // @ts-ignore
-                            value={startup || "Click to edit..."}
+                            value={startup || "Click to Edit..."}
                           >
                             <EditablePreview />
                             <Input
@@ -738,7 +726,6 @@ export default function Create() {
               </Box>
               <Stack direction="column" spacing={2} ms={{ base: 0, sm: 10 }}>
                 <URLManagementOverlay />
-                <ManageColoursOverlay />
               </Stack>
             </Flex>
           )}
@@ -747,7 +734,7 @@ export default function Create() {
     </>
   );
 }
-Create.getLayout = function getLayout(page: ReactElement) {
+Composer.getLayout = function getLayout(page: ReactElement) {
   return (
     <Layout showToTopButton={false} showShareButton={false}>
       {page}

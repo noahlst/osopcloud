@@ -36,7 +36,6 @@ export function DeleteComposerData() {
   deleteFromStorage("composerAuthors");
   deleteFromStorage("composerWebsite");
   deleteFromStorage("composerRepository");
-  deleteFromStorage("composerProjectColour");
 }
 
 // Start component
@@ -50,11 +49,6 @@ export default function DeleteComposerDataOverlay() {
   const [changeNamePage, setChangeNamePage] = useState(false);
 
   const [isResetting, setIsResetting] = useState(false);
-  const [isResettingName, setIsResettingName] = useState(false);
-
-  function DeleteProjectColour() {
-    deleteFromStorage("composerProjectColour");
-  }
 
   return (
     <>
@@ -104,14 +98,6 @@ export default function DeleteComposerDataOverlay() {
                   }}
                 >
                   Change Name
-                </Button>
-                <Button
-                  onClick={() => {
-                    DeleteProjectColour();
-                    onClose();
-                  }}
-                >
-                  Reset Project Colour
                 </Button>
                 <Button
                   onClick={() => {

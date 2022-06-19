@@ -54,7 +54,7 @@ export default function URLManagementOverlay() {
                 <Td>
                   <Editable
                     // @ts-ignore
-                    value={website || "Click to edit..."}
+                    value={website || "Click to Edit..."}
                   >
                     <EditablePreview />
                     <Input
@@ -72,7 +72,7 @@ export default function URLManagementOverlay() {
                 <Td>
                   <Editable
                     // @ts-ignore
-                    value={sourceRepository || "Click to edit..."}
+                    value={sourceRepository || "Click to Edit..."}
                   >
                     <EditablePreview />
                     <Input
