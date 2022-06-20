@@ -36,6 +36,7 @@ export function DeleteComposerData() {
   deleteFromStorage("composerAuthors");
   deleteFromStorage("composerWebsite");
   deleteFromStorage("composerRepository");
+  deleteFromStorage("composerOrganisationName");
 }
 
 // Start component

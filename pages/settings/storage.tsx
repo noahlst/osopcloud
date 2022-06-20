@@ -115,6 +115,9 @@ export default function StorageManagement() {
   const [composerAuthors] = useLocalStorage("composerAuthors");
   const [composerWebsite] = useLocalStorage("composerWebsite");
   const [composerRepository] = useLocalStorage("composerRepository");
+  const [composerOrganisationName] = useLocalStorage(
+    "composerOrganisationName"
+  );
   const resetStatus = showPrintButton
     ? false
     : disableDynamicPrinting
@@ -154,6 +157,8 @@ export default function StorageManagement() {
     : composerWebsite
     ? false
     : composerRepository
+    ? false
+    : composerOrganisationName
     ? false
     : true;
 

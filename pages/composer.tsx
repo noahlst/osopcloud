@@ -41,6 +41,7 @@ import { FiArrowRight, FiMinus, FiPlus, FiX } from "react-icons/fi";
 import DeleteComposerDataOverlay from "components/composer/DeleteComposerDataOverlay";
 import ExportComposerDataOverlay from "components/composer/ExportComposerDataOverlay";
 import URLManagementOverlay from "components/composer/URLManagementOverlay";
+import OrganisationNameOverlay from "components/composer/OrganisationNameOverlay";
 
 // Storage
 import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
@@ -67,6 +68,7 @@ export default function Composer() {
   );
   const [startup] = useLocalStorage("composerStartup");
   const [authors, setAuthors] = useLocalStorage("composerAuthors", []);
+  const [organisationName] = useLocalStorage("composerOrganisationName");
 
   // Composer greeting
   const openComposerGreeting = () => {
@@ -168,8 +170,12 @@ export default function Composer() {
               )}
               <Center display={{ base: "none", lg: "flex" }}>
                 <Stack direction="row" spacing={2}>
-                  <Badge colorScheme="almondScheme">Composer</Badge>
-                  {name && <Badge colorScheme="green">Saved to Storage</Badge>}
+                  <Badge colorScheme="almondScheme">
+                    Composer{organisationName && " for Organisations"}
+                  </Badge>
+                  {!composerGreeting && (
+                    <Badge colorScheme="green">Saved to Storage</Badge>
+                  )}
                 </Stack>
               </Center>
             </Stack>
@@ -194,27 +200,29 @@ export default function Composer() {
                   <Heading size="md">What's the name of the OS?</Heading>
                   <Input
                     placeholder="Enter the Operating System name"
+                    // @ts-ignore
+                    value={name}
                     onChange={(e) => {
                       writeStorage("composerName", e.target.value);
                     }}
                     shadow="inner"
                     borderRadius="xl"
                   />
-                  <Text fontSize="xs">
-                    You're about to create{" "}
-                    {name ? `a page for ${name}` : "something new"}. To edit an
-                    operating system that's already on Osopcloud, open it and
-                    select "Open in Composer".
-                  </Text>
-                  <Button
-                    leftIcon={<FiArrowRight />}
-                    onClick={() => {
-                      setComposerGreeting(false);
-                    }}
-                    isDisabled={!name}
-                  >
-                    Open the Composer
-                  </Button>
+                  <Stack direction="column" spacing={2}>
+                    <Button
+                      leftIcon={<FiArrowRight />}
+                      onClick={() => {
+                        setComposerGreeting(false);
+                      }}
+                      isDisabled={!name}
+                    >
+                      Get Started {name && `on ${name}`}
+                    </Button>
+                    <Text fontSize="xs">
+                      To edit an operating system that's already on Osopcloud,
+                      open it and select "Open in Composer".
+                    </Text>
+                  </Stack>
                 </Stack>
               </Container>
             </Flex>
@@ -229,7 +237,7 @@ export default function Composer() {
                     onChange={(e) => {
                       writeStorage("composerDescription", e.target.value);
                     }}
-                    placeholder={`Write about ${name}`}
+                    placeholder={`Write about ${name ? name : "this Project"}`}
                     borderRadius="xl"
                     shadow="inner"
                     h={150}
@@ -744,6 +752,7 @@ export default function Composer() {
               </Box>
               <Stack direction="column" spacing={2} ms={{ base: 0, sm: 10 }}>
                 <URLManagementOverlay />
+                <OrganisationNameOverlay />
               </Stack>
             </Flex>
           )}
