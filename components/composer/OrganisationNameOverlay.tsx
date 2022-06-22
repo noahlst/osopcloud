@@ -22,6 +22,7 @@ export default function OrganisationNameOverlay() {
   const cancelRef = useRef(null);
 
   // Storage
+  const [name] = useLocalStorage("composerName");
   const [organisationName] = useLocalStorage("composerOrganisationName");
 
   return (
@@ -55,6 +56,12 @@ export default function OrganisationNameOverlay() {
             borderRadius="xl"
             shadow="inner"
           />
+          {organisationName && (
+            <Text fontSize="xs">
+              {name} will now show this label: "This content presented by{" "}
+              {organisationName}."
+            </Text>
+          )}
           <Button onClick={onClose} ref={cancelRef}>
             Close
           </Button>

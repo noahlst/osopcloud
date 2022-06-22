@@ -23,7 +23,6 @@ import {
   Icon,
   Heading,
   useDisclosure,
-  Box,
 } from "@chakra-ui/react";
 
 // First-party components
@@ -541,8 +540,7 @@ export default function Home({
                   : `
                     ${SortedNameData.length} Operating System${
                       SortedNameData.length <= 1 ? "" : "s"
-                    }
-                  `}
+                    } (Beta Preview)`}
               </Text>
             </Suspense>
             <Suspense fallback={<Loading />}>

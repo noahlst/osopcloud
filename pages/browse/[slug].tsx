@@ -80,7 +80,6 @@ export default function OSPage({ source, rawJSONLink }: OSPageTypes) {
     writeStorage("composerStartup", source.startupManagement);
     writeStorage("composerWebsite", source.website);
     writeStorage("composerRepository", source.repository);
-    writeStorage("composerOrganisationName", source.organisationName);
     router.push("/composer");
   }
 
