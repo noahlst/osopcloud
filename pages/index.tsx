@@ -53,6 +53,7 @@ import {
 import Layout from "components/layouts/Layout";
 
 import { useState, useRef } from "react";
+import { FiPlus } from "react-icons/fi";
 
 interface MetadataTypes {
   map: any;
@@ -113,7 +114,7 @@ export default function Home({
             packageManagement,
           }: MetadataTypes) => (
             <Link href={`/browse/${slug}`} key={`/browse/${slug}`} passHref>
-              <Button as="a" display="block" minH="fit-content" py={3}>
+              <Button as="a" display="block" h="fit-content" py={3}>
                 <Text>{name}</Text>
                 <Stack
                   direction="row"
@@ -169,7 +170,7 @@ export default function Home({
       <>
         {SortedTagsData.map(({ slug, name, tags }: MetadataTypes) => (
           <Link href={`/browse/${slug}`} key={`/browse/${slug}`} passHref>
-            <Button as="a" display="block" minH="fit-content" py={3}>
+            <Button as="a" display="block" h="fit-content" py={3}>
               <Text>{name}</Text>
               <Stack
                 direction="row"
@@ -194,7 +195,7 @@ export default function Home({
         {SortedPlatformsData.map(
           ({ slug, name, tags, platforms }: MetadataTypes) => (
             <Link href={`/browse/${slug}`} key={`/browse/${slug}`} passHref>
-              <Button as="a" display="block" minH="fit-content" py={3}>
+              <Button as="a" display="block" h="fit-content" py={3}>
                 <Text>{name}</Text>
                 <Stack
                   direction="row"
@@ -236,7 +237,7 @@ export default function Home({
         {SortedPackageManagementData.map(
           ({ slug, name, tags, packageManagement }: MetadataTypes) => (
             <Link href={`/browse/${slug}`} key={`/browse/${slug}`} passHref>
-              <Button as="a" display="block" minH="fit-content" py={3}>
+              <Button as="a" display="block" h="fit-content" py={3}>
                 <Text>{name}</Text>
                 <Stack
                   direction="row"
@@ -279,7 +280,7 @@ export default function Home({
         {SortedStartupManagementData.map(
           ({ slug, name, tags, startupManagement }: MetadataTypes) => (
             <Link href={`/browse/${slug}`} key={`/browse/${slug}`} passHref>
-              <Button as="a" display="block" minH="fit-content" py={3}>
+              <Button as="a" display="block" h="fit-content" py={3}>
                 <Text>{name}</Text>
                 <Stack
                   direction="row"
@@ -311,7 +312,7 @@ export default function Home({
         {SortedDesktopData.map(
           ({ slug, name, tags, desktop }: MetadataTypes) => (
             <Link href={`/browse/${slug}`} key={`/browse/${slug}`} passHref>
-              <Button as="a" display="block" minH="fit-content" py={3}>
+              <Button as="a" display="block" h="fit-content" py={3}>
                 <Text>{name}</Text>
                 <Stack
                   direction="row"
@@ -342,7 +343,7 @@ export default function Home({
       <>
         {SortedShellData.map(({ slug, name, tags, shell }: MetadataTypes) => (
           <Link href={`/browse/${slug}`} key={`/browse/${slug}`} passHref>
-            <Button as="a" display="block" minH="fit-content" py={3}>
+            <Button as="a" display="block" h="fit-content" py={3}>
               <Text>{name}</Text>
               <Stack
                 direction="row"
@@ -373,7 +374,7 @@ export default function Home({
         {SortedBasedOnData.map(
           ({ slug, name, tags, basedOn }: MetadataTypes) => (
             <Link href={`/browse/${slug}`} key={`/browse/${slug}`} passHref>
-              <Button as="a" display="block" minH="fit-content" py={3}>
+              <Button as="a" display="block" h="fit-content" py={3}>
                 <Text>{name}</Text>
                 <Stack
                   direction="row"
@@ -430,6 +431,17 @@ export default function Home({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
 
+  function SearchEmptyState() {
+    return (
+      <Stack direction="column" spacing={5} px={5} py={2.5}>
+        <Text>Nothing to Show</Text>
+        <Link href="/composer" passHref>
+          <Button leftIcon={<FiPlus />}>Create with Osopcloud Composer</Button>
+        </Link>
+      </Stack>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -449,9 +461,14 @@ export default function Home({
       </Head>
 
       <SimpleGrid minChildWidth="340px" spacing={10}>
-        <Stack direction="column" spacing={10} p={{ base: 0, sm: 20 }}>
+        <Stack
+          direction="column"
+          spacing={10}
+          p={{ base: 0, sm: 20 }}
+          pe={{ base: 5, sm: "inherit" }}
+        >
           <Suspense fallback={<Loading />}>
-            <AutoComplete>
+            <AutoComplete emptyState={SearchEmptyState}>
               <AutoCompleteInput
                 variant="outline"
                 size="md"
@@ -459,7 +476,7 @@ export default function Home({
                 shadow="inner"
                 placeholder="Find an Operating System"
               />
-              <AutoCompleteList>
+              <AutoCompleteList borderRadius="xl">
                 {SortedNameData.map(
                   ({
                     slug,
@@ -477,53 +494,56 @@ export default function Home({
                         value={name}
                         key={`option-${name}`}
                         textDecoration="none"
+                        borderRadius="xl"
                         p={4}
                         mb={1}
                         as="a"
                       >
-                        <Text>{name}</Text>
-                        <Stack
-                          direction="row"
-                          spacing={2}
-                          fontWeight="normal"
-                          fontSize="sm"
-                        >
-                          <Badge pt="0.5">
-                            {tags.map((tag: string) => (
-                              <>
-                                {/* Limit to 1 tag */}
-                                {tags.indexOf(tag) < 1 && <>{tag}</>}
-                              </>
-                            ))}
-                          </Badge>
-                          <Text>
-                            {platforms.map((platform: string) => (
-                              <>
-                                {/* Limit to 2 platforms */}
-                                {platforms.indexOf(platform) < 2 && (
-                                  <>{platform}</>
-                                )}
-                                {/* Add a comma if not the last date */}
-                                {platforms.indexOf(platform) < 1 &&
-                                  platforms.indexOf(platform) <
-                                    platforms.length - 1 && <>, </>}
-                              </>
-                            ))}
-                          </Text>
-                          <Text>
-                            {packageManagement.map((manager: string) => (
-                              <>
-                                {/* Limit to 2 platforms */}
-                                {packageManagement.indexOf(manager) < 2 && (
-                                  <>{manager}</>
-                                )}
-                                {/* Add a comma if not the last date */}
-                                {packageManagement.indexOf(manager) < 1 &&
-                                  packageManagement.indexOf(manager) <
-                                    packageManagement.length - 1 && <>, </>}
-                              </>
-                            ))}
-                          </Text>
+                        <Stack direction="column" spacing={0}>
+                          <Text fontWeight={600}>{name}</Text>
+                          <Stack
+                            direction="row"
+                            spacing={2}
+                            fontWeight="normal"
+                            fontSize="sm"
+                          >
+                            <Badge pt="0.5">
+                              {tags.map((tag: string) => (
+                                <>
+                                  {/* Limit to 1 tag */}
+                                  {tags.indexOf(tag) < 1 && <>{tag}</>}
+                                </>
+                              ))}
+                            </Badge>
+                            <Text>
+                              {platforms.map((platform: string) => (
+                                <>
+                                  {/* Limit to 2 platforms */}
+                                  {platforms.indexOf(platform) < 2 && (
+                                    <>{platform}</>
+                                  )}
+                                  {/* Add a comma if not the last date */}
+                                  {platforms.indexOf(platform) < 1 &&
+                                    platforms.indexOf(platform) <
+                                      platforms.length - 1 && <>, </>}
+                                </>
+                              ))}
+                            </Text>
+                            <Text>
+                              {packageManagement.map((manager: string) => (
+                                <>
+                                  {/* Limit to 2 platforms */}
+                                  {packageManagement.indexOf(manager) < 2 && (
+                                    <>{manager}</>
+                                  )}
+                                  {/* Add a comma if not the last date */}
+                                  {packageManagement.indexOf(manager) < 1 &&
+                                    packageManagement.indexOf(manager) <
+                                      packageManagement.length - 1 && <>, </>}
+                                </>
+                              ))}
+                            </Text>
+                          </Stack>
                         </Stack>
                       </AutoCompleteItem>
                     </Link>
