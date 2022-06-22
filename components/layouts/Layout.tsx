@@ -21,7 +21,6 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import {
-  FiHome,
   FiPlus,
   FiSettings,
   FiShare,
@@ -30,7 +29,7 @@ import {
   FiPrinter,
 } from "react-icons/fi";
 import { VercelLogo } from "components/brand/VercelPromotion";
-import { HeaderLogo } from "components/brand/Logo";
+import { HeaderLogo, LogoNoColour } from "components/brand/Logo";
 
 // First party components
 import CheckPWA from "lib/CheckPWA";
@@ -44,10 +43,15 @@ interface LayoutProps {
   children: React.ReactNode;
   showShareButton?: boolean;
   showToTopButton: boolean;
+  sidebarActiveIndex?: number;
 }
 
 // Start component
-export default function Layout({ children, showShareButton }: LayoutProps) {
+export default function Layout({
+  children,
+  showShareButton,
+  sidebarActiveIndex,
+}: LayoutProps) {
   const router = useRouter();
 
   // Get settings
@@ -111,6 +115,14 @@ export default function Layout({ children, showShareButton }: LayoutProps) {
   const shareCompatibility =
     typeof navigator !== "undefined" ? navigator.share : "";
 
+  function LogoIcon() {
+    return (
+      <Icon w={8} h={8}>
+        <LogoNoColour />
+      </Icon>
+    );
+  }
+
   return (
     // Create a flex container
     <Flex
@@ -147,10 +159,11 @@ export default function Layout({ children, showShareButton }: LayoutProps) {
             <Stack direction="column" spacing={2}>
               <Link href="/" passHref>
                 <IconButton
-                  icon={<FiHome />}
+                  icon={<LogoIcon />}
                   aria-label="Go Home"
                   size="lg"
                   as="a"
+                  isActive={sidebarActiveIndex === 0}
                 />
               </Link>
               <Link href="/composer" passHref>
@@ -159,6 +172,7 @@ export default function Layout({ children, showShareButton }: LayoutProps) {
                   aria-label="Osopcloud Composer"
                   size="lg"
                   as="a"
+                  isActive={sidebarActiveIndex === 1}
                 />
               </Link>
             </Stack>
@@ -192,6 +206,7 @@ export default function Layout({ children, showShareButton }: LayoutProps) {
                   aria-label="Settings"
                   size="lg"
                   as="a"
+                  isActive={sidebarActiveIndex === 2}
                 />
               </Link>
             </Stack>
@@ -223,6 +238,7 @@ export default function Layout({ children, showShareButton }: LayoutProps) {
               icon={<FiPlus />}
               aria-label="Osopcloud Composer"
               size="lg"
+              isActive={sidebarActiveIndex === 1}
             />
           </Link>
           <Link href="/settings" passHref>
@@ -231,6 +247,7 @@ export default function Layout({ children, showShareButton }: LayoutProps) {
               aria-label="Settings"
               size="lg"
               as="a"
+              isActive={sidebarActiveIndex === 2}
             />
           </Link>
         </Stack>

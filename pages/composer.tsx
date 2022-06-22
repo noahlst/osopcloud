@@ -34,7 +34,6 @@ import {
   Text,
   Textarea,
   Tr,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { FiArrowRight, FiMinus, FiPlus, FiX } from "react-icons/fi";
 
@@ -42,7 +41,7 @@ import { FiArrowRight, FiMinus, FiPlus, FiX } from "react-icons/fi";
 import DeleteComposerDataOverlay from "components/composer/DeleteComposerDataOverlay";
 import ExportComposerDataOverlay from "components/composer/ExportComposerDataOverlay";
 import URLManagementOverlay from "components/composer/URLManagementOverlay";
-import ManageColoursOverlay from "components/composer/ManageColoursOverlay";
+import OrganisationNameOverlay from "components/composer/OrganisationNameOverlay";
 
 // Storage
 import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
@@ -53,9 +52,7 @@ import Layout from "components/layouts/Layout";
 import { useState } from "react";
 
 // Start page
-export default function Create() {
-  const defaultHeadingColour = useColorModeValue("almond", "sandstone");
-
+export default function Composer() {
   // Storage
   const [name] = useLocalStorage("composerName");
   const [description] = useLocalStorage("composerDescription");
@@ -71,7 +68,7 @@ export default function Create() {
   );
   const [startup] = useLocalStorage("composerStartup");
   const [authors, setAuthors] = useLocalStorage("composerAuthors", []);
-  const [projectColour] = useLocalStorage("composerProjectColour");
+  const [organisationName] = useLocalStorage("composerOrganisationName");
 
   // Composer greeting
   const openComposerGreeting = () => {
@@ -128,12 +125,12 @@ export default function Create() {
         <title>Composer &mdash; Osopcloud</title>
         <meta
           name="description"
-          content="Create an operating system page ready for publication on Osopcloud."
+          content="Composer an operating system page ready for publication on Osopcloud."
         />
         <meta name="og:title" content="Osopcloud Composer" />
         <meta
           name="og:description"
-          content="Create an OS page for Osopcloud."
+          content="Composer an OS page for Osopcloud."
         />
       </Head>
 
@@ -152,17 +149,33 @@ export default function Create() {
         <Flex direction={{ base: "column", sm: "row" }}>
           <Suspense fallback={<Loading />}>
             <Stack direction="row" spacing={5}>
-              <Heading
-                color={
-                  projectColour ? `#${projectColour}` : defaultHeadingColour
-                }
-              >
-                {name}
-              </Heading>
+              {composerGreeting ? (
+                <Heading>{name}</Heading>
+              ) : (
+                <Editable
+                  // @ts-ignore
+                  value={name || ""}
+                >
+                  <EditablePreview as={Heading} fontWeight={600} />
+                  <Center>
+                    <Input
+                      as={EditableInput}
+                      onChange={(e) => {
+                        writeStorage("composerName", e.target.value);
+                      }}
+                      size="lg"
+                    />
+                  </Center>
+                </Editable>
+              )}
               <Center display={{ base: "none", lg: "flex" }}>
                 <Stack direction="row" spacing={2}>
-                  <Badge colorScheme="almondScheme">Composer</Badge>
-                  {name && <Badge colorScheme="green">Saved to Storage</Badge>}
+                  <Badge colorScheme="almondScheme">
+                    Composer{organisationName && " for Organisations"}
+                  </Badge>
+                  {!composerGreeting && (
+                    <Badge colorScheme="green">Saved to Storage</Badge>
+                  )}
                 </Stack>
               </Center>
             </Stack>
@@ -187,27 +200,29 @@ export default function Create() {
                   <Heading size="md">What's the name of the OS?</Heading>
                   <Input
                     placeholder="Enter the Operating System name"
+                    // @ts-ignore
+                    value={name}
                     onChange={(e) => {
                       writeStorage("composerName", e.target.value);
                     }}
                     shadow="inner"
                     borderRadius="xl"
                   />
-                  <Text fontSize="xs">
-                    You're about to create{" "}
-                    {name ? `a page for ${name}` : "something new"}. To edit an
-                    operating system that's already on Osopcloud, open it and
-                    select "Open in Composer".
-                  </Text>
-                  <Button
-                    leftIcon={<FiArrowRight />}
-                    onClick={() => {
-                      setComposerGreeting(false);
-                    }}
-                    isDisabled={!name}
-                  >
-                    Open the Composer
-                  </Button>
+                  <Stack direction="column" spacing={2}>
+                    <Button
+                      leftIcon={<FiArrowRight />}
+                      onClick={() => {
+                        setComposerGreeting(false);
+                      }}
+                      isDisabled={!name}
+                    >
+                      Get Started {name && `on ${name}`}
+                    </Button>
+                    <Text fontSize="xs">
+                      To edit an operating system that's already on Osopcloud,
+                      open it and select "Open in Composer".
+                    </Text>
+                  </Stack>
                 </Stack>
               </Container>
             </Flex>
@@ -216,18 +231,17 @@ export default function Create() {
               {/* This can't be a Stack because the first child might not be shown on small windows */}
               <Box flex={1} mb={{ base: 5, sm: 0 }}>
                 <Stack direction="column" spacing={5}>
-                  <Editable
+                  <Textarea
                     // @ts-ignore
-                    value={description || "Click to edit the description..."}
-                  >
-                    <EditablePreview />
-                    <Textarea
-                      as={EditableInput}
-                      onChange={(e) => {
-                        writeStorage("composerDescription", e.target.value);
-                      }}
-                    />
-                  </Editable>
+                    value={description}
+                    onChange={(e) => {
+                      writeStorage("composerDescription", e.target.value);
+                    }}
+                    placeholder={`Write about ${name ? name : "this Project"}`}
+                    borderRadius="xl"
+                    shadow="inner"
+                    h={150}
+                  />
                   <Table size="sm" variant="simple">
                     <Tbody>
                       <Tr>
@@ -398,7 +412,7 @@ export default function Create() {
                         <Td>
                           <Editable
                             // @ts-ignore
-                            value={basedOn || "Click to edit..."}
+                            value={basedOn || "Click to Edit..."}
                           >
                             <EditablePreview />
                             <Input
@@ -416,7 +430,7 @@ export default function Create() {
                         <Td>
                           <Editable
                             // @ts-ignore
-                            value={desktop || "Click to edit..."}
+                            value={desktop || "Click to Edit..."}
                           >
                             <EditablePreview />
                             <Input
@@ -437,7 +451,7 @@ export default function Create() {
                         <Td>
                           <Editable
                             // @ts-ignore
-                            value={shell || "Click to edit..."}
+                            value={shell || "Click to Edit..."}
                           >
                             <EditablePreview />
                             <Input
@@ -620,7 +634,7 @@ export default function Create() {
                         <Td>
                           <Editable
                             // @ts-ignore
-                            value={startup || "Click to edit..."}
+                            value={startup || "Click to Edit..."}
                           >
                             <EditablePreview />
                             <Input
@@ -738,7 +752,7 @@ export default function Create() {
               </Box>
               <Stack direction="column" spacing={2} ms={{ base: 0, sm: 10 }}>
                 <URLManagementOverlay />
-                <ManageColoursOverlay />
+                <OrganisationNameOverlay />
               </Stack>
             </Flex>
           )}
@@ -747,9 +761,13 @@ export default function Create() {
     </>
   );
 }
-Create.getLayout = function getLayout(page: ReactElement) {
+Composer.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout showToTopButton={false} showShareButton={false}>
+    <Layout
+      showToTopButton={false}
+      showShareButton={false}
+      sidebarActiveIndex={1}
+    >
       {page}
     </Layout>
   );

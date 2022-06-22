@@ -85,8 +85,12 @@ export default function SharingSettings() {
 }
 SharingSettings.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout showToTopButton={false} showShareButton={false}>
-      <SettingsLayout sidebarActiveIndex={2}>{page}</SettingsLayout>
+    <Layout
+      showToTopButton={false}
+      showShareButton={false}
+      sidebarActiveIndex={2}
+    >
+      <SettingsLayout settingsSidebarActiveIndex={2}>{page}</SettingsLayout>
     </Layout>
   );
 };

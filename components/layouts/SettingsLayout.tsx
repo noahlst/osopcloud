@@ -26,13 +26,13 @@ import { useRef, useState } from "react";
 
 interface LayoutProps {
   children: React.ReactNode;
-  sidebarActiveIndex: number;
+  settingsSidebarActiveIndex: number;
 }
 
 // Start component
 export default function SettingsLayout({
   children,
-  sidebarActiveIndex,
+  settingsSidebarActiveIndex,
 }: LayoutProps) {
   const router = useRouter();
 
@@ -132,7 +132,7 @@ export default function SettingsLayout({
             <Button
               leftIcon={<FiLayout />}
               as="a"
-              isActive={sidebarActiveIndex === 0}
+              isActive={settingsSidebarActiveIndex === 0}
             >
               Appearance
             </Button>
@@ -141,7 +141,7 @@ export default function SettingsLayout({
             <Button
               leftIcon={<FiUser />}
               as="a"
-              isActive={sidebarActiveIndex === 1}
+              isActive={settingsSidebarActiveIndex === 1}
             >
               Accessibility
             </Button>
@@ -150,7 +150,7 @@ export default function SettingsLayout({
             <Button
               leftIcon={<FiShare />}
               as="a"
-              isActive={sidebarActiveIndex === 2}
+              isActive={settingsSidebarActiveIndex === 2}
             >
               Sharing &amp; Printing
             </Button>
@@ -159,7 +159,7 @@ export default function SettingsLayout({
             <Button
               leftIcon={<FiWifi />}
               as="a"
-              isActive={sidebarActiveIndex === 3}
+              isActive={settingsSidebarActiveIndex === 3}
             >
               Updates &amp; Network
             </Button>
@@ -168,7 +168,7 @@ export default function SettingsLayout({
             <Button
               leftIcon={<FiHardDrive />}
               as="a"
-              isActive={sidebarActiveIndex === 4}
+              isActive={settingsSidebarActiveIndex === 4}
             >
               Application Storage
             </Button>

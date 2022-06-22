@@ -85,7 +85,16 @@ export default function OSPage({ source, rawJSONLink }: OSPageTypes) {
 
   // Tabs
   function Description() {
-    return <Text>{source.description}</Text>;
+    return (
+      <>
+        <Text>{source.description}</Text>
+        {source.organisationName && (
+          <Text fontSize="xs" mt={5}>
+            This content presented by {source.organisationName}.
+          </Text>
+        )}
+      </>
+    );
   }
   function MetadataTable() {
     return (

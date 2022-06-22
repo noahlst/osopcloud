@@ -115,7 +115,9 @@ export default function StorageManagement() {
   const [composerAuthors] = useLocalStorage("composerAuthors");
   const [composerWebsite] = useLocalStorage("composerWebsite");
   const [composerRepository] = useLocalStorage("composerRepository");
-  const [composerProjectColour] = useLocalStorage("composerProjectColour");
+  const [composerOrganisationName] = useLocalStorage(
+    "composerOrganisationName"
+  );
   const resetStatus = showPrintButton
     ? false
     : disableDynamicPrinting
@@ -156,7 +158,7 @@ export default function StorageManagement() {
     ? false
     : composerRepository
     ? false
-    : composerProjectColour
+    : composerOrganisationName
     ? false
     : true;
 
@@ -323,8 +325,12 @@ export default function StorageManagement() {
 }
 StorageManagement.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout showToTopButton={false} showShareButton={false}>
-      <SettingsLayout sidebarActiveIndex={4}>{page}</SettingsLayout>
+    <Layout
+      showToTopButton={false}
+      showShareButton={false}
+      sidebarActiveIndex={2}
+    >
+      <SettingsLayout settingsSidebarActiveIndex={4}>{page}</SettingsLayout>
     </Layout>
   );
 };

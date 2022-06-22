@@ -71,8 +71,12 @@ export default function NetworkSettings() {
 }
 NetworkSettings.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout showToTopButton={false} showShareButton={false}>
-      <SettingsLayout sidebarActiveIndex={3}>{page}</SettingsLayout>
+    <Layout
+      showToTopButton={false}
+      showShareButton={false}
+      sidebarActiveIndex={2}
+    >
+      <SettingsLayout settingsSidebarActiveIndex={3}>{page}</SettingsLayout>
     </Layout>
   );
 };
