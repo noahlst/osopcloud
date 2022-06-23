@@ -65,7 +65,7 @@ export default function Settings() {
             </Button>
           </Link>
         </Stack>
-        <Link href="/docs/getting-started" passHref>
+        <Link href="/docs" passHref>
           <Button leftIcon={<FiLifeBuoy />} as="a">
             Osopcloud Documentation
           </Button>

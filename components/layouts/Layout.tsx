@@ -274,7 +274,7 @@ export default function Layout({
                 GitHub
               </Button>
             </Link>
-            <Link href="/docs/getting-started" passHref>
+            <Link href="/docs" passHref>
               <Button size="sm" as="a" display={{ base: "none", sm: "flex" }}>
                 Documentation
               </Button>
