@@ -2,7 +2,7 @@
 import Link from "next/link";
 
 // Design
-import { Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Box, Button, Flex, Stack } from "@chakra-ui/react";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -12,11 +12,10 @@ interface LayoutProps {
 export default function DocsLayout({ children }: LayoutProps) {
   return (
     <Stack direction="column" spacing={5}>
-      <Heading>Osopcloud Documentation</Heading>
       <Flex display="flex" flexDirection={{ base: "column", md: "row" }}>
         <Stack direction="column" spacing={2} me={10} mb={5}>
-          <Link href="/docs/getting-started" passHref>
-            <Button as="a">Getting Started</Button>
+          <Link href="/docs/tour" passHref>
+            <Button as="a">Osopcloud Tour</Button>
           </Link>
           <Link href="/docs/sharing" passHref>
             <Button as="a">Apps and Sharing</Button>
@@ -26,6 +25,9 @@ export default function DocsLayout({ children }: LayoutProps) {
           </Link>
           <Link href="/docs/settings" passHref>
             <Button as="a">Settings</Button>
+          </Link>
+          <Link href="/docs/storage" passHref>
+            <Button as="a">Storage</Button>
           </Link>
           <Link href="/docs/accessibility" passHref>
             <Button as="a">Accessibility</Button>

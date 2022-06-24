@@ -275,7 +275,7 @@ export default function AppTour() {
                   >
                     <Badge pt="0.5">Desktop</Badge>
                     <Text>Ubuntu</Text>
-                    <Text>apt, flatpack</Text>
+                    <Text>apt, flatpak</Text>
                   </Stack>
                 </Button>
                 <Button
