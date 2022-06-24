@@ -10,7 +10,7 @@ import {
 import { FiArrowLeft, FiTrash2 } from "react-icons/fi";
 
 // First party components
-import DynamicModal from "components/overlays/DynamicModal";
+import DynamicModal from "components/system/DynamicModal";
 
 // Storage
 import useLocalStorage, {

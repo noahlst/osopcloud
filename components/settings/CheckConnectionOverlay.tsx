@@ -13,7 +13,7 @@ import {
 import { FiCheck, FiMinus, FiTool, FiX } from "react-icons/fi";
 
 // First party components
-import DynamicModal from "components/overlays/DynamicModal";
+import DynamicModal from "components/system/DynamicModal";
 
 import { useRef, useState } from "react";
 

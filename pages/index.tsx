@@ -4,7 +4,7 @@ import { GetStaticProps } from "next";
 
 // Suspense
 import { Suspense } from "react";
-import Loading from "components/Loading";
+import Loading from "components/system/Loading";
 
 // Routing
 import Link from "next/link";
@@ -27,7 +27,7 @@ import {
 
 // First-party components
 import Logo from "components/brand/Logo";
-import DynamicModal from "components/overlays/DynamicModal";
+import DynamicModal from "components/system/DynamicModal";
 
 // JSON processing
 import {

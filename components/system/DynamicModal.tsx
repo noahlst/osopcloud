@@ -29,11 +29,7 @@ interface OverlayPropsDrawerOnly {
   onClose: () => void;
 }
 
-interface OverlayProps {
-  children: ReactElement;
-  cancelRef: any;
-  isOpen: boolean;
-  onClose: () => void;
+interface OverlayProps extends OverlayPropsDrawerOnly {
   useAlertDialog: boolean;
   size?: string;
 }

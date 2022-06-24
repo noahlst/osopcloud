@@ -16,7 +16,7 @@ import {
 import { FiArrowLeft, FiArrowRight, FiShare } from "react-icons/fi";
 
 // First party components
-import DynamicModal from "components/overlays/DynamicModal";
+import DynamicModal from "components/system/DynamicModal";
 import { useKeyboardShortcut } from "hooks/useKeyboardShortcut";
 
 // Storage
