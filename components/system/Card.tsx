@@ -1,5 +1,5 @@
 // Types
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 // Design
 import { Box } from "@chakra-ui/react";
@@ -16,7 +16,7 @@ interface CardProps {
  */
 export default function Card({ children }: CardProps) {
   return (
-    <Box bg="whiteAlpha.500" p={5} borderRadius="xl" shadow="md">
+    <Box bg="whiteAlpha.500" p={5} borderRadius="xl" shadow="sm">
       {children}
     </Box>
   );

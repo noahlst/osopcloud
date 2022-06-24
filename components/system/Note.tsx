@@ -53,7 +53,7 @@ export default function Note({ children, type, m }: NoteProps) {
       bg="whiteAlpha.500"
       px={5}
       py={2}
-      border="1px"
+      border={type ? "1px" : "none"}
       borderColor={focusColor}
       borderRadius="xl"
       shadow="sm"

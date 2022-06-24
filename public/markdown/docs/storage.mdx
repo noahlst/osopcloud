@@ -7,19 +7,23 @@ date: "2022-06-24"
 
 With Storage on Osopcloud, your Badges, Settings, and works in Osopcloud Composer persist after you close your current session. You can come back to Osopcloud tomorrow and each of these will be the same.
 
-## Overview
-
 Storage is stored by your web browser. If you've installed Osopcloud as an app, this is the web browser that's "hosting" the app.
 
-Storage uses client-side web technologies. It's impossible for Osopcloud servers to see what's in Storage. More about privacy is outlined in the Osopcloud Privacy Notice.
+<DeepDive title="Caching and Osopcloud Storage Usage">
 
-## Offline Experience Cache
+In addition to storing Osopcloud Composer data, Settings, and Badges, Osopcloud automatically downloads content in the background. This lets you use the app without a network connection.
 
-Osopcloud automatically downloads content in the background so that you can use Osopcloud without a network connection.
+On compatible browsers, you can find a storage usage estimate in Application Storage Management. You might notice that this is quite large.
 
-On compatible browsers, you can find a storage usage estimate in Application Storage Management.
+There's a couple of factors that impact this size measure:
 
-There is no limit on the cache size. Moreover, the cache applies for each individual browser, so, if you use Osopcloud across many browsers, you may get into a situation where Osopcloud is storing 100s of megabytes on a single device. Use your browser settings to clear the Offline Experience Cache.
+- There's no limit on how big the cache can get
+- The cache is specific to each browser
+- Some older browsers don't delete caches for previous versions
+
+So, if you use Osopcloud across many browsers, you may get into a situation where Osopcloud is storing more than 100 megabytes on a single device. You will need to use your browser settings if you want to clear caches.
+
+</DeepDive>
 
 ## Import or Export Storage
 

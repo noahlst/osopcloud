@@ -11,6 +11,7 @@ import Head from "next/head";
 
 // First party components
 import Note from "components/system/Note";
+import DeepDive from "components/docs/DeepDive";
 
 // Layouts
 import Layout from "components/layouts/Layout";
@@ -31,7 +32,7 @@ interface OSPageTypes {
 }
 
 // Components allowed in Documentation Content (Markdown) files
-const components = { Note };
+const components = { Note, DeepDive };
 
 // Start page
 export default function DocsPage({ source }: OSPageTypes) {
