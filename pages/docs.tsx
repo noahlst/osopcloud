@@ -22,6 +22,7 @@ import Card from "components/system/Card";
 // Layouts
 import Layout from "components/layouts/Layout";
 import { FiMap } from "react-icons/fi";
+import DocsLayout from "components/layouts/DocsLayout";
 
 // Start page
 export default function DocumentationHome() {
@@ -71,7 +72,7 @@ export default function DocumentationHome() {
 DocumentationHome.getLayout = function getLayout(page: ReactElement) {
   return (
     <Layout showToTopButton={false} showShareButton={false}>
-      {page}
+      <DocsLayout docsSidebarActiveIndex={0}>{page}</DocsLayout>
     </Layout>
   );
 };
