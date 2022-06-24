@@ -9,7 +9,6 @@ import Head from "next/head";
 
 // Design
 import {
-  Box,
   Button,
   Center,
   Heading,
@@ -18,6 +17,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import Card from "components/system/Card";
 
 // Layouts
 import Layout from "components/layouts/Layout";
@@ -43,7 +43,7 @@ export default function DocumentationHome() {
       <Stack direction="column" spacing={5}>
         <Heading>Osopcloud Documentation</Heading>
         <SimpleGrid minChildWidth="340px" spacing={10}>
-          <Box bg="whiteAlpha.500" p={5} borderRadius="xl" shadow="md">
+          <Card>
             <Stack direction="column" spacing={5}>
               <Center py={5}>
                 <Icon as={FiMap} aria-label="Map" w={14} h={14} />
@@ -53,8 +53,8 @@ export default function DocumentationHome() {
               </Link>
               <Text>Learn Osopcloud basics.</Text>
             </Stack>
-          </Box>
-          <Box bg="whiteAlpha.500" p={5} borderRadius="xl" shadow="md">
+          </Card>
+          <Card>
             <Stack direction="column" spacing={5}>
               <Center py={5}>
                 <Icon as={FiMap} aria-label="Map" w={14} h={14} />
@@ -62,7 +62,7 @@ export default function DocumentationHome() {
               <Button isDisabled>Osopcloud Flight Tour</Button>
               <Text>Learn Osopcloud basics.</Text>
             </Stack>
-          </Box>
+          </Card>
         </SimpleGrid>
       </Stack>
     </>

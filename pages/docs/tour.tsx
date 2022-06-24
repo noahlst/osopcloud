@@ -51,6 +51,7 @@ import {
   FiXCircle,
 } from "react-icons/fi";
 import { LogoNoColour } from "components/brand/Logo";
+import Window from "components/system/Window";
 
 // Start page
 export default function AppTour() {
@@ -212,95 +213,71 @@ export default function AppTour() {
   function TourHome() {
     return (
       <Stack direction="row" spacing={10}>
-        <Box>
-          <Box bg="whiteAlpha.500" borderRadius="xl">
-            <Flex py={2} px={5}>
-              <Center>
-                <Icon
-                  as={FiMoreHorizontal}
-                  aria-label="Window Menu icon"
-                  h={4}
-                  w={4}
-                />
-              </Center>
-              <Spacer />
-              <Text fontSize="xs">Osopcloud Home</Text>
-              <Spacer />
-              <Center>
-                <Icon
-                  as={FiXCircle}
-                  aria-label="Close Window icon"
-                  h={4}
-                  w={4}
-                />
-              </Center>
-            </Flex>
-            <Divider />
-            <Stack direction="column" spacing={5} p={5}>
-              <Input
-                placeholder="Find an Operating System"
-                shadow="inner"
-                borderRadius="xl"
-                // @ts-ignore: Not typed
-                sx={homeAreaFocus === 1 ? { filter: "blur(2px)" } : ""}
-                isDisabled={homeAreaFocus === 1}
-              />
-              <Stack
-                direction="column"
-                spacing={2}
-                // @ts-ignore: Not typed
-                sx={homeAreaFocus > 1 ? { filter: "blur(2px)" } : ""}
-              >
-                <Stack direction="row" spacing={2}>
-                  <Button size="sm" isActive isDisabled={homeAreaFocus > 1}>
-                    Name
-                  </Button>
-                  <Button size="sm" isDisabled={homeAreaFocus > 1}>
-                    More
-                  </Button>
-                </Stack>
-                <Button
-                  display="block"
-                  h="fit-content"
-                  textAlign="left"
-                  py={3}
-                  isDisabled={homeAreaFocus > 1}
-                >
-                  <Text>Elementary OS</Text>
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    fontWeight="normal"
-                    fontSize="sm"
-                  >
-                    <Badge pt="0.5">Desktop</Badge>
-                    <Text>Ubuntu</Text>
-                    <Text>apt, flatpak</Text>
-                  </Stack>
+        <Window title="Osopcloud Home">
+          <Stack direction="column" spacing={5}>
+            <Input
+              placeholder="Find an Operating System"
+              shadow="inner"
+              borderRadius="xl"
+              // @ts-ignore: Not typed
+              sx={homeAreaFocus === 1 ? { filter: "blur(2px)" } : ""}
+              isDisabled={homeAreaFocus === 1}
+            />
+            <Stack
+              direction="column"
+              spacing={2}
+              // @ts-ignore: Not typed
+              sx={homeAreaFocus > 1 ? { filter: "blur(2px)" } : ""}
+            >
+              <Stack direction="row" spacing={2}>
+                <Button size="sm" isActive isDisabled={homeAreaFocus > 1}>
+                  Name
                 </Button>
-                <Button
-                  display="block"
-                  h="fit-content"
-                  textAlign="left"
-                  py={3}
-                  isDisabled={homeAreaFocus > 1}
-                >
-                  <Text>FreeBSD</Text>
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    fontWeight="normal"
-                    fontSize="sm"
-                  >
-                    <Badge pt="0.5">Advanced</Badge>
-                    <Text>BSD 4.4</Text>
-                    <Text>FreeBSD Ports</Text>
-                  </Stack>
+                <Button size="sm" isDisabled={homeAreaFocus > 1}>
+                  More
                 </Button>
               </Stack>
+              <Button
+                display="block"
+                h="fit-content"
+                textAlign="left"
+                py={3}
+                isDisabled={homeAreaFocus > 1}
+              >
+                <Text>Elementary OS</Text>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  fontWeight="normal"
+                  fontSize="sm"
+                >
+                  <Badge pt="0.5">Desktop</Badge>
+                  <Text>Ubuntu</Text>
+                  <Text>apt, flatpak</Text>
+                </Stack>
+              </Button>
+              <Button
+                display="block"
+                h="fit-content"
+                textAlign="left"
+                py={3}
+                isDisabled={homeAreaFocus > 1}
+              >
+                <Text>FreeBSD</Text>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  fontWeight="normal"
+                  fontSize="sm"
+                >
+                  <Badge pt="0.5">Advanced</Badge>
+                  <Text>BSD 4.4</Text>
+                  <Text>FreeBSD Ports</Text>
+                </Stack>
+              </Button>
             </Stack>
-          </Box>
-        </Box>
+          </Stack>
+        </Window>
         <Stack direction="column" spacing={5}>
           {homeAreaFocus === 0 ? (
             <>
@@ -412,30 +389,8 @@ export default function AppTour() {
     return (
       <Stack direction="row" spacing={10}>
         <Box w="125%">
-          <Box bg="whiteAlpha.500" borderRadius="xl">
-            <Flex py={2} px={5}>
-              <Center>
-                <Icon
-                  as={FiMoreHorizontal}
-                  aria-label="Window Menu icon"
-                  h={4}
-                  w={4}
-                />
-              </Center>
-              <Spacer />
-              <Text fontSize="xs">Osopcloud Composer</Text>
-              <Spacer />
-              <Center>
-                <Icon
-                  as={FiXCircle}
-                  aria-label="Close Window icon"
-                  h={4}
-                  w={4}
-                />
-              </Center>
-            </Flex>
-            <Divider />
-            <Stack direction="column" spacing={5} p={5}>
+          <Window title="Osopcloud Composer">
+            <Stack direction="column" spacing={5}>
               <Stack direction="row" spacing={5}>
                 <Heading
                   size="md"
@@ -570,7 +525,7 @@ export default function AppTour() {
                 </Tbody>
               </Table>
             </Stack>
-          </Box>
+          </Window>
         </Box>
         <Stack direction="column" spacing={5}>
           {composerAreaFocus === 0 ? (

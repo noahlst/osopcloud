@@ -9,6 +9,9 @@ import { GetStaticProps } from "next";
 // SEO
 import Head from "next/head";
 
+// First party components
+import Note from "components/system/Note";
+
 // Layouts
 import Layout from "components/layouts/Layout";
 import DocsLayout from "components/layouts/DocsLayout";
@@ -24,12 +27,14 @@ import remarkGfm from "remark-gfm";
 
 interface OSPageTypes {
   source: any;
-  componentOverrides: object;
   descriptionPath: string;
 }
 
+// Components allowed in Documentation Content (Markdown) files
+const components = { Note };
+
 // Start page
-export default function DocsPage({ source, componentOverrides }: OSPageTypes) {
+export default function DocsPage({ source }: OSPageTypes) {
   return (
     <>
       <Head>
@@ -48,7 +53,7 @@ export default function DocsPage({ source, componentOverrides }: OSPageTypes) {
       </Head>
 
       <MDXProvider>
-        <MDXRemote {...source} components={componentOverrides} />
+        <MDXRemote {...source} components={components} />
       </MDXProvider>
     </>
   );
