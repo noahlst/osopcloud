@@ -1,6 +1,3 @@
-// Types
-import type { ReactElement } from "react";
-
 // Routing
 import Link from "next/link";
 
@@ -15,7 +12,6 @@ import {
   Center,
   Container,
   DarkMode,
-  Divider,
   Editable,
   EditableInput,
   EditablePreview,
@@ -35,23 +31,22 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-
-import { useState } from "react";
 import {
   FiArrowLeft,
   FiArrowRight,
   FiMinus,
-  FiMoreHorizontal,
   FiPlus,
   FiRefreshCw,
-  FiRepeat,
   FiSettings,
   FiShare,
   FiX,
-  FiXCircle,
 } from "react-icons/fi";
 import { LogoNoColour } from "components/brand/Logo";
+
+// First party components
 import Window from "components/system/Window";
+
+import { useState } from "react";
 
 // Start page
 export default function AppTour() {

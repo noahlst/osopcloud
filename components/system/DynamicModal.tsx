@@ -1,6 +1,3 @@
-// This allows us to render a default overlay component
-// This is <Modal> (or <AlertDialog>) on large displays and a Drawer on smaller displays
-
 // Types
 import type { ReactElement } from "react";
 
@@ -34,7 +31,7 @@ interface OverlayProps extends OverlayPropsDrawerOnly {
   size?: string;
 }
 
-// Begin component
+// Begin components
 export function OverlayModal({
   children,
   cancelRef,
@@ -104,6 +101,19 @@ export function OverlayDrawer({
   );
 }
 
+/**
+ * A modal that is a Chakra UI `<Modal>` on large windows, but a `<Drawer>` on small windows.
+ *
+ * @remarks
+ * From the system collection, replacing Chakra UI `<Modal>`, `<AlertDialog>` and `<Drawer>`.
+ *
+ * @param children The overlay body.
+ * @param cancelRef A React `ref` to be assigned to the least destructive button, or the button that closes the overlay.
+ * @param isOpen Whether the overlay is shown. Supplied from `useDisclosure` hook.
+ * @param onClose Callback to close overlay. Supplied from `useDisclosure` hook.
+ * @param useAlertDialog Whether to show an `<AlertDialog>` on large windows (instead of `<Modal>`). This is to be `true` if we're prompting the user to confirm a destructive action, etc.
+ * @param size Optional size override for `<Modal>` only.
+ */
 export default function DynamicModal({
   children,
   cancelRef,

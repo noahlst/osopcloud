@@ -4,11 +4,17 @@ import { ReactElement } from "react";
 // Design
 import { Box } from "@chakra-ui/react";
 
-interface CoreProps {
+interface CardProps {
   children: ReactElement;
 }
 
-export default function Card({ children }: CoreProps) {
+/**
+ * Displays content in a stylised card.
+ *
+ * @remarks
+ * From the system collection.
+ */
+export default function Card({ children }: CardProps) {
   return (
     <Box bg="whiteAlpha.500" p={5} borderRadius="xl" shadow="md">
       {children}

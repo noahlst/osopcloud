@@ -13,12 +13,21 @@ import {
 } from "@chakra-ui/react";
 import { FiMoreHorizontal, FiXCircle } from "react-icons/fi";
 
-interface CoreProps {
+interface WindowProps {
   children: ReactElement;
   title: string;
 }
 
-export default function Window({ children, title }: CoreProps) {
+/**
+ * Displays content inside of a window. Used for UI demonstrations/simulations.
+ *
+ * @remarks
+ * From the system collection. Inspired by Geist `<Window>`.
+ *
+ * @param children Content of the window. Everything below the window's title bar.
+ * @param title The title of the window. Displayed as text in the title bar.
+ */
+export default function Window({ children, title }: WindowProps) {
   return (
     <Box>
       <Box bg="whiteAlpha.500" borderRadius="xl">

@@ -6,13 +6,40 @@ import { Box, Center, Stack, Text } from "@chakra-ui/react";
 
 import { Suspense } from "react";
 
-interface CoreProps {
+interface NoteProps {
   children: ReactElement;
   type: string | boolean;
   m?: boolean;
 }
 
-export default function Note({ children, type, m }: CoreProps) {
+/**
+ * Displays a notice to the user, informing them of something important.
+ *
+ * @remarks
+ * This is from the system collection, replacing Chakra UI `<Alert>`. Inspired by Geist `<Note>`.
+ *
+ * @param children Content of the window. Everything below the window's title bar.
+ * @param type The type of note. Accepts "error", "warning", "success", and "note".
+ * @param m Applies my={5}. Useful in Markdown.
+ *
+ * @example
+ * ```js
+ * <Note>Always change your password after a leak on another site.</Note>
+ * ```
+ *
+ * @example
+ * We can add a string type, choosing from "error", "warning", or "success".
+ * ```js
+ * <Note type="error">Incorrect password.</Note>
+ * ```
+ *
+ * @example
+ * We can also remove the "note" bolded text label, like this:
+ * ```js
+ * <Note type={false}>A (more) discreet note without "note"</Note>
+ * ```
+ */
+export default function Note({ children, type, m }: NoteProps) {
   const focusColor =
     type === "success"
       ? "green"
