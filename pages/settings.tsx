@@ -8,8 +8,7 @@ import Link from "next/link";
 import Head from "next/head";
 
 // Design
-import { Button, Heading, Stack, Text } from "@chakra-ui/react";
-import { VercelLogo } from "components/brand/VercelPromotion";
+import { Button, Heading, Stack } from "@chakra-ui/react";
 
 // Layouts
 import Layout from "components/layouts/Layout";
@@ -70,10 +69,6 @@ export default function Settings() {
             Osopcloud Documentation
           </Button>
         </Link>
-        <Button colorScheme="black" bg="black" color="white" variant="solid">
-          <Text me={2}>Powered by</Text>
-          <VercelLogo />
-        </Button>
       </Stack>
     </>
   );
