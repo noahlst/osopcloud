@@ -28,7 +28,6 @@ import {
   FiChevronLeft,
   FiPrinter,
 } from "react-icons/fi";
-import { VercelLogo } from "components/brand/VercelPromotion";
 import { HeaderLogo, LogoNoColour } from "components/brand/Logo";
 
 // First party components
@@ -122,6 +121,8 @@ export default function Layout({
       </Icon>
     );
   }
+
+  const vercelLogoColour = useColorModeValue("black", "white");
 
   return (
     // Create a flex container
@@ -267,47 +268,34 @@ export default function Layout({
             {children}
           </Box>
         </Flex>
-        <Flex p={5} pe={{ base: "inherit", sm: 10 }} as="footer">
-          <Stack direction="row" spacing={2}>
-            <Link href="https://github.com/osopcloud/osopcloud" passHref>
-              <Button leftIcon={<FiGithub />} size="sm" as="a">
-                GitHub
-              </Button>
-            </Link>
-            <Link href="/docs" passHref>
-              <Button size="sm" as="a" display={{ base: "none", sm: "flex" }}>
-                Documentation
-              </Button>
-            </Link>
-            <Link href="/docs/keyboard-shortcuts" passHref>
-              <Button size="sm" as="a" display={{ base: "none", sm: "flex" }}>
-                Keyboard Shortcuts
-              </Button>
-            </Link>
-            <Link href="/about/privacy" passHref>
-              <Button size="sm" as="a">
-                Privacy
-              </Button>
-            </Link>
-            <Link href="/about/terms" passHref>
-              <Button size="sm" as="a">
-                Terms
-              </Button>
-            </Link>
-          </Stack>
-          <Spacer />
-          <Button
-            colorScheme="black"
-            bg="black"
-            color="white"
-            variant="solid"
-            size="sm"
-            display={{ base: "none", sm: "flex" }}
-          >
-            <Text me={2}>Powered by</Text>
-            <VercelLogo />
-          </Button>
-        </Flex>
+        <Stack
+          p={5}
+          pe={{ base: "inherit", sm: 10 }}
+          as="footer"
+          direction="row"
+          spacing={2}
+        >
+          <Link href="https://github.com/osopcloud/osopcloud" passHref>
+            <Button leftIcon={<FiGithub />} size="sm" as="a">
+              GitHub
+            </Button>
+          </Link>
+          <Link href="/docs" passHref>
+            <Button size="sm" as="a" display={{ base: "none", sm: "flex" }}>
+              Documentation
+            </Button>
+          </Link>
+          <Link href="/about/privacy" passHref>
+            <Button size="sm" as="a">
+              Privacy
+            </Button>
+          </Link>
+          <Link href="/about/terms" passHref>
+            <Button size="sm" as="a">
+              Terms
+            </Button>
+          </Link>
+        </Stack>
       </Flex>
     </Flex>
   );
