@@ -34,16 +34,8 @@ interface OSPageTypes {
 // Components allowed in Documentation Content (Markdown) files
 const components = { Note, DeepDive };
 
-import { useEffect } from "react";
-
-var docsSidebarActiveIndex = 0;
-
 // Start page
 export default function DocsPage({ source }: OSPageTypes) {
-  useEffect(() => {
-    // Escape hatch, not intended for production
-    docsSidebarActiveIndex = source.frontmatter.activeIndex;
-  });
   return (
     <>
       <Head>
@@ -70,9 +62,7 @@ export default function DocsPage({ source }: OSPageTypes) {
 DocsPage.getLayout = function getLayout(page: ReactElement) {
   return (
     <Layout showToTopButton={true}>
-      <DocsLayout docsSidebarActiveIndex={docsSidebarActiveIndex}>
-        {page}
-      </DocsLayout>
+      <DocsLayout>{page}</DocsLayout>
     </Layout>
   );
 };
