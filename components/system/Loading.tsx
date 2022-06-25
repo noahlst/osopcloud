@@ -1,5 +1,5 @@
 // Design
-import { Spinner, usePrefersReducedMotion } from "@chakra-ui/react";
+import { Spinner, Text, usePrefersReducedMotion } from "@chakra-ui/react";
 
 /**
  * Displays a loading indicator.
@@ -10,5 +10,5 @@ import { Spinner, usePrefersReducedMotion } from "@chakra-ui/react";
 export default function Loading() {
   // Honour system accessibility preferences
   const animation = usePrefersReducedMotion();
-  return animation ? <Spinner /> : <></>;
+  return animation ? <Spinner /> : <Text>Loading</Text>;
 }

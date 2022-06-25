@@ -106,13 +106,36 @@ export function OverlayDrawer({
  *
  * @remarks
  * From the system collection, replacing Chakra UI `<Modal>`, `<AlertDialog>` and `<Drawer>`.
- *
- * @param children The overlay body.
- * @param cancelRef A React `ref` to be assigned to the least destructive button, or the button that closes the overlay.
- * @param isOpen Whether the overlay is shown. Supplied from `useDisclosure` hook.
- * @param onClose Callback to close overlay. Supplied from `useDisclosure` hook.
- * @param useAlertDialog Whether to show an `<AlertDialog>` on large windows (instead of `<Modal>`). This is to be `true` if we're prompting the user to confirm a destructive action, etc.
- * @param size Optional size override for `<Modal>` only.
+ * 
+ * @example
+ * This is a standard dynamic modal setup. If `useAlertDialog` is true, then the modal will be rendered as an `<AlertDialog>` on large windows.
+ * ```js
+ * function Modal() {
+ *   const [isOpen, onOpen, onClose]
+ *   const cancelRef = useRef(null);
+ *   return (
+ *     <>
+ *       <Button
+          onClick={() => {
+            onOpen();
+          }}
+          isActive={isOpen}
+        >
+          Open Modal
+         </Button>
+
+ *       <DynamicModal
+           isOpen={isOpen}
+           onClose={onClose}
+           useAlertDialog={false}
+           cancelRef={cancelRef}
+         >
+ *         ...
+ *       </DynamicModal>
+ *     </>
+ *   )
+ * }
+ * ```
  */
 export default function DynamicModal({
   children,

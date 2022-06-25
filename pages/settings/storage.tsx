@@ -32,6 +32,7 @@ import SettingsLayout from "components/layouts/SettingsLayout";
 import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
 
 import { useState, useEffect } from "react";
+import Note from "components/system/Note";
 
 // Start page
 export default function StorageManagement() {
@@ -81,9 +82,12 @@ export default function StorageManagement() {
       window.location.reload();
     }
     toast({
-      title: "Reset Successful",
-      status: "success",
       position: "top",
+      render: () => (
+        <Note type="success" isToast={true}>
+          Reset Successful
+        </Note>
+      ),
     });
     console.info("Reset completed.");
   }
@@ -172,9 +176,12 @@ export default function StorageManagement() {
       "Export completed. Osopcloud storage data copied to clipboard."
     );
     toast({
-      title: "Storage Data Successfully Exported",
-      status: "success",
       position: "top",
+      render: () => (
+        <Note type="success" isToast={true}>
+          Storage Data Successfully Exported
+        </Note>
+      ),
     });
   }
 
@@ -198,10 +205,12 @@ export default function StorageManagement() {
               version
             );
             toast({
-              title: "These Settings are from a different version",
-              status: "error",
               position: "top",
-              description: "Try exporting storage data again. (6)",
+              render: () => (
+                <Note type="error" isToast={true} errorCode={6}>
+                  This Storage data is from a different version.
+                </Note>
+              ),
             });
           } else {
             console.debug(
@@ -225,9 +234,12 @@ export default function StorageManagement() {
                 "Import completed. Applied storage data from clipboard."
               );
               toast({
-                title: "Storage Successfully Imported",
-                status: "success",
                 position: "top",
+                render: () => (
+                  <Note type="success" isToast={true}>
+                    Storage Successfully Imported
+                  </Note>
+                ),
               });
             }
           }
@@ -235,9 +247,12 @@ export default function StorageManagement() {
           // If it fails, it's not a valid JSON string
           console.error("Import failed. Invalid JSON string.", e, text);
           toast({
-            title: "No Storage Data Detected",
-            status: "warning",
             position: "top",
+            render: () => (
+              <Note isToast={true} type="error">
+                No Storage Data Detected
+              </Note>
+            ),
           });
         }
       });
@@ -246,10 +261,12 @@ export default function StorageManagement() {
         "Import failed. navigator.clipboard.readText() not supported. (2)"
       );
       toast({
-        title: "This browser doesn't support reading the clipboard",
-        description: "Storage data was not imported. (2)",
-        status: "error",
         position: "top",
+        render: () => (
+          <Note type="error" isToast={true} errorCode={2}>
+            This browser doesn't support reading the clipboard.
+          </Note>
+        ),
       });
     }
   }

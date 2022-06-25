@@ -2,13 +2,24 @@
 import type { ReactElement } from "react";
 
 // Design
-import { Box, Center, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Code,
+  Flex,
+  Spacer,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 import { Suspense } from "react";
 
 interface NoteProps {
-  children: ReactElement;
+  children: ReactElement | string;
   type: string | boolean;
+  isToast?: boolean;
+  errorCode?: number;
   m?: boolean;
 }
 
@@ -17,10 +28,6 @@ interface NoteProps {
  *
  * @remarks
  * This is from the system collection, replacing Chakra UI `<Alert>`. Inspired by Geist `<Note>`.
- *
- * @param children Content of the window. Everything below the window's title bar.
- * @param type The type of note. Accepts "error", "warning", "success", and "note".
- * @param m Applies my={5}. Useful in Markdown.
  *
  * @example
  * ```js
@@ -39,43 +46,84 @@ interface NoteProps {
  * <Note type={false}>A (more) discreet note without "note"</Note>
  * ```
  */
-export default function Note({ children, type, m }: NoteProps) {
-  const focusColor =
+export default function Note({
+  children,
+  type,
+  errorCode,
+  isToast,
+  m,
+}: NoteProps) {
+  // const greenFocusColour = useColorModeValue("green.400", "green.100");
+  // const redFocusColour = useColorModeValue("red.400", "red.100");
+  // const focusColour =
+  //   type === "success"
+  //     ? greenFocusColour
+  //     : type === "warning"
+  //     ? redFocusColour
+  //     : type === "error"
+  //     ? redFocusColour
+  //     : "inherit";
+
+  // Colours
+  const bgGreenFocusColour = useColorModeValue("green.50", "green.700");
+  const bgRedFocusColour = useColorModeValue("red.50", "red.700");
+  const bgFocusColour =
     type === "success"
-      ? "green"
+      ? bgGreenFocusColour
       : type === "warning"
-      ? "red"
+      ? bgRedFocusColour
       : type === "error"
-      ? "red"
-      : "inherit";
+      ? bgRedFocusColour
+      : "whiteAlpha.400";
+  const bgFocusColourToast =
+    type === "success"
+      ? "green.100"
+      : type === "warning"
+      ? "red.100"
+      : type === "error"
+      ? "red.100"
+      : "white.50";
+
+  // Children
+  function NoteContent() {}
   return (
     <Box
-      bg="whiteAlpha.500"
+      bg={isToast ? bgFocusColourToast : bgFocusColour}
       px={5}
       py={2}
-      border={type ? "1px" : "none"}
-      borderColor={focusColor}
       borderRadius="xl"
-      shadow="sm"
+      shadow="md"
       my={m ? 2 : 0}
+      minW={errorCode ? 500 : "inherit"}
+      color={isToast ? "gray.800" : "inherit"}
     >
       <Suspense fallback={children}>
-        <Stack direction="row" spacing={5}>
-          <Center>
-            {type !== false && (
-              <Text fontSize="sm" fontWeight={600} color={focusColor}>
-                {type === "success"
-                  ? "Success:"
-                  : type === "warning"
-                  ? "Warning:"
-                  : type === "error"
-                  ? "Error:"
-                  : "Note:"}
-              </Text>
-            )}
-          </Center>
-          <Text fontSize="sm">{children}</Text>
-        </Stack>
+        <Flex>
+          <Stack direction="row" spacing={5}>
+            <Center>
+              {type !== false && (
+                <Text fontSize="sm" fontWeight={600}>
+                  {type === "success"
+                    ? "Success:"
+                    : type === "warning"
+                    ? "Warning:"
+                    : type === "error"
+                    ? "Error:"
+                    : "Note:"}
+                </Text>
+              )}
+            </Center>
+            <Text fontSize="sm">{children}</Text>
+          </Stack>
+          {errorCode && (
+            <>
+              <Spacer />
+              <Center>
+                <Code fontSize="xs">{errorCode}</Code>
+              </Center>
+            </>
+          )}
+        </Flex>
       </Suspense>
     </Box>
   );

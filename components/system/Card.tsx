@@ -16,7 +16,7 @@ interface CardProps {
  */
 export default function Card({ children }: CardProps) {
   return (
-    <Box bg="whiteAlpha.500" p={5} borderRadius="xl" shadow="sm">
+    <Box bg="whiteAlpha.400" p={5} borderRadius="xl" shadow="md">
       {children}
     </Box>
   );

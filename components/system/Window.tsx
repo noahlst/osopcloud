@@ -23,9 +23,6 @@ interface WindowProps {
  *
  * @remarks
  * From the system collection. Inspired by Geist `<Window>`.
- *
- * @param children Content of the window. Everything below the window's title bar.
- * @param title The title of the window. Displayed as text in the title bar.
  */
 export default function Window({ children, title }: WindowProps) {
   return (
