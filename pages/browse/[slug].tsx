@@ -4,7 +4,7 @@ import { GetStaticProps } from "next";
 
 // Suspense
 import { Suspense } from "react";
-import Loading from "components/Loading";
+import Loading from "components/system/Loading";
 
 // Routing
 import Link from "next/link";
@@ -32,7 +32,7 @@ import {
 import { FiDatabase, FiFileText, FiTrash2 } from "react-icons/fi";
 
 // First party components
-import DynamicModal from "components/overlays/DynamicModal";
+import DynamicModal from "components/system/DynamicModal";
 import { DeleteComposerData } from "components/composer/DeleteComposerDataOverlay";
 import { useKeyboardShortcut } from "hooks/useKeyboardShortcut";
 

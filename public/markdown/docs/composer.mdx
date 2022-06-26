@@ -1,51 +1,100 @@
 ---
-name: "Osopcloud Composer"
-date: "2022-06-07"
+name: "Create with Osopcloud Composer"
+date: "2022-06-25"
 ---
 
-## Osopcloud Composer
+# Create with Osopcloud Composer
 
-The Osopcloud Composer feature makes it easy to create, edit and publish Operating System Pages.
+Osopcloud Composer makes it easy to create, edit and publish Operating System Pages.
 
-First, thank you for your interest in contributing to the Osopcloud project!
+<Note>
+  Remember to read the contributor code of conduct and the contributing
+  guidelines before you start.
+</Note>
 
-**Important:** Remember to read the contributor code of conduct and the contributing guidelines before you start.
+## Starting a Project
 
 ### Create a New Operating System Page
 
-If you want to add a new open-source operating system to Osopcloud, open the Composer by selecting the plus button from the header or sidebar.
+Adding a new open-source operating system to Osopcloud is easy.
 
-1. When prompted, enter the operating system's name.
-2. Edit the description by selecting "Click to edit the description...".
-3. Edit each row in the metadata table by selecting "Click to edit..." or the plus button.
-4. Open "Edit Website and Repository" and fill in the website and repository information.
+1. Open Osopcloud Composer by using the plus icon button in the sidebar or header.
+2. Enter the name of the operating system.
 
 When you're finished, select "Export and Share". _See below._
 
-### Edit an Existing Operating System Page
+### Edit an Existing Operating System
 
-If you want to edit an existing Operating System Page, go to the Operating System Page and select Open in Composer. The operating system's information will then be imported to the Composer and the Composer will be opened.
+It's also easy to import an existing operating system into Osopcloud Composer. Use this model if you want to edit existing content, or build off an existing OS.
 
-### Exporting from the Composer with GitHub
+1. Go to the operating system on Osopcloud.
+2. In it's Operating System Page, select "Open in Composer".
+3. If you're already working on something in Osopcloud Composer, you will be prompted if you want to override your work with this OS. Select "Continue & Reset".
 
-We need to get what we've done in the Composer onto the Osopcloud GitHub repository and onto the web.
+<DeepDive title="Building Off an OS to Implement it's Variant">
 
-When you're finished editing the operating system, select "Export and Share" to bring up the export options.
+Let's say there's an already OS on Osopcloud. But, then, a new OS comes onto the market with very similar characteristics. They share the same desktop, shell, package managers, startup frameworks, etc. A real-life example of this might be Ubuntu and Ubuntu MATE, or Fedora and Fedora Silverblue.
 
-The recommended approach is to select "Continue on GitHub". This will take you to the GitHub web editing interface:
+The pattern editing existing operating systems allows us to "build off" or "fork" something that's already on Osopcloud and create something new.
 
-1. Fill in the file name field. Use the file name shown on the export options menu.
-2. Paste in the code from the Composer within the text area. The Composer will have automatically copied the code to the clipboard.
-3. Select "Create a New Branch for this Commit".
-4. Name the branch.
-5. Select "Propose New File".
+First, follow the steps above to edit an existing operating system. Then, simply:
 
-### Exporting without GitHub
+1. Select the operating system's name, and replace it with your new name.
+2. Change the description.
+3. Change the website and source repository.
+4. Then edit everything else that is specific to that OS!
 
-First, select "Export and Share". By selecting "Export as a File Instead", you can also share or download a packaged `.json` file, or copy the code without going to GitHub. From here you can use your local environment to merge the code into the repository.
+</DeepDive>
 
-### Resetting the Composer and Managing Composer Data
+## Working with Osopcloud Composer
 
-To start over, select "Reset" from the Composer header. You will lose your work.
+Osopcloud Composer is designed to be easy to use.
 
-Alternatively, you can use the "Reset Osopcloud" function in Settings. Because Composer data is stored alongside Settings data, you can also use the Import and Export features to transfer your work between browsers and devices.
+To simplify editing, the description and metadata are combined on the same editing pane.
+
+<Note m={true}>
+  A description, tags, platforms, what the OS is based on, and a website URL are
+  required.
+</Note>
+
+### Description
+
+The description is an expository paragraph describing the quirks, features, and details of the operating system. The goal of descriptions are to provide sufficient overviews, or, in other words, the perfect place for a beginner to start learning about that OS.
+
+To edit the description, select on the textarea at the top of the editor.
+
+<Note m={true}>
+  On devices with a mouse, you can adjust the height of the textarea by moving
+  your cursor to the textarea border and dragging vertically.
+</Note>
+
+### Metadata
+
+The metadata table is also easily configurable.
+
+Some columns on the table are single-value items. This applies to metadata fields for which operating systems only have one value (for example, an operating system's startup framework). For these, select the text in the column (or "Click to Edit...") to make changes.
+
+Other columns accept multiple values. Select the column's plus icon button, then type in or select a value, and click the add button.
+
+<Note m={true}>
+  Like in OS Pages, metadata items with multiple values are automatically sorted
+  alphabetically.
+</Note>
+
+<Note m={true}>
+  The first tag of an OS gets priority throughout the interface.
+</Note>
+
+### Website & Source repository
+
+To configure the operating systems's website and source repository links, select "Edit Website & Repository" from the editor sidebar. Simply select the text in the column to set them.
+
+<Note m={true}>URLs must include `https://`.</Note>
+
+### Set Organisation Name
+
+To learn more about this, see About Osopcloud for Organisations.
+
+## Exporting
+
+Once you are done, we need to get your work onto the Osopcloud GitHub source repository. See Exporting from Osopcloud Composer to learn how.

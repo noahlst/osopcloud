@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 
 // First party components
-import DynamicModal from "components/overlays/DynamicModal";
+import DynamicModal from "components/system/DynamicModal";
 
 // Storage
 import { useLocalStorage, writeStorage } from "@rehooks/local-storage";

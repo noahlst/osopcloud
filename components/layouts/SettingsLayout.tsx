@@ -127,6 +127,7 @@ export default function SettingsLayout({
           spacing={2}
           me={{ base: 0, sm: 10 }}
           display={{ base: "none", sm: "flex" }}
+          as="aside"
         >
           <Link href="/settings/general" passHref>
             <Button
