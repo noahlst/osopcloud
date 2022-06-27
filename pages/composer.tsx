@@ -194,7 +194,7 @@ export default function Composer() {
             <Flex w="100%">
               <Container
                 maxWidth="container.sm"
-                mt={{ base: "none", lg: "20vh" }}
+                mt={{ base: "none", lg: "15vh" }}
               >
                 <Stack direction="column" spacing={5}>
                   <Heading size="md">What's the name of the OS?</Heading>

@@ -13,6 +13,8 @@ import { Button, Heading, Stack } from "@chakra-ui/react";
 // Layouts
 import Layout from "components/layouts/Layout";
 import {
+  FiFileText,
+  FiGithub,
   FiHardDrive,
   FiLayout,
   FiLifeBuoy,
@@ -27,12 +29,12 @@ export default function Settings() {
   return (
     <>
       <Head>
-        <title>Settings &mdash; Osopcloud</title>
-        <meta name="description" content="Customise and configure Osopcloud." />
-        <meta name="og:title" content="Osopcloud Settings" />
+        <title>Options &mdash; Osopcloud</title>
+        <meta name="description" content="Additional options on Osopcloud." />
+        <meta name="og:title" content="Osopcloud Options" />
         <meta
           name="og:description"
-          content="Customise and configure Osopcloud."
+          content="Additional options on Osopcloud."
         />
       </Head>
 
@@ -43,11 +45,28 @@ export default function Settings() {
           <SettingsOverlay directLink={1} useMenuItem={false} />
           <SettingsOverlay directLink={2} useMenuItem={false} />
         </Stack>
+        <Link href="https://github.com/osopcloud/osopcloud" passHref>
+          <Button leftIcon={<FiGithub />} as="a" target="_blank">
+            GitHub
+          </Button>
+        </Link>
         <Link href="/docs" passHref>
           <Button leftIcon={<FiLifeBuoy />} as="a">
             Osopcloud Documentation
           </Button>
         </Link>
+        <Stack direction="column" spacing={2}>
+          <Link href="/about/privacy" passHref>
+            <Button leftIcon={<FiFileText />} as="a">
+              Osopcloud Privacy Notice
+            </Button>
+          </Link>
+          <Link href="/about/terms" passHref>
+            <Button leftIcon={<FiFileText />} as="a">
+              Terms
+            </Button>
+          </Link>
+        </Stack>
       </Stack>
     </>
   );

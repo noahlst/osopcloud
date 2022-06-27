@@ -17,16 +17,15 @@ import {
   DarkMode,
   Spacer,
   Stack,
-  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import {
   FiPlus,
-  FiSettings,
   FiShare,
   FiGithub,
   FiChevronLeft,
   FiPrinter,
+  FiMoreVertical,
 } from "react-icons/fi";
 import { HeaderLogo, LogoNoColour } from "components/brand/Logo";
 
@@ -260,7 +259,7 @@ export default function Layout({
           </Link>
           <Link href="/settings" passHref>
             <IconButton
-              icon={<FiSettings />}
+              icon={<FiMoreVertical />}
               aria-label="Settings"
               size="lg"
               as="a"
@@ -311,34 +310,38 @@ export default function Layout({
             {children}
           </Box>
         </Flex>
-        <Stack
-          p={5}
-          pe={{ base: "inherit", sm: 10 }}
-          as="footer"
-          direction="row"
-          spacing={2}
-        >
-          <Link href="https://github.com/osopcloud/osopcloud" passHref>
-            <Button leftIcon={<FiGithub />} size="sm" as="a">
-              GitHub
-            </Button>
-          </Link>
-          <Link href="/docs" passHref>
-            <Button size="sm" as="a" display={{ base: "none", sm: "flex" }}>
-              Documentation
-            </Button>
-          </Link>
-          <Link href="/about/privacy" passHref>
-            <Button size="sm" as="a">
-              Privacy
-            </Button>
-          </Link>
-          <Link href="/about/terms" passHref>
-            <Button size="sm" as="a">
-              Terms
-            </Button>
-          </Link>
-        </Stack>
+        {/* Normally we link to our privacy notice and terms in the help menu (popover dropdown) */}
+        {/* However, we need a way for noscript users to access these due to legal requirements */}
+        <noscript>
+          <Stack
+            p={5}
+            pe={{ base: "inherit", sm: 10 }}
+            as="footer"
+            direction="row"
+            spacing={2}
+          >
+            <Link href="https://github.com/osopcloud/osopcloud" passHref>
+              <Button leftIcon={<FiGithub />} size="sm" as="a">
+                GitHub
+              </Button>
+            </Link>
+            <Link href="/docs" passHref>
+              <Button size="sm" as="a" display={{ base: "none", sm: "flex" }}>
+                Documentation
+              </Button>
+            </Link>
+            <Link href="/about/privacy" passHref>
+              <Button size="sm" as="a">
+                Privacy
+              </Button>
+            </Link>
+            <Link href="/about/terms" passHref>
+              <Button size="sm" as="a">
+                Terms
+              </Button>
+            </Link>
+          </Stack>
+        </noscript>
       </Flex>
     </Flex>
   );

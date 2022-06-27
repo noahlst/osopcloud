@@ -21,11 +21,16 @@ export default function HelpPopover() {
       <Portal>
         <MenuList borderRadius="xl">
           <Link href="/docs/tour" passHref>
-            <MenuItem as="a">Start Osopcloud Tour</MenuItem>
+            <MenuItem as="a">Open Osopcloud Tour</MenuItem>
           </Link>
-          <MenuDivider />
           <Link href="/docs" passHref>
             <MenuItem as="a">Documentation Home</MenuItem>
+          </Link>
+          <MenuDivider />
+          <Link href="https://github.com/osopcloud/osopcloud" passHref>
+            <MenuItem as="a" target="_blank">
+              GitHub Source Repository
+            </MenuItem>
           </Link>
           <MenuItem isDisabled>Developer Documentation on GitHub</MenuItem>
           <MenuDivider />
