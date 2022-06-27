@@ -20,6 +20,7 @@ import {
   FiUser,
   FiWifi,
 } from "react-icons/fi";
+import SettingsOverlay from "components/settings/SettingsOverlay";
 
 // Start page
 export default function Settings() {
@@ -38,31 +39,9 @@ export default function Settings() {
       <Stack direction="column" spacing={5}>
         <Heading>Options</Heading>
         <Stack direction="column" spacing={2}>
-          <Link href="/settings/general" passHref>
-            <Button leftIcon={<FiLayout />} as="a">
-              Appearance
-            </Button>
-          </Link>
-          <Link href="/settings/accessibility" passHref>
-            <Button leftIcon={<FiUser />} as="a">
-              Accessibility
-            </Button>
-          </Link>
-          <Link href="/settings/sharing" passHref>
-            <Button leftIcon={<FiShare />} as="a">
-              Sharing &amp; Printing
-            </Button>
-          </Link>
-          <Link href="/settings/network" passHref>
-            <Button leftIcon={<FiWifi />} as="a">
-              Updates &amp; Network
-            </Button>
-          </Link>
-          <Link href="/settings/storage" passHref>
-            <Button leftIcon={<FiHardDrive />} as="a">
-              Application Storage
-            </Button>
-          </Link>
+          <SettingsOverlay directLink={0} useMenuItem={false} />
+          <SettingsOverlay directLink={1} useMenuItem={false} />
+          <SettingsOverlay directLink={2} useMenuItem={false} />
         </Stack>
         <Link href="/docs" passHref>
           <Button leftIcon={<FiLifeBuoy />} as="a">

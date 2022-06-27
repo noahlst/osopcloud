@@ -23,6 +23,7 @@ import theme from "lib/Theming";
 // First party components
 import DeleteSettings from "lib/DeleteSettings";
 import { version } from "components/Version";
+import Note from "components/system/Note";
 
 // Layouts
 import Layout from "components/layouts/Layout";
@@ -32,7 +33,6 @@ import SettingsLayout from "components/layouts/SettingsLayout";
 import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
 
 import { useState, useEffect } from "react";
-import Note from "components/system/Note";
 
 // Start page
 export default function StorageManagement() {

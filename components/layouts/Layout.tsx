@@ -32,6 +32,8 @@ import { HeaderLogo, LogoNoColour } from "components/brand/Logo";
 
 // First party components
 import CheckPWA from "lib/CheckPWA";
+import SettingsPopover from "components/settings/SettingsPopover";
+import HelpPopover from "components/settings/HelpPopover";
 
 // Settings
 import { useLocalStorage } from "@rehooks/local-storage";
@@ -122,8 +124,6 @@ export default function Layout({
     );
   }
 
-  const vercelLogoColour = useColorModeValue("black", "white");
-
   return (
     // Create a flex container
     <Flex
@@ -143,11 +143,11 @@ export default function Layout({
         display={{ base: "none", sm: "flex" }}
         as="aside"
       >
-        {/* @ts-ignore */}
-        <DarkMode>
-          <Flex direction="column" p={5}>
-            <Suspense fallback={<Loading />}>
-              {CheckPWA() && (
+        <Flex direction="column" p={5}>
+          <Suspense fallback={<Loading />}>
+            {CheckPWA() && (
+              // @ts-ignore
+              <DarkMode>
                 <IconButton
                   icon={<FiChevronLeft />}
                   aria-label="Go Back"
@@ -155,9 +155,12 @@ export default function Layout({
                   mb={5}
                   onClick={router.back}
                 />
-              )}
-            </Suspense>
-            <Stack direction="column" spacing={2}>
+              </DarkMode>
+            )}
+          </Suspense>
+          <Stack direction="column" spacing={2}>
+            {/* @ts-ignore */}
+            <DarkMode>
               <Link href="/" passHref>
                 <IconButton
                   icon={<LogoIcon />}
@@ -167,6 +170,9 @@ export default function Layout({
                   isActive={sidebarActiveIndex === 0}
                 />
               </Link>
+            </DarkMode>
+            {/* @ts-ignore */}
+            <DarkMode>
               <Link href="/composer" passHref>
                 <IconButton
                   icon={<FiPlus />}
@@ -176,31 +182,41 @@ export default function Layout({
                   isActive={sidebarActiveIndex === 1}
                 />
               </Link>
-            </Stack>
-            <Spacer />
-            <Stack direction="column" spacing={2}>
-              <Suspense fallback={<Loading />}>
-                {showShareButton ?? (
-                  <>
-                    {shareCompatibility ? (
+            </DarkMode>
+          </Stack>
+          <Spacer />
+          <Stack direction="column" spacing={2}>
+            {/* <Suspense fallback={<Loading />}>
+              {showShareButton ?? (
+                <>
+                  {shareCompatibility ? (
+                    // @ts-ignore
+                    <DarkMode>
                       <IconButton
                         icon={<FiShare />}
                         aria-label="Share"
                         size="lg"
                         onClick={Share}
                       />
-                    ) : null}
-                    {showPrintButton && (
+                    </DarkMode>
+                  ) : null}
+                  {showPrintButton && (
+                    // @ts-ignore
+                    <DarkMode>
                       <IconButton
                         icon={<FiPrinter />}
                         aria-label="Print"
                         size="lg"
                         onClick={Print}
                       />
-                    )}
-                  </>
-                )}
-              </Suspense>
+                    </DarkMode>
+                  )}
+                </>
+              )}
+            </Suspense>
+            <SettingsPopover /> */}
+            {/* @ts-ignore
+            <DarkMode>
               <Link href="/settings/general" passHref>
                 <IconButton
                   icon={<FiSettings />}
@@ -210,9 +226,9 @@ export default function Layout({
                   isActive={sidebarActiveIndex === 2}
                 />
               </Link>
-            </Stack>
-          </Flex>
-        </DarkMode>
+            </DarkMode> */}
+          </Stack>
+        </Flex>
       </Flex>
 
       {/* Mobile header */}
@@ -261,9 +277,36 @@ export default function Layout({
         position="relative"
         overflow="hidden"
         direction="column"
-        ps={{ base: 0, sm: 115 }}
+        ps={{ base: 0, sm: 150 }}
       >
-        <Flex flex={1} p={5} pe={{ base: 5, sm: 10 }} py={10}>
+        <Flex display={{ base: "none", sm: "flex" }} p={5}>
+          <Spacer />
+          <Stack direction="row" spacing={2}>
+            <Suspense fallback={<Loading />}>
+              {showShareButton ?? (
+                <>
+                  {shareCompatibility ? (
+                    <IconButton
+                      icon={<FiShare />}
+                      aria-label="Share"
+                      onClick={Share}
+                    />
+                  ) : null}
+                  {showPrintButton && (
+                    <IconButton
+                      icon={<FiPrinter />}
+                      aria-label="Print"
+                      onClick={Print}
+                    />
+                  )}
+                </>
+              )}
+            </Suspense>
+            <HelpPopover />
+            <SettingsPopover />
+          </Stack>
+        </Flex>
+        <Flex flex={1} p={5} pe={{ base: 5, sm: 10 }} py={5}>
           <Box w="100%" id="printRegion" as="main">
             {children}
           </Box>
