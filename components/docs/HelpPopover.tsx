@@ -13,6 +13,9 @@ import {
 } from "@chakra-ui/react";
 import { FiLifeBuoy } from "react-icons/fi";
 
+// First party components
+import TourOverlay from "components/docs/TourOverlay";
+
 // Start component
 export default function HelpPopover() {
   return (
@@ -20,9 +23,7 @@ export default function HelpPopover() {
       <MenuButton as={IconButton} icon={<FiLifeBuoy />} aria-label="Help" />
       <Portal>
         <MenuList borderRadius="xl">
-          <Link href="/docs/tour" passHref>
-            <MenuItem as="a">Open Osopcloud Tour</MenuItem>
-          </Link>
+          <TourOverlay useMenuItem={true} />
           <Link href="/docs" passHref>
             <MenuItem as="a">Documentation Home</MenuItem>
           </Link>

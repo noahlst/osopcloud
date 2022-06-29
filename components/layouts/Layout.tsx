@@ -32,7 +32,7 @@ import { HeaderLogo, LogoNoColour } from "components/brand/Logo";
 // First party components
 import CheckPWA from "lib/CheckPWA";
 import SettingsPopover from "components/settings/SettingsPopover";
-import HelpPopover from "components/settings/HelpPopover";
+import HelpPopover from "components/docs/HelpPopover";
 
 // Settings
 import { useLocalStorage } from "@rehooks/local-storage";

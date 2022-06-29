@@ -16,7 +16,7 @@ import DynamicModal from "components/system/DynamicModal";
 
 import { useRef, useState } from "react";
 
-interface SettingsOverlayProps {
+interface FunctionGalleryProps {
   directLink: number;
   useMenuItem: boolean;
 }
@@ -25,7 +25,7 @@ interface SettingsOverlayProps {
 export default function FunctionGallery({
   directLink,
   useMenuItem,
-}: SettingsOverlayProps) {
+}: FunctionGalleryProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
 
