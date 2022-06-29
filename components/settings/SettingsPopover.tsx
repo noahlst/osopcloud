@@ -27,10 +27,10 @@ export default function SettingsPopover() {
       />
       <Portal>
         <MenuList borderRadius="xl">
+          <MenuItem isDisabled>Open in Osopcloud App</MenuItem>
+          <MenuDivider />
           <FunctionGallery directLink={0} useMenuItem={true} />
           <FunctionGallery directLink={1} useMenuItem={true} />
-          <MenuDivider />
-          <MenuItem isDisabled>Open in Osopcloud App</MenuItem>
           <MenuDivider />
           <SettingsOverlay directLink={0} useMenuItem={true} />
           <SettingsOverlay directLink={1} useMenuItem={true} />

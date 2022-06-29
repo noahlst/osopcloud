@@ -29,6 +29,13 @@ export default function FunctionGallery({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
 
+  function AvailableFunctions() {
+    return (
+      <Center h="full">
+        <Text>Third-Party Functions are coming soon.</Text>
+      </Center>
+    );
+  }
   function InstalledFunctions() {
     return (
       <>
@@ -55,24 +62,17 @@ export default function FunctionGallery({
       </>
     );
   }
-  function AvailableFunctions() {
-    return (
-      <Center h="full">
-        <Text>Third-Party Functions are coming soon.</Text>
-      </Center>
-    );
-  }
 
   // Tab logic
   const [currentTab, setCurrentTab] = useState(0);
   const tabArray = [
     {
-      title: "Installed Functions",
-      component: <InstalledFunctions />,
-    },
-    {
       title: "Browse Functions",
       component: <AvailableFunctions />,
+    },
+    {
+      title: "Installed Functions",
+      component: <InstalledFunctions />,
     },
   ];
 
