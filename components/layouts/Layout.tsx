@@ -183,50 +183,6 @@ export default function Layout({
               </Link>
             </DarkMode>
           </Stack>
-          <Spacer />
-          <Stack direction="column" spacing={2}>
-            {/* <Suspense fallback={<Loading />}>
-              {showShareButton ?? (
-                <>
-                  {shareCompatibility ? (
-                    // @ts-ignore
-                    <DarkMode>
-                      <IconButton
-                        icon={<FiShare />}
-                        aria-label="Share"
-                        size="lg"
-                        onClick={Share}
-                      />
-                    </DarkMode>
-                  ) : null}
-                  {showPrintButton && (
-                    // @ts-ignore
-                    <DarkMode>
-                      <IconButton
-                        icon={<FiPrinter />}
-                        aria-label="Print"
-                        size="lg"
-                        onClick={Print}
-                      />
-                    </DarkMode>
-                  )}
-                </>
-              )}
-            </Suspense>
-            <SettingsPopover /> */}
-            {/* @ts-ignore
-            <DarkMode>
-              <Link href="/settings/general" passHref>
-                <IconButton
-                  icon={<FiSettings />}
-                  aria-label="Settings"
-                  size="lg"
-                  as="a"
-                  isActive={sidebarActiveIndex === 2}
-                />
-              </Link>
-            </DarkMode> */}
-          </Stack>
         </Flex>
       </Flex>
 
@@ -257,10 +213,10 @@ export default function Layout({
               isActive={sidebarActiveIndex === 1}
             />
           </Link>
-          <Link href="/settings" passHref>
+          <Link href="/options" passHref>
             <IconButton
               icon={<FiMoreVertical />}
-              aria-label="Settings"
+              aria-label="Options"
               size="lg"
               as="a"
               isActive={sidebarActiveIndex === 2}

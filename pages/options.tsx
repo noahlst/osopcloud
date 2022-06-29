@@ -30,7 +30,10 @@ export default function Settings() {
     <>
       <Head>
         <title>Options &mdash; Osopcloud</title>
-        <meta name="description" content="Additional options on Osopcloud." />
+        <meta
+          name="description"
+          content="Access additional functions and settings on Osopcloud."
+        />
         <meta name="og:title" content="Osopcloud Options" />
         <meta
           name="og:description"
