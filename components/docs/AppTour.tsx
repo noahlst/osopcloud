@@ -1,5 +1,5 @@
 // Routing
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 // Design
 import {
@@ -17,6 +17,7 @@ import {
   Icon,
   IconButton,
   Input,
+  Progress,
   Select,
   Spacer,
   Stack,
@@ -33,8 +34,6 @@ import {
   FiMinus,
   FiPlus,
   FiRefreshCw,
-  FiSettings,
-  FiShare,
   FiX,
 } from "react-icons/fi";
 import { LogoNoColour } from "components/brand/Logo";
@@ -46,6 +45,8 @@ import { useState } from "react";
 
 // Start component
 export default function AppTour() {
+  const router = useRouter();
+
   function LogoIcon() {
     return (
       <Icon w={8} h={8}>
@@ -54,84 +55,55 @@ export default function AppTour() {
     );
   }
 
-  const [isReloading, setIsReloading] = useState(false);
+  const [isReloadingHome, setIsReloadingHome] = useState(false);
+  const [isReloadingDocs, setIsReloadingDocs] = useState(false);
 
   // Tab system
   const [activeTab, setActiveTab] = useState(0);
-  const [navBarIconFocus, setNavBarIconFocus] = useState(0);
-  function TourNavigationBar() {
+  const [functionBarIconFocus, setFunctionBarIconFocus] = useState(0);
+  function TourFunctionBar() {
     return (
       <Stack direction="row" spacing={10}>
         <Box bg="almond" borderRadius="xl">
           {/* @ts-ignore */}
           <DarkMode>
-            <Flex direction="column" p={5} h="50vh">
-              <Stack
-                direction="column"
-                spacing={2}
-                // @ts-ignore: Not typed
-                sx={navBarIconFocus > 1 ? { filter: "blur(2px)" } : ""}
-              >
+            <Flex direction="column" p={5} minH="45vh">
+              <Stack direction="column" spacing={2}>
                 <IconButton
                   icon={<LogoIcon />}
                   aria-label="Go Home"
                   size="lg"
-                  isDisabled={navBarIconFocus > 1}
                 />
                 <IconButton
                   icon={<FiPlus />}
                   aria-label="Osopcloud Composer"
                   size="lg"
-                  isDisabled={navBarIconFocus > 1}
-                />
-              </Stack>
-              <Spacer />
-              <Stack
-                direction="column"
-                spacing={2}
-                // @ts-ignore: Not typed
-              >
-                <IconButton
-                  icon={<FiShare />}
-                  aria-label="Share"
-                  size="lg"
-                  // @ts-ignore: Not typed
-                  sx={navBarIconFocus === 1 ? { filter: "blur(2px)" } : ""}
-                  isDisabled={navBarIconFocus === 1}
-                />
-                <IconButton
-                  icon={<FiSettings />}
-                  aria-label="Settings"
-                  size="lg"
-                  // @ts-ignore: Not typed
-                  sx={navBarIconFocus > 1 ? { filter: "blur(2px)" } : ""}
-                  isDisabled={navBarIconFocus > 1}
                 />
               </Stack>
             </Flex>
           </DarkMode>
         </Box>
         <Stack direction="column" spacing={5}>
-          {navBarIconFocus === 0 ? (
+          {functionBarIconFocus === 0 ? (
             <>
               <Text>
                 Welcome to the Osopcloud Tour. Let's start by explaining how to
                 get around.
               </Text>
               <Text>
-                This is the sidebar and it's the main way you'll navigate around
-                the app.
+                This is the Function Bar and it's the main way you'll navigate
+                around the app on large displays.
               </Text>
               <Button
                 leftIcon={<FiArrowRight />}
                 onClick={() => {
-                  setNavBarIconFocus(1);
+                  setFunctionBarIconFocus(1);
                 }}
               >
                 Continue
               </Button>
             </>
-          ) : navBarIconFocus === 1 ? (
+          ) : (
             <>
               <Text>
                 The sidebar has three links that move you around the app.
@@ -144,41 +116,11 @@ export default function AppTour() {
                 Osopcloud Composer.
               </Text>
               <Text>
-                Link number 3, down the bottom, takes you to Osopcloud Settings.
+                On smaller displays, Home and Composer is on the header and
+                other Functions are accessible in Options.
               </Text>
-              <Text>We'll return each of these shortly.</Text>
-              <Button
-                leftIcon={<FiArrowRight />}
-                onClick={() => {
-                  setNavBarIconFocus(2);
-                }}
-              >
-                Continue
-              </Button>
-              <Button
-                leftIcon={<FiArrowLeft />}
-                onClick={() => {
-                  setNavBarIconFocus(0);
-                }}
-              >
-                Go Back
-              </Button>
-            </>
-          ) : (
-            <>
-              <Text>Also on the sidebar is a Share Point.</Text>
-              <Text>
-                Share Points allow you to bring your apps and friends into the
-                Osopcloud experience. When you open one, the native operating
-                system share sheet appears.
-              </Text>
-              <Text>
-                There's lots of Share Points sprinkled around the app. This
-                Share Point shares the page that you're currently on.
-              </Text>
-              <Text>
-                You can also enable printing options on the sidebar. Open
-                Settings to do this.
+              <Text fontSize="xs">
+                You can add Functions in the Function Gallery.
               </Text>
               <Button
                 leftIcon={<FiArrowRight />}
@@ -191,7 +133,7 @@ export default function AppTour() {
               <Button
                 leftIcon={<FiArrowLeft />}
                 onClick={() => {
-                  setNavBarIconFocus(1);
+                  setFunctionBarIconFocus(0);
                 }}
               >
                 Go Back
@@ -608,19 +550,25 @@ export default function AppTour() {
           <Button
             leftIcon={<FiArrowRight />}
             onClick={() => {
-              setIsReloading(true);
-              window.location.reload();
+              setIsReloadingHome(true);
+              router.reload();
             }}
-            isLoading={isReloading}
+            isLoading={isReloadingHome}
             loadingText="Closing Tour"
           >
             Close Tour
           </Button>
-          <Link href="/docs" passHref>
-            <Button leftIcon={<FiArrowRight />} as="a">
-              Learn More in Documentation
-            </Button>
-          </Link>
+          <Button
+            leftIcon={<FiArrowRight />}
+            onClick={() => {
+              setIsReloadingDocs(true);
+              window.location.href = "/docs";
+            }}
+            isLoading={isReloadingDocs}
+            loadingText="Opening Documentation"
+          >
+            Learn More in Documentation
+          </Button>
         </Stack>
         <Stack direction="column" spacing={2}>
           <Button
@@ -634,7 +582,7 @@ export default function AppTour() {
           <Button
             leftIcon={<FiRefreshCw />}
             onClick={() => {
-              setNavBarIconFocus(0);
+              setFunctionBarIconFocus(0);
               setHomeAreaFocus(0);
               setComposerAreaFocus(0);
               setActiveTab(0);
@@ -649,19 +597,23 @@ export default function AppTour() {
   const tabArray = [
     {
       label: "Navigation",
-      component: <TourNavigationBar />,
+      component: <TourFunctionBar />,
+      progress: functionBarIconFocus === 0 ? 12.5 : 25,
     },
     {
       label: "Home",
       component: <TourHome />,
+      progress: homeAreaFocus === 0 ? 37.5 : homeAreaFocus === 1 ? 50 : 67.5,
     },
     {
       label: "Osopcloud Composer & Storage",
       component: <TourComposerSettingsStorage />,
+      progress: composerAreaFocus === 0 ? 75 : 87.5,
     },
     {
       label: "End of Tour",
       component: <EndOfTour />,
+      progress: 100,
     },
   ];
 
@@ -670,9 +622,15 @@ export default function AppTour() {
       <Container maxW="container.md">
         <Flex>
           <Spacer />
-          <Text fontSize="xs">
-            {tabArray[activeTab].label} ({activeTab + 1}/4)
-          </Text>
+          <Progress
+            value={tabArray[activeTab].progress}
+            aria-label={`${tabArray[activeTab].progress}% complete`}
+            title={`${tabArray[activeTab].progress}% complete`}
+            size="xs"
+            colorScheme="almondScheme"
+            w="20%"
+            borderRadius="full"
+          />
         </Flex>
         <Box pt={10}>
           {/* Current tab */}

@@ -86,8 +86,10 @@ export default function DocsLayout({ children }: LayoutProps) {
             </Link>
           </Stack>
           <Stack direction="column" spacing={2}>
-            <Text fontWeight={600}>Badges, Settings, &amp; Accessibility</Text>
-            <Link href="/docs/badges" passHref>
+            <Text fontWeight={600}>
+              Functions, Settings, &amp; Accessibility
+            </Text>
+            <Link href="/docs/functions" passHref>
               <Button
                 as="a"
                 isActive={sidebarActiveIndex === 5}
@@ -95,7 +97,7 @@ export default function DocsLayout({ children }: LayoutProps) {
                   setSidebarActiveIndex(5);
                 }}
               >
-                About Badges
+                About Functions
               </Button>
             </Link>
             <Link href="/docs/settings" passHref>
