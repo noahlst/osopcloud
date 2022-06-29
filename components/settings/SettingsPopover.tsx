@@ -14,6 +14,7 @@ import { FiMoreVertical } from "react-icons/fi";
 
 // First party components
 import SettingsOverlay from "components/settings/SettingsOverlay";
+import FunctionGallery from "components/settings/FunctionGallery";
 
 // Start component
 export default function SettingsPopover() {
@@ -26,6 +27,9 @@ export default function SettingsPopover() {
       />
       <Portal>
         <MenuList borderRadius="xl">
+          <FunctionGallery directLink={0} useMenuItem={true} />
+          <FunctionGallery directLink={1} useMenuItem={true} />
+          <MenuDivider />
           <MenuItem isDisabled>Open in Osopcloud App</MenuItem>
           <MenuDivider />
           <SettingsOverlay directLink={0} useMenuItem={true} />
