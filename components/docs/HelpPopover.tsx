@@ -36,7 +36,7 @@ export default function HelpPopover() {
           <MenuItem isDisabled>Developer Documentation on GitHub</MenuItem>
           <MenuDivider />
           <Link href="/about/privacy" passHref>
-            <MenuItem as="a">Osopcloud Privacy Notice</MenuItem>
+            <MenuItem as="a">Osopcloud Privacy Statement</MenuItem>
           </Link>
           <Link href="/about/terms" passHref>
             <MenuItem as="a">Terms</MenuItem>
