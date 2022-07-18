@@ -9,21 +9,13 @@ import Head from "next/head";
 
 // Design
 import { Button, Heading, Stack } from "@chakra-ui/react";
+import { FiFileText, FiGithub, FiLifeBuoy } from "react-icons/fi";
+
+// First party components
+import SettingsOverlay from "components/settings/SettingsOverlay";
 
 // Layouts
 import Layout from "components/layouts/Layout";
-import {
-  FiFileText,
-  FiGithub,
-  FiHardDrive,
-  FiLayout,
-  FiLifeBuoy,
-  FiShare,
-  FiUser,
-  FiWifi,
-} from "react-icons/fi";
-import SettingsOverlay from "components/settings/SettingsOverlay";
-import FunctionGallery from "components/settings/FunctionGallery";
 
 // Start page
 export default function Settings() {
@@ -48,10 +40,6 @@ export default function Settings() {
           <SettingsOverlay directLink={0} useMenuItem={false} />
           <SettingsOverlay directLink={1} useMenuItem={false} />
           <SettingsOverlay directLink={2} useMenuItem={false} />
-        </Stack>
-        <Stack direction="column" spacing={2}>
-          <FunctionGallery directLink={0} useMenuItem={false} />
-          <FunctionGallery directLink={1} useMenuItem={false} />
         </Stack>
         <Link href="https://github.com/osopcloud/osopcloud" passHref>
           <Button leftIcon={<FiGithub />} as="a" target="_blank">
