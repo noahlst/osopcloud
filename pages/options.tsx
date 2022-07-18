@@ -66,7 +66,7 @@ export default function Settings() {
         <Stack direction="column" spacing={2}>
           <Link href="/about/privacy" passHref>
             <Button leftIcon={<FiFileText />} as="a">
-              Osopcloud Privacy Notice
+              Osopcloud Privacy Statement
             </Button>
           </Link>
           <Link href="/about/terms" passHref>

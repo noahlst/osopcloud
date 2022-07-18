@@ -86,26 +86,13 @@ export default function DocsLayout({ children }: LayoutProps) {
             </Link>
           </Stack>
           <Stack direction="column" spacing={2}>
-            <Text fontWeight={600}>
-              Functions, Settings, &amp; Accessibility
-            </Text>
-            <Link href="/docs/functions" passHref>
+            <Text fontWeight={600}>Settings &amp; Accessibility</Text>
+            <Link href="/docs/settings" passHref>
               <Button
                 as="a"
                 isActive={sidebarActiveIndex === 5}
                 onClick={() => {
                   setSidebarActiveIndex(5);
-                }}
-              >
-                About Functions
-              </Button>
-            </Link>
-            <Link href="/docs/settings" passHref>
-              <Button
-                as="a"
-                isActive={sidebarActiveIndex === 6}
-                onClick={() => {
-                  setSidebarActiveIndex(6);
                 }}
               >
                 About Settings
@@ -114,9 +101,9 @@ export default function DocsLayout({ children }: LayoutProps) {
             <Link href="/docs/accessibility" passHref>
               <Button
                 as="a"
-                isActive={sidebarActiveIndex === 7}
+                isActive={sidebarActiveIndex === 6}
                 onClick={() => {
-                  setSidebarActiveIndex(7);
+                  setSidebarActiveIndex(6);
                 }}
               >
                 Accessibility Options
@@ -125,9 +112,9 @@ export default function DocsLayout({ children }: LayoutProps) {
             <Link href="/docs/storage" passHref>
               <Button
                 as="a"
-                isActive={sidebarActiveIndex === 8}
+                isActive={sidebarActiveIndex === 7}
                 onClick={() => {
-                  setSidebarActiveIndex(8);
+                  setSidebarActiveIndex(7);
                 }}
               >
                 About Storage
@@ -139,9 +126,9 @@ export default function DocsLayout({ children }: LayoutProps) {
             <Link href="/docs/sharing" passHref>
               <Button
                 as="a"
-                isActive={sidebarActiveIndex === 9}
+                isActive={sidebarActiveIndex === 8}
                 onClick={() => {
-                  setSidebarActiveIndex(9);
+                  setSidebarActiveIndex(8);
                 }}
               >
                 Share Points &amp; Printing
@@ -150,9 +137,9 @@ export default function DocsLayout({ children }: LayoutProps) {
             <Link href="/docs/keyboard-shortcuts" passHref>
               <Button
                 as="a"
-                isActive={sidebarActiveIndex === 10}
+                isActive={sidebarActiveIndex === 9}
                 onClick={() => {
-                  setSidebarActiveIndex(10);
+                  setSidebarActiveIndex(9);
                 }}
               >
                 Keyboard Shortcuts
@@ -162,9 +149,9 @@ export default function DocsLayout({ children }: LayoutProps) {
           <Stack direction="column" spacing={2}>
             <Text fontWeight={600}>Technical Documentation</Text>
             <Button
-              isActive={sidebarActiveIndex === 11}
+              isActive={sidebarActiveIndex === 10}
               onClick={() => {
-                setSidebarActiveIndex(11);
+                setSidebarActiveIndex(10);
               }}
               isDisabled
             >
@@ -173,9 +160,9 @@ export default function DocsLayout({ children }: LayoutProps) {
             <Link href="/docs/errors" passHref>
               <Button
                 as="a"
-                isActive={sidebarActiveIndex === 12}
+                isActive={sidebarActiveIndex === 11}
                 onClick={() => {
-                  setSidebarActiveIndex(12);
+                  setSidebarActiveIndex(11);
                 }}
               >
                 Error Code Reference
