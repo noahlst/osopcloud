@@ -17,21 +17,22 @@ import {
   DarkMode,
   Spacer,
   Stack,
-  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import {
   FiPlus,
-  FiSettings,
   FiShare,
   FiGithub,
   FiChevronLeft,
   FiPrinter,
+  FiMoreVertical,
 } from "react-icons/fi";
 import { HeaderLogo, LogoNoColour } from "components/brand/Logo";
 
 // First party components
 import CheckPWA from "lib/CheckPWA";
+import SettingsPopover from "components/settings/SettingsPopover";
+import HelpPopover from "components/docs/HelpPopover";
 
 // Settings
 import { useLocalStorage } from "@rehooks/local-storage";
@@ -122,8 +123,6 @@ export default function Layout({
     );
   }
 
-  const vercelLogoColour = useColorModeValue("black", "white");
-
   return (
     // Create a flex container
     <Flex
@@ -143,11 +142,11 @@ export default function Layout({
         display={{ base: "none", sm: "flex" }}
         as="aside"
       >
-        {/* @ts-ignore */}
-        <DarkMode>
-          <Flex direction="column" p={5}>
-            <Suspense fallback={<Loading />}>
-              {CheckPWA() && (
+        <Flex direction="column" p={5}>
+          <Suspense fallback={<Loading />}>
+            {CheckPWA() && (
+              // @ts-ignore
+              <DarkMode>
                 <IconButton
                   icon={<FiChevronLeft />}
                   aria-label="Go Back"
@@ -155,9 +154,12 @@ export default function Layout({
                   mb={5}
                   onClick={router.back}
                 />
-              )}
-            </Suspense>
-            <Stack direction="column" spacing={2}>
+              </DarkMode>
+            )}
+          </Suspense>
+          <Stack direction="column" spacing={2}>
+            {/* @ts-ignore */}
+            <DarkMode>
               <Link href="/" passHref>
                 <IconButton
                   icon={<LogoIcon />}
@@ -167,6 +169,9 @@ export default function Layout({
                   isActive={sidebarActiveIndex === 0}
                 />
               </Link>
+            </DarkMode>
+            {/* @ts-ignore */}
+            <DarkMode>
               <Link href="/composer" passHref>
                 <IconButton
                   icon={<FiPlus />}
@@ -176,43 +181,9 @@ export default function Layout({
                   isActive={sidebarActiveIndex === 1}
                 />
               </Link>
-            </Stack>
-            <Spacer />
-            <Stack direction="column" spacing={2}>
-              <Suspense fallback={<Loading />}>
-                {showShareButton ?? (
-                  <>
-                    {shareCompatibility ? (
-                      <IconButton
-                        icon={<FiShare />}
-                        aria-label="Share"
-                        size="lg"
-                        onClick={Share}
-                      />
-                    ) : null}
-                    {showPrintButton && (
-                      <IconButton
-                        icon={<FiPrinter />}
-                        aria-label="Print"
-                        size="lg"
-                        onClick={Print}
-                      />
-                    )}
-                  </>
-                )}
-              </Suspense>
-              <Link href="/settings/general" passHref>
-                <IconButton
-                  icon={<FiSettings />}
-                  aria-label="Settings"
-                  size="lg"
-                  as="a"
-                  isActive={sidebarActiveIndex === 2}
-                />
-              </Link>
-            </Stack>
-          </Flex>
-        </DarkMode>
+            </DarkMode>
+          </Stack>
+        </Flex>
       </Flex>
 
       {/* Mobile header */}
@@ -242,10 +213,10 @@ export default function Layout({
               isActive={sidebarActiveIndex === 1}
             />
           </Link>
-          <Link href="/settings" passHref>
+          <Link href="/options" passHref>
             <IconButton
-              icon={<FiSettings />}
-              aria-label="Settings"
+              icon={<FiMoreVertical />}
+              aria-label="Options"
               size="lg"
               as="a"
               isActive={sidebarActiveIndex === 2}
@@ -261,41 +232,72 @@ export default function Layout({
         position="relative"
         overflow="hidden"
         direction="column"
-        ps={{ base: 0, sm: 115 }}
+        ps={{ base: 0, sm: 150 }}
       >
-        <Flex flex={1} p={5} pe={{ base: 5, sm: 10 }} py={10}>
+        <Flex display={{ base: "none", sm: "flex" }} p={5}>
+          <Spacer />
+          <Stack direction="row" spacing={2}>
+            <Suspense fallback={<Loading />}>
+              {showShareButton ?? (
+                <>
+                  {shareCompatibility ? (
+                    <IconButton
+                      icon={<FiShare />}
+                      aria-label="Share"
+                      onClick={Share}
+                    />
+                  ) : null}
+                  {showPrintButton && (
+                    <IconButton
+                      icon={<FiPrinter />}
+                      aria-label="Print"
+                      onClick={Print}
+                    />
+                  )}
+                </>
+              )}
+            </Suspense>
+            <HelpPopover />
+            <SettingsPopover />
+          </Stack>
+        </Flex>
+        <Flex flex={1} p={5} pe={{ base: 5, sm: 10 }} py={5}>
           <Box w="100%" id="printRegion" as="main">
             {children}
           </Box>
         </Flex>
-        <Stack
-          p={5}
-          pe={{ base: "inherit", sm: 10 }}
-          as="footer"
-          direction="row"
-          spacing={2}
-        >
-          <Link href="https://github.com/osopcloud/osopcloud" passHref>
-            <Button leftIcon={<FiGithub />} size="sm" as="a">
-              GitHub
-            </Button>
-          </Link>
-          <Link href="/docs" passHref>
-            <Button size="sm" as="a" display={{ base: "none", sm: "flex" }}>
-              Documentation
-            </Button>
-          </Link>
-          <Link href="/about/privacy" passHref>
-            <Button size="sm" as="a">
-              Privacy
-            </Button>
-          </Link>
-          <Link href="/about/terms" passHref>
-            <Button size="sm" as="a">
-              Terms
-            </Button>
-          </Link>
-        </Stack>
+        {/* Normally we link to our privacy notice and terms in the help menu (popover dropdown) */}
+        {/* However, we need a way for noscript users to access these due to legal requirements */}
+        <noscript>
+          <Stack
+            p={5}
+            pe={{ base: "inherit", sm: 10 }}
+            as="footer"
+            direction="row"
+            spacing={2}
+          >
+            <Link href="https://github.com/osopcloud/osopcloud" passHref>
+              <Button leftIcon={<FiGithub />} size="sm" as="a">
+                GitHub
+              </Button>
+            </Link>
+            <Link href="/docs" passHref>
+              <Button size="sm" as="a" display={{ base: "none", sm: "flex" }}>
+                Documentation
+              </Button>
+            </Link>
+            <Link href="/about/privacy" passHref>
+              <Button size="sm" as="a">
+                Privacy
+              </Button>
+            </Link>
+            <Link href="/about/terms" passHref>
+              <Button size="sm" as="a">
+                Terms
+              </Button>
+            </Link>
+          </Stack>
+        </noscript>
       </Flex>
     </Flex>
   );

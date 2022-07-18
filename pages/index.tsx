@@ -628,7 +628,7 @@ export default function Home({
             </Suspense>
           </Stack>
         </Stack>
-        <Center h="100vh" pb="100" display={{ base: "none", lg: "flex" }}>
+        <Center h="100vh" pb={200} display={{ base: "none", lg: "flex" }}>
           <Icon w={250} h={250} aria-label="Osopcloud Logo">
             <Logo />
           </Icon>

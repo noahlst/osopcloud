@@ -36,12 +36,7 @@ export default function DocumentationHome() {
       </Head>
 
       <Stack direction="column" spacing={5}>
-        <Stack direction="row" spacing={5}>
-          <Heading>Osopcloud Documentation</Heading>
-          <Center>
-            <Badge colorScheme="orange">Beta Preview</Badge>
-          </Center>
-        </Stack>
+        <Heading>Osopcloud Documentation</Heading>
         <Text>
           Osopcloud Documentation is help, tips, and insights for the Osopcloud
           platform.
