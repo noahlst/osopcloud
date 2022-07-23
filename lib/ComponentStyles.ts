@@ -1,3 +1,9 @@
+export const Badge = {
+  baseStyle: {
+    borderRadius: "md",
+  },
+};
+
 export const Button = {
   baseStyle: {
     fontWeight: 600,
@@ -18,11 +24,10 @@ export const Button = {
 };
 
 export const Heading = {
-  baseStyle: ({ colorMode }: { colorMode: string }) => ({
+  baseStyle: {
     fontWeight: 600,
     fontSize: "xl",
-    color: colorMode === "dark" ? "sandstone" : "almond",
-  }),
+  },
 };
 
 export const Input = {

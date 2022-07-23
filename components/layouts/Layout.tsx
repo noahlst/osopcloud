@@ -26,13 +26,12 @@ import {
   FiChevronLeft,
   FiPrinter,
   FiMoreVertical,
+  FiEdit,
 } from "react-icons/fi";
 import { HeaderLogo, LogoNoColour } from "components/brand/Logo";
 
 // First party components
 import CheckPWA from "lib/CheckPWA";
-import SettingsPopover from "components/settings/SettingsPopover";
-import HelpPopover from "components/docs/HelpPopover";
 
 // Settings
 import { useLocalStorage } from "@rehooks/local-storage";
@@ -145,16 +144,13 @@ export default function Layout({
         <Flex direction="column" p={5}>
           <Suspense fallback={<Loading />}>
             {CheckPWA() && (
-              // @ts-ignore
-              <DarkMode>
-                <IconButton
-                  icon={<FiChevronLeft />}
-                  aria-label="Go Back"
-                  size="lg"
-                  mb={5}
-                  onClick={router.back}
-                />
-              </DarkMode>
+              <IconButton
+                icon={<FiChevronLeft />}
+                aria-label="Go Back"
+                size="lg"
+                mb={5}
+                onClick={router.back}
+              />
             )}
           </Suspense>
           <Stack direction="column" spacing={2}>
@@ -174,11 +170,54 @@ export default function Layout({
             <DarkMode>
               <Link href="/composer" passHref>
                 <IconButton
-                  icon={<FiPlus />}
+                  icon={<FiEdit />}
                   aria-label="Osopcloud Composer"
                   size="lg"
                   as="a"
                   isActive={sidebarActiveIndex === 1}
+                />
+              </Link>
+            </DarkMode>
+          </Stack>
+          <Spacer />
+          <Stack direction="column" spacing={2}>
+            <Suspense fallback={<Loading />}>
+              {showShareButton ?? (
+                <>
+                  {shareCompatibility ? (
+                    // @ts-ignore
+                    <DarkMode>
+                      <IconButton
+                        icon={<FiShare />}
+                        size="lg"
+                        aria-label="Share"
+                        onClick={Share}
+                      />
+                    </DarkMode>
+                  ) : null}
+                  {showPrintButton && (
+                    // @ts-ignore
+                    <DarkMode>
+                      <IconButton
+                        icon={<FiPrinter />}
+                        size="lg"
+                        aria-label="Print"
+                        onClick={Print}
+                      />
+                    </DarkMode>
+                  )}
+                </>
+              )}
+            </Suspense>
+            {/* @ts-ignore */}
+            <DarkMode>
+              <Link href="/options" passHref>
+                <IconButton
+                  icon={<FiMoreVertical />}
+                  aria-label="Settings"
+                  size="lg"
+                  as="a"
+                  isActive={sidebarActiveIndex === 2}
                 />
               </Link>
             </DarkMode>
@@ -234,34 +273,7 @@ export default function Layout({
         direction="column"
         ps={{ base: 0, sm: 150 }}
       >
-        <Flex display={{ base: "none", sm: "flex" }} p={5}>
-          <Spacer />
-          <Stack direction="row" spacing={2}>
-            <Suspense fallback={<Loading />}>
-              {showShareButton ?? (
-                <>
-                  {shareCompatibility ? (
-                    <IconButton
-                      icon={<FiShare />}
-                      aria-label="Share"
-                      onClick={Share}
-                    />
-                  ) : null}
-                  {showPrintButton && (
-                    <IconButton
-                      icon={<FiPrinter />}
-                      aria-label="Print"
-                      onClick={Print}
-                    />
-                  )}
-                </>
-              )}
-            </Suspense>
-            <HelpPopover />
-            <SettingsPopover />
-          </Stack>
-        </Flex>
-        <Flex flex={1} p={5} pe={{ base: 5, sm: 10 }} py={5}>
+        <Flex flex={1} ps={5} pe={{ base: 5, sm: 10 }} pt={20} pb={5}>
           <Box w="100%" id="printRegion" as="main">
             {children}
           </Box>

@@ -1,0 +1,356 @@
+// Types
+import type { ReactElement } from "react";
+
+// Routing
+import Link from "next/link";
+
+// SEO
+import Head from "next/head";
+
+// Design
+import {
+  Button,
+  Center,
+  Flex,
+  Heading,
+  Icon,
+  SimpleGrid,
+  Spacer,
+  Spinner,
+  Stack,
+  Switch,
+  Text,
+} from "@chakra-ui/react";
+import {
+  FiDatabase,
+  FiSettings,
+  FiSidebar,
+  FiSliders,
+  FiTool,
+} from "react-icons/fi";
+import { AnimatePresence, motion } from "framer-motion";
+
+// First party components
+import { version } from "components/Version";
+
+// Layouts
+import Layout from "components/layouts/Layout";
+
+// Storage handling
+import useLocalStorage, { writeStorage } from "@rehooks/local-storage";
+import {
+  clearAllStorage,
+  exportCB,
+  importCB,
+  version as versionMXUPS,
+} from "@hikium/mxups";
+
+import { useState, useEffect } from "react";
+
+// Start page
+export default function Settings() {
+  // Get settings
+  const [systemFont] = useLocalStorage("settingsUseSystemFont");
+  const [switchLabels] = useLocalStorage("settingsShowSwitchLabels");
+  const [settingsDisableCOKeyboardShortcuts] = useLocalStorage(
+    "settingsDisableCOKeyboardShortcuts"
+  );
+  const [showPrintButton] = useLocalStorage("settingsShowPrintButton");
+  const [disableDynamicPrinting] = useLocalStorage(
+    "settingsDisableDynamicPrinting"
+  );
+  const [immediateUpdate] = useLocalStorage("forceUpdate");
+
+  const [applyingCustomFont, setApplyingCustomFont] = useState(false);
+
+  // Icons from the array
+  const [iconIndex, setIconIndex] = useState(0);
+  const [icon, setIcon] = useState([
+    { component: <FiSettings />, label: "Settings" },
+    { component: <FiSidebar />, label: "Sidebar" },
+    { component: <FiSliders />, label: "Advanced Settings" },
+    { component: <FiDatabase />, label: "Storage" },
+    { component: <FiTool />, label: "Diagnostic Information" },
+  ]);
+
+  // Get storage size
+  const [storageSize, setStorageSize] = useState(0);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (navigator.storage) {
+        navigator.storage.estimate().then((estimate) => {
+          // estimate.usage is in bytes
+          // However to show the user, we need to convert to MB and round to one decimal place
+          const storageSizeMB = estimate.usage
+            ? Math.round((estimate.usage / 1024 / 1024) * 10) / 10
+            : 0;
+          setStorageSize(storageSizeMB);
+        });
+      }
+    }
+  });
+
+  // Export storage
+  const [hasExportedStorage, setHasExportedStorage] = useState(false);
+  function ExportStorageCB() {
+    exportCB();
+
+    // For 3 seconds, make hasExportedStorage true
+    // This will disable the button
+    setHasExportedStorage(true);
+    setTimeout(() => {
+      setHasExportedStorage(false);
+    }, 3000);
+  }
+
+  // Log MXUPS version
+  useEffect(() => {
+    // This automatically logs the version of MXUPS
+    versionMXUPS();
+  });
+
+  return (
+    <>
+      <Head>
+        <title>Settings &mdash; Osopcloud</title>
+        <meta name="description" content="Customise and configure Osopcloud." />
+        <meta name="og:title" content="Osopcloud Settings" />
+        <meta
+          name="og:description"
+          content="Customise and configure Osopcloud."
+        />
+      </Head>
+
+      <Stack direction="column" spacing={10}>
+        <Heading>Osopcloud Settings</Heading>
+        <SimpleGrid minChildWidth="340px" spacing={10}>
+          <Stack direction="column" spacing={10}>
+            <Stack
+              direction="column"
+              spacing={2}
+              onMouseOver={() => setIconIndex(1)}
+            >
+              <Text textStyle="miniHeading">In the Sidebar</Text>
+              <Flex display={{ base: "none", sm: "flex" }}>
+                <Center>
+                  <Text>Show Printing Options</Text>
+                </Center>
+                <Spacer />
+                <Stack direction="row" spacing={5}>
+                  {switchLabels && (
+                    <Center>
+                      <Text fontSize="xs">
+                        {showPrintButton ? "on" : "off"}
+                      </Text>
+                    </Center>
+                  )}
+                  <Switch
+                    // @ts-ignore
+                    isChecked={showPrintButton}
+                    onChange={() =>
+                      writeStorage(
+                        "settingsShowPrintButton",
+                        showPrintButton ? false : true
+                      )
+                    }
+                    colorScheme="almondScheme"
+                    size="lg"
+                  />
+                </Stack>
+              </Flex>
+            </Stack>
+            <Stack
+              direction="column"
+              spacing={2}
+              onMouseOver={() => setIconIndex(2)}
+            >
+              <Text textStyle="miniHeading">
+                Advanced Application Behaviours
+              </Text>
+              <Flex>
+                <Center>
+                  <Text>Disable Dynamic Printing</Text>
+                </Center>
+                <Spacer />
+                <Center>
+                  <Stack direction="row" spacing={5}>
+                    {switchLabels && (
+                      <Center>
+                        <Text fontSize="xs">
+                          {disableDynamicPrinting ? "on" : "off"}
+                        </Text>
+                      </Center>
+                    )}
+                    <Switch
+                      // @ts-ignore
+                      isChecked={disableDynamicPrinting}
+                      onChange={() =>
+                        writeStorage(
+                          "settingsDisableDynamicPrinting",
+                          disableDynamicPrinting ? false : true
+                        )
+                      }
+                      colorScheme="almondScheme"
+                      size="lg"
+                    />
+                  </Stack>
+                </Center>
+              </Flex>
+              <Flex>
+                <Center>
+                  <Text>Disable Custom Product Fonts</Text>
+                </Center>
+                <Spacer />
+                <Stack direction="row" spacing={5}>
+                  {/* If applying the custom font, show a Spinner */}
+                  {applyingCustomFont && (
+                    <Center>
+                      <Spinner size="xs" />
+                    </Center>
+                  )}
+                  {switchLabels && (
+                    <Center>
+                      <Text fontSize="xs">
+                        {applyingCustomFont
+                          ? systemFont
+                            ? "turning on"
+                            : "turning off"
+                          : systemFont
+                          ? "on"
+                          : "off"}
+                      </Text>
+                    </Center>
+                  )}
+                  <Switch
+                    // @ts-ignore
+                    isChecked={systemFont}
+                    onChange={() => {
+                      setApplyingCustomFont(true);
+                      writeStorage(
+                        "settingsUseSystemFont",
+                        systemFont ? false : true
+                      );
+                      window.location.reload();
+                    }}
+                    colorScheme="almondScheme"
+                    size="lg"
+                  />
+                </Stack>
+              </Flex>
+              <Flex>
+                <Center>
+                  <Text>Disable Character-Only Keyboard Shortcuts</Text>
+                </Center>
+                <Spacer />
+                <Stack direction="row" spacing={5}>
+                  {switchLabels && (
+                    <Center>
+                      <Text fontSize="xs">
+                        {settingsDisableCOKeyboardShortcuts ? "on" : "off"}
+                      </Text>
+                    </Center>
+                  )}
+                  <Switch
+                    // @ts-ignore
+                    isChecked={settingsDisableCOKeyboardShortcuts}
+                    onChange={() => {
+                      writeStorage(
+                        "settingsDisableCOKeyboardShortcuts",
+                        settingsDisableCOKeyboardShortcuts ? false : true
+                      );
+                    }}
+                    colorScheme="almondScheme"
+                    size="lg"
+                  />
+                </Stack>
+              </Flex>
+              <Flex>
+                <Center>
+                  <Text>Install Updates Immediately</Text>
+                </Center>
+                <Spacer />
+                <Stack direction="row" spacing={5}>
+                  {switchLabels && (
+                    <Center>
+                      <Text fontSize="xs">
+                        {immediateUpdate ? "on" : "off"}
+                      </Text>
+                    </Center>
+                  )}
+                  <Switch
+                    // @ts-ignore
+                    isChecked={immediateUpdate}
+                    onChange={() =>
+                      writeStorage(
+                        "forceUpdate",
+                        immediateUpdate ? false : true
+                      )
+                    }
+                    colorScheme="almondScheme"
+                    size="lg"
+                  />
+                </Stack>
+              </Flex>
+            </Stack>
+            <Stack
+              direction="column"
+              spacing={2}
+              onMouseOver={() => setIconIndex(3)}
+            >
+              <Text textStyle="miniHeading">Manage Application Storage</Text>
+              <Button onClick={() => importCB()}>
+                Import Storage from Clipboard
+              </Button>
+              <Button onClick={ExportStorageCB} isDisabled={hasExportedStorage}>
+                {hasExportedStorage ? "Copied" : "Export Storage to Clipboard"}
+              </Button>
+              <Button onClick={() => clearAllStorage()}>Reset Osopcloud</Button>
+            </Stack>
+            <Stack
+              direction="column"
+              spacing={2}
+              onMouseOver={() => setIconIndex(4)}
+            >
+              {storageSize && (
+                <Text fontSize="xs">
+                  Osopcloud is storing {storageSize} MB, on this device, for
+                  this browser
+                </Text>
+              )}
+              <Text fontSize="xs">
+                Osopcloud Web Application version {version}
+              </Text>
+              <Text fontSize="xs">
+                Application storage powered by{" "}
+                <Link href="https://github.com/hikium/mxups">Hikium MXUPS</Link>
+              </Text>
+            </Stack>
+          </Stack>
+          <Center h="100vh" pb={330} display={{ base: "none", lg: "flex" }}>
+            <AnimatePresence exitBeforeEnter>
+              <motion.div
+                key={iconIndex}
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -10, opacity: 0 }}
+                transition={{ duration: 0.125 }}
+              >
+                {/* Use the icon with the iconIndex param */}
+                <Icon w={200} h={200} aria-label={icon[iconIndex].label}>
+                  {icon[iconIndex].component}
+                </Icon>
+              </motion.div>
+            </AnimatePresence>
+          </Center>
+        </SimpleGrid>
+      </Stack>
+    </>
+  );
+}
+Settings.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout showToTopButton={false} showShareButton={false}>
+      {page}
+    </Layout>
+  );
+};

@@ -26,7 +26,7 @@ import {
 } from "@chakra-ui/react";
 
 // First-party components
-import Logo from "components/brand/Logo";
+import { LogoNoColour } from "components/brand/Logo";
 import DynamicModal from "components/system/DynamicModal";
 
 // JSON processing
@@ -630,7 +630,7 @@ export default function Home({
         </Stack>
         <Center h="100vh" pb={200} display={{ base: "none", lg: "flex" }}>
           <Icon w={250} h={250} aria-label="Osopcloud Logo">
-            <Logo />
+            <LogoNoColour />
           </Icon>
         </Center>
       </SimpleGrid>
