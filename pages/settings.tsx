@@ -146,14 +146,15 @@ export default function Settings() {
       <Stack direction="column" spacing={10}>
         <Heading>Osopcloud Settings</Heading>
         <SimpleGrid minChildWidth="340px" spacing={10}>
-          <Stack direction="column" spacing={10}>
+          <Stack direction="column" spacing={{ base: 5, md: 10 }}>
             <Stack
               direction="column"
               spacing={2}
               onMouseOver={() => setIconIndex(1)}
+              display={{ base: "none", sm: "flex" }}
             >
               <Text textStyle="miniHeading">In the Sidebar</Text>
-              <Flex display={{ base: "none", sm: "flex" }}>
+              <Flex>
                 <Center>
                   <Text>Show Printing Options</Text>
                 </Center>

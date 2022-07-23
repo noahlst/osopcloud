@@ -1,8 +1,3 @@
----
-name: "Share Points and Printing"
-date: "2022-06-24"
----
-
 # Share Points and Printing
 
 ## Share Points
@@ -17,9 +12,6 @@ If you need to print on Osopcloud, take advantage of the app's built-in printing
 
 You can add a dedicated print button to the sidebar in Settings. When you select the app's print button, or use the Command+P or Control+P shortcut, Dynamic Printing kicks in.
 
-Dynamic Printing automatically hides the layout before bringing up the print dialog. This lets you focus on the content, while reducing ink, paper, and your environmental impact.
+Dynamic Printing automatically hides the layout before bringing up the print dialogue. This lets you focus on the content, while reducing ink, paper, and your environmental impact.
 
-<Note>
-  To print the full page, including the layout, use the browser print option, or
-  enable "Disable Dynamic Printing" in Settings.
-</Note>
+> To print the full page, including the layout, use the browser print option, or enable "Disable Dynamic Printing" in Settings.

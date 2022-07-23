@@ -1,8 +1,3 @@
----
-name: "Error Reference"
-date: "2022-06-11"
----
-
 # Error Reference
 
 ## Application Errors

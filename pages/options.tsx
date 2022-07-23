@@ -58,9 +58,12 @@ export default function Options() {
                 Osopcloud GitHub Repository
               </Button>
             </Link>
-            <Link href="/docs" passHref>
-              <Button leftIcon={<FiLifeBuoy />} as="a">
-                Osopcloud Documentation
+            <Link
+              href="https://github.com/osopcloud/osopcloud/tree/main/docs"
+              passHref
+            >
+              <Button leftIcon={<FiLifeBuoy />} as="a" target="_blank">
+                Documentation on GitHub
               </Button>
             </Link>
             <Stack direction="column" spacing={2}>

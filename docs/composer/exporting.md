@@ -1,8 +1,3 @@
----
-name: "Exporting from the Osopcloud Composer"
-date: "2022-06-24"
----
-
 # Exporting from the Osopcloud Composer
 
 First, thank you for your interest in contributing to the Osopcloud project!
@@ -11,7 +6,7 @@ Once you've finished working on an Osopcloud Composer work, you need to get it o
 
 Osopcloud itself is open-source and so the way to get new content onto the platform is through GitHub. Open a pull request, wait a few days, and you're new OS will be live.
 
-<Note m={true}>You need a free GitHub account to contribute.</Note>
+> You need a free GitHub account to contribute.
 
 ## Exporting with GitHub
 
@@ -30,10 +25,7 @@ This will then bring up the web interface in a new tab. Now:
 4. Name the branch.
 5. Select "Propose New File".
 
-<Note m={true}>
-  You may be prompted to "sign off" your changes. This acknowledges that you
-  agree to contribution policies.
-</Note>
+> You may be prompted to "sign off" your changes. This acknowledges that you agree to contribution policies.
 
 ## Exporting without GitHub
 
@@ -49,7 +41,4 @@ Here you can:
 
 From here you can use your local environment to merge the code into the repository.
 
-<Note m={true}>
-  You should use the Git `--signoff` CLI flag. This acknowledges that you agree
-  to contribution policies.
-</Note>
+> You should use the Git `--signoff` CLI flag. This acknowledges that you agree to contribution policies.

@@ -1,8 +1,3 @@
----
-name: "Operating System Pages"
-date: "2022-06-25"
----
-
 # Operating System Pages
 
 At the heart of Osopcloud are Operating System Pages. Each open-source operating system on the Osopcloud platform gets it's own space for descriptions, metadata, and more.
@@ -24,19 +19,13 @@ On the top or on the right you can toggle between the Description tab and the Me
 
 Descriptions for operating systems are a paragraph describing the quirks, features, and details of the operating system. Read through descriptions to get an excellent overview of an OS. Then, select "Open Project Website" and visit the project's website to learn even more.
 
-<Note m={true}>
-  If the description, includes the footnote "This content presented by ...", it
-  means the content has been written by a member of the organisation listed. To
-  learn more, see About Osopcloud for Organisations.
-</Note>
+> If the description, includes the footnote "This content presented by ...", it means the content has been written by a member of the organisation listed. To learn more, see About Osopcloud for Organisations.
 
 ### Metadata
 
 Each operating system includes a comprehensive metadata table inside of the Metadata & More tab. Explore tabular columns including desktop, shell, package managers, startup framework, authors, and more. Go here to get a rapid overview of an OS.
 
-<Note m={true}>
-  Select an author with a linked @ username to see their GitHub profile.
-</Note>
+> Select an author with a linked @ username to see their GitHub profile.
 
 ### Links
 

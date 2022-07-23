@@ -1,8 +1,3 @@
----
-name: "Keyboard Shortcut Reference"
-date: "2022-07-18"
----
-
 # Keyboard Shortcuts
 
 Across Osopcloud, there's an assortment of keyboard shortcuts that you can use to navigate, set settings, and more.
