@@ -18,7 +18,6 @@ import {
   Badge,
   Box,
   Button,
-  Code,
   Flex,
   Heading,
   Stack,
@@ -30,6 +29,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { FiDatabase, FiFileText, FiTrash2 } from "react-icons/fi";
+import { AnimatePresence, m } from "framer-motion";
 
 // First party components
 import DynamicModal from "components/system/DynamicModal";
@@ -61,7 +61,8 @@ export default function OSPage({ source, rawJSONLink }: OSPageTypes) {
   const cancelRef = useRef(null);
 
   // Write Composer data
-  const [isComposerOccupied] = useLocalStorage("composerName");
+  const [currentComposerName] = useLocalStorage("composerName");
+  const [composerNameTemp, setComposerNameTemp] = useState(currentComposerName);
   const [writingToComposer, setWritingToComposer] = useState(false);
   function CopyToComposer() {
     setWritingToComposer(true);
@@ -90,7 +91,8 @@ export default function OSPage({ source, rawJSONLink }: OSPageTypes) {
         <Text>{source.description}</Text>
         {source.organisationName && (
           <Text fontSize="xs" mt={5}>
-            This content presented by {source.organisationName}.
+            This content presented by {source.organisationName}
+            {!source.organisationName.endsWith(".") && "."}
           </Text>
         )}
       </>
@@ -255,12 +257,6 @@ export default function OSPage({ source, rawJSONLink }: OSPageTypes) {
   ];
 
   // Keyboard shortcuts
-  useKeyboardShortcut("1", () => {
-    setActiveTab(0);
-  });
-  useKeyboardShortcut("2", () => {
-    setActiveTab(1);
-  });
   useKeyboardShortcut("w", () => {
     window.open(source.website, "_blank");
   });
@@ -305,74 +301,88 @@ export default function OSPage({ source, rawJSONLink }: OSPageTypes) {
                 </Button>
               ))}
             </Stack>
-            <Box>{tabArray[activeTab].content}</Box>
+            <AnimatePresence exitBeforeEnter>
+              <m.div
+                key={activeTab}
+                initial={{ x: 10, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -10, opacity: 0 }}
+                transition={{ duration: 0.175 }}
+              >
+                {tabArray[activeTab].content}
+              </m.div>
+            </AnimatePresence>
           </Box>
-          <Stack direction="column" spacing={5} ms={{ base: 0, sm: 10 }}>
-            <Stack direction="row" spacing={2}>
-              {/* Map source.tags but only show two */}
-              {source.tags.slice(0, 2).map((tag: string) => (
-                <Badge key={tag}>{tag}</Badge>
-              ))}
-            </Stack>
-            <Stack
-              direction="column"
-              spacing={2}
-              display={{ base: "none", sm: "flex" }}
-            >
-              {tabArray.map((tab, index) => (
-                <Button
-                  key={index}
-                  leftIcon={tab.icon}
-                  onClick={(_) => setActiveTab(index)}
-                  isActive={activeTab === index}
-                >
-                  {tab.label}
-                </Button>
-              ))}
-            </Stack>
-            <Stack direction="column" spacing={2}>
-              <Link href={source.website} passHref>
-                <Button as="a">Visit Project Website</Button>
-              </Link>
-              <Link href={source.repository} passHref>
-                <Button as="a">Visit Project Repository</Button>
-              </Link>
-            </Stack>
-            <Button
-              size="sm"
-              onClick={isComposerOccupied ? onOpen : CopyToComposer}
-            >
-              Open in Composer
-            </Button>
-            <DynamicModal
-              isOpen={isOpen}
-              onClose={onClose}
-              cancelRef={cancelRef}
-              useAlertDialog={true}
-            >
-              <Stack direction="column" spacing={5}>
-                <Heading size="md">Open in Composer?</Heading>
-                <Text>
-                  There is already a project open in the Osopcloud Composer.
-                </Text>
-                <Text>
-                  Your work, "{isComposerOccupied}", will be lost if you
-                  continue.
-                </Text>
-                <Button
-                  onClick={CopyToComposer}
-                  leftIcon={<FiTrash2 />}
-                  isLoading={writingToComposer}
-                  loadingText="Preparing Composer"
-                >
-                  Continue &amp; Reset Composer
-                </Button>
-                <Button onClick={onClose} ref={cancelRef}>
-                  Cancel
-                </Button>
+          <m.div
+            initial={{ x: 10, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -10, opacity: 0 }}
+            transition={{ duration: 0.175 }}
+          >
+            <Stack direction="column" spacing={5} ms={{ base: 0, sm: 10 }}>
+              <Stack direction="row" spacing={2}>
+                {/* Map source.tags but only show two */}
+                {source.tags.slice(0, 2).map((tag: string) => (
+                  <Badge key={tag}>{tag}</Badge>
+                ))}
               </Stack>
-            </DynamicModal>
-          </Stack>
+              <Stack
+                direction="column"
+                spacing={2}
+                display={{ base: "none", sm: "flex" }}
+              >
+                {tabArray.map((tab, index) => (
+                  <Button
+                    key={index}
+                    leftIcon={tab.icon}
+                    onClick={(_) => setActiveTab(index)}
+                    isActive={activeTab === index}
+                  >
+                    {tab.label}
+                  </Button>
+                ))}
+              </Stack>
+              <Stack direction="column" spacing={2}>
+                <Link href={source.website} passHref>
+                  <Button as="a">Visit Project Website</Button>
+                </Link>
+                <Link href={source.repository} passHref>
+                  <Button as="a">Visit Project Repository</Button>
+                </Link>
+              </Stack>
+              <Button onClick={currentComposerName ? onOpen : CopyToComposer}>
+                Open in Composer
+              </Button>
+              <DynamicModal
+                isOpen={isOpen}
+                onClose={onClose}
+                cancelRef={cancelRef}
+                useAlertDialog={true}
+              >
+                <Stack direction="column" spacing={5}>
+                  <Heading size="md">Open in Composer?</Heading>
+                  <Text>
+                    There is already a project open in the Osopcloud Composer.
+                  </Text>
+                  <Text>
+                    Your work, "{composerNameTemp}", will be lost if you
+                    continue.
+                  </Text>
+                  <Button
+                    onClick={CopyToComposer}
+                    leftIcon={<FiTrash2 />}
+                    isLoading={writingToComposer}
+                    loadingText="Preparing Composer"
+                  >
+                    Continue &amp; Reset Composer
+                  </Button>
+                  <Button onClick={onClose} ref={cancelRef}>
+                    Cancel
+                  </Button>
+                </Stack>
+              </DynamicModal>
+            </Stack>
+          </m.div>
         </Flex>
       </Stack>
     </>

@@ -23,11 +23,12 @@ import {
   FiPlus,
   FiShare,
   FiGithub,
-  FiChevronLeft,
   FiPrinter,
   FiMoreVertical,
   FiEdit,
+  FiArrowLeft,
 } from "react-icons/fi";
+import { AnimatePresence, m } from "framer-motion";
 import { HeaderLogo, LogoNoColour } from "components/brand/Logo";
 
 // First party components
@@ -145,7 +146,7 @@ export default function Layout({
           <Suspense fallback={<Loading />}>
             {CheckPWA() && (
               <IconButton
-                icon={<FiChevronLeft />}
+                icon={<FiArrowLeft />}
                 aria-label="Go Back"
                 size="lg"
                 mb={5}
@@ -185,26 +186,44 @@ export default function Layout({
               {showShareButton ?? (
                 <>
                   {shareCompatibility ? (
-                    // @ts-ignore
-                    <DarkMode>
-                      <IconButton
-                        icon={<FiShare />}
-                        size="lg"
-                        aria-label="Share"
-                        onClick={Share}
-                      />
-                    </DarkMode>
+                    <AnimatePresence exitBeforeEnter>
+                      <m.div
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -10, opacity: 0 }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        {/* @ts-ignore */}
+                        <DarkMode>
+                          <IconButton
+                            icon={<FiShare />}
+                            size="lg"
+                            aria-label="Share"
+                            onClick={Share}
+                          />
+                        </DarkMode>
+                      </m.div>
+                    </AnimatePresence>
                   ) : null}
                   {showPrintButton && (
-                    // @ts-ignore
-                    <DarkMode>
-                      <IconButton
-                        icon={<FiPrinter />}
-                        size="lg"
-                        aria-label="Print"
-                        onClick={Print}
-                      />
-                    </DarkMode>
+                    <AnimatePresence exitBeforeEnter>
+                      <m.div
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -10, opacity: 0 }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        {/* @ts-ignore */}
+                        <DarkMode>
+                          <IconButton
+                            icon={<FiPrinter />}
+                            size="lg"
+                            aria-label="Print"
+                            onClick={Print}
+                          />
+                        </DarkMode>
+                      </m.div>
+                    </AnimatePresence>
                   )}
                 </>
               )}
@@ -229,7 +248,7 @@ export default function Layout({
       <Flex display={{ base: "flex", sm: "none" }} p={5} as="header">
         <Stack direction="row" spacing={5}>
           <IconButton
-            icon={<FiChevronLeft />}
+            icon={<FiArrowLeft />}
             aria-label="Go Back"
             size="lg"
             onClick={router.back}
@@ -278,8 +297,7 @@ export default function Layout({
             {children}
           </Box>
         </Flex>
-        {/* Normally we link to our privacy notice and terms in the help menu (popover dropdown) */}
-        {/* However, we need a way for noscript users to access these due to legal requirements */}
+        {/* We need a way for noscript users to access these due to legal requirements */}
         <noscript>
           <Stack
             p={5}
@@ -291,11 +309,6 @@ export default function Layout({
             <Link href="https://github.com/osopcloud/osopcloud" passHref>
               <Button leftIcon={<FiGithub />} size="sm" as="a">
                 GitHub
-              </Button>
-            </Link>
-            <Link href="/docs" passHref>
-              <Button size="sm" as="a" display={{ base: "none", sm: "flex" }}>
-                Documentation
               </Button>
             </Link>
             <Link href="/about/privacy" passHref>

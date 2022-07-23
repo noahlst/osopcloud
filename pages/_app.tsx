@@ -8,6 +8,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "lib/Theming";
 import UpdateServices from "lib/UpdateServices";
 import { ErrorFallbackApplication } from "components/error-handling/ErrorFallbackApplication";
+import { domAnimation, LazyMotion, MotionConfig } from "framer-motion";
 
 // Routing
 import { useRouter } from "next/router";
@@ -64,7 +65,12 @@ export default function Application({
     <ChakraProvider theme={theme}>
       <ErrorFallbackApplication>
         <UpdateServices>
-          {getLayout(<Component {...pageProps} />)}
+          <MotionConfig reducedMotion="user">
+            {/* Strict is preferred, however it will break Chakra UI components and always throw */}
+            <LazyMotion features={domAnimation}>
+              {getLayout(<Component {...pageProps} />)}
+            </LazyMotion>
+          </MotionConfig>
         </UpdateServices>
       </ErrorFallbackApplication>
     </ChakraProvider>

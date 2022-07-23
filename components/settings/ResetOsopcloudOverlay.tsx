@@ -52,12 +52,16 @@ export default function ResetOsopcloudOverlay() {
 
   return (
     <>
-      <Button onClick={onOpen} isDisabled={isLocalStorageEmpty}>
+      <Button
+        onClick={onOpen}
+        isActive={isOpen}
+        isDisabled={isLocalStorageEmpty}
+      >
         Reset Osopcloud
       </Button>
       <DynamicModal
         useAlertDialog={true}
-        cancelRef={undefined}
+        cancelRef={cancelRef}
         isOpen={isOpen}
         onClose={onClose}
       >

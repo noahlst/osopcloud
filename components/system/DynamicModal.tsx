@@ -50,7 +50,7 @@ export function OverlayModal({
           isOpen={isOpen}
           onClose={onClose}
           leastDestructiveRef={cancelRef}
-          motionPreset={animationSpeed ? "none" : "scale"}
+          motionPreset={animationSpeed ? "none" : "slideInBottom"}
           scrollBehavior="inside"
           size="sm"
           isCentered
@@ -65,7 +65,7 @@ export function OverlayModal({
           isOpen={isOpen}
           onClose={onClose}
           initialFocusRef={cancelRef}
-          motionPreset={animationSpeed ? "none" : "scale"}
+          motionPreset={animationSpeed ? "none" : "slideInBottom"}
           scrollBehavior="inside"
           size={size}
           isCentered
