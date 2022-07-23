@@ -2,10 +2,6 @@
 import type { ReactElement } from "react";
 import { GetStaticProps } from "next";
 
-// Suspense
-import { Suspense } from "react";
-import Loading from "components/system/Loading";
-
 // Routing
 import Link from "next/link";
 import { useRouter } from "next/router";

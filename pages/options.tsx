@@ -45,7 +45,7 @@ export default function Options() {
         />
       </Head>
 
-      <Stack direction="column" spacing={{ base: 5, md: 10 }}>
+      <Stack direction="column" spacing={10}>
         <Heading>Options</Heading>
         <SimpleGrid minChildWidth="340px" spacing={10}>
           <m.div

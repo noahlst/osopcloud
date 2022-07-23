@@ -22,6 +22,7 @@ import {
   Switch,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import {
   FiDatabase,
@@ -45,6 +46,7 @@ import useLocalStorage, { writeStorage } from "@rehooks/local-storage";
 import { exportCB, importCB, version as versionMXUPS } from "@hikium/mxups";
 
 import { useState, useEffect, useRef } from "react";
+import Note from "components/system/Note";
 
 // Start page
 export default function Settings() {
@@ -103,23 +105,57 @@ export default function Settings() {
       ? Object.keys(window.localStorage).length === 0
       : false;
 
+  // Import/Export error handling
+  const toast = useToast();
+
   // Import storage
   const [hasImportedStorage, setHasImportedStorage] = useState(false);
   function ImportStorageCB() {
-    importCB();
+    // @ts-ignore: We want to feature check this, not call it
+    if (navigator.clipboard.readText) {
+      const importErrorToast = () =>
+        toast({
+          position: "top",
+          duration: 9000,
+          render: (props: any) => (
+            <Note type="error">An error occurred while importing storage.</Note>
+          ),
+        });
 
-    // For 3 seconds, make hasExportedStorage true
-    // This will disable the button
-    setHasImportedStorage(true);
-    setTimeout(() => {
-      setHasImportedStorage(false);
-    }, 3000);
+      importCB(importErrorToast);
+
+      // For 3 seconds, make hasExportedStorage true
+      // This will disable the button
+      setHasImportedStorage(true);
+      setTimeout(() => {
+        setHasImportedStorage(false);
+      }, 3000);
+    } else {
+      toast({
+        position: "top",
+        duration: 9000,
+        render: (props: any) => (
+          <Note type="error">
+            This browser doesn't support importing storage.
+          </Note>
+        ),
+      });
+    }
   }
 
   // Export storage
   const [hasExportedStorage, setHasExportedStorage] = useState(false);
   function ExportStorageCB() {
-    exportCB();
+    const exportErrorToast = () =>
+      toast({
+        position: "top",
+        duration: 9000,
+        render: (props: any) => (
+          <Note type={false}>An error occurred while exporting storage.</Note>
+        ),
+      });
+
+    exportCB(exportErrorToast);
 
     // For 3 seconds, make hasExportedStorage true
     // This will disable the button
@@ -129,11 +165,14 @@ export default function Settings() {
     }, 3000);
   }
 
-  // Log MXUPS version
+  // Log MXUPS version once
+  const [loggedMXUPSVersion, setLoggedMXUPSVersion] = useState(false);
   useEffect(() => {
-    // This automatically logs the version of MXUPS
-    versionMXUPS();
-  });
+    if (!loggedMXUPSVersion) {
+      versionMXUPS();
+      setLoggedMXUPSVersion(true);
+    }
+  }, [loggedMXUPSVersion]);
 
   // Disable Keyboard Shortcuts confirmation modal
   const { isOpen, onOpen, onClose } = useDisclosure();
