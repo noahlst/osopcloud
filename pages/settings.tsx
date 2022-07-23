@@ -14,12 +14,14 @@ import {
   Flex,
   Heading,
   Icon,
+  Kbd,
   SimpleGrid,
   Spacer,
   Spinner,
   Stack,
   Switch,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
   FiDatabase,
@@ -31,6 +33,8 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 
 // First party components
+import DynamicModal from "components/system/DynamicModal";
+import ResetOsopcloudOverlay from "components/settings/ResetOsopcloudOverlay";
 import { version } from "components/Version";
 
 // Layouts
@@ -38,14 +42,9 @@ import Layout from "components/layouts/Layout";
 
 // Storage handling
 import useLocalStorage, { writeStorage } from "@rehooks/local-storage";
-import {
-  clearAllStorage,
-  exportCB,
-  importCB,
-  version as versionMXUPS,
-} from "@hikium/mxups";
+import { exportCB, importCB, version as versionMXUPS } from "@hikium/mxups";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // Start page
 export default function Settings() {
@@ -65,13 +64,13 @@ export default function Settings() {
 
   // Icons from the array
   const [iconIndex, setIconIndex] = useState(0);
-  const [icon, setIcon] = useState([
+  const icon = [
     { component: <FiSettings />, label: "Settings" },
     { component: <FiSidebar />, label: "Sidebar" },
     { component: <FiSliders />, label: "Advanced Settings" },
     { component: <FiDatabase />, label: "Storage" },
     { component: <FiTool />, label: "Diagnostic Information" },
-  ]);
+  ];
 
   // Get storage size
   const [storageSize, setStorageSize] = useState(0);
@@ -89,6 +88,25 @@ export default function Settings() {
       }
     }
   });
+
+  // Check if local storage is not empty
+  const isLocalStorageEmpty =
+    typeof window !== "undefined"
+      ? Object.keys(window.localStorage).length === 0
+      : false;
+
+  // Import storage
+  const [hasImportedStorage, setHasImportedStorage] = useState(false);
+  function ImportStorageCB() {
+    importCB();
+
+    // For 3 seconds, make hasExportedStorage true
+    // This will disable the button
+    setHasImportedStorage(true);
+    setTimeout(() => {
+      setHasImportedStorage(false);
+    }, 3000);
+  }
 
   // Export storage
   const [hasExportedStorage, setHasExportedStorage] = useState(false);
@@ -108,6 +126,10 @@ export default function Settings() {
     // This automatically logs the version of MXUPS
     versionMXUPS();
   });
+
+  // Disable Keyboard Shortcuts confirmation modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef(null);
 
   return (
     <>
@@ -230,7 +252,7 @@ export default function Settings() {
                         "settingsUseSystemFont",
                         systemFont ? false : true
                       );
-                      window.location.reload();
+                      window.location.href = "/";
                     }}
                     colorScheme="almondScheme"
                     size="lg"
@@ -258,12 +280,50 @@ export default function Settings() {
                         "settingsDisableCOKeyboardShortcuts",
                         settingsDisableCOKeyboardShortcuts ? false : true
                       );
+
+                      // Open modal to confirm
+                      if (!settingsDisableCOKeyboardShortcuts) {
+                        onOpen();
+                      }
                     }}
                     colorScheme="almondScheme"
                     size="lg"
                   />
                 </Stack>
               </Flex>
+              <DynamicModal
+                useAlertDialog={true}
+                cancelRef={undefined}
+                isOpen={isOpen}
+                onClose={onClose}
+              >
+                <Stack direction="column" spacing={5}>
+                  <Heading size="md">Disable Keyboard Shortcuts?</Heading>
+                  <Text>
+                    This will disable keyboard shortcuts that only use character
+                    keys, like <Kbd>g then h</Kbd>.
+                  </Text>
+                  <Text>
+                    Most Osopcloud keyboard shortcuts will no longer work.
+                  </Text>
+                  <Text fontSize="xs">
+                    <Kbd>esc</Kbd> and <Kbd>tab</Kbd> cannot be disabled.
+                  </Text>
+                  <Button onClick={onClose}>Continue &amp; Disable</Button>
+                  <Button
+                    onClick={() => {
+                      onClose();
+                      writeStorage(
+                        "settingsDisableCOKeyboardShortcuts",
+                        settingsDisableCOKeyboardShortcuts ? false : true
+                      );
+                    }}
+                    ref={cancelRef}
+                  >
+                    Cancel
+                  </Button>
+                </Stack>
+              </DynamicModal>
               <Flex>
                 <Center>
                   <Text>Install Updates Immediately</Text>
@@ -298,13 +358,18 @@ export default function Settings() {
               onMouseOver={() => setIconIndex(3)}
             >
               <Text textStyle="miniHeading">Manage Application Storage</Text>
-              <Button onClick={() => importCB()}>
-                Import Storage from Clipboard
+              <Button onClick={ImportStorageCB} isDisabled={hasImportedStorage}>
+                {hasImportedStorage
+                  ? "Imported"
+                  : "Import Storage from Clipboard"}
               </Button>
-              <Button onClick={ExportStorageCB} isDisabled={hasExportedStorage}>
+              <Button
+                onClick={ExportStorageCB}
+                isDisabled={isLocalStorageEmpty || hasExportedStorage}
+              >
                 {hasExportedStorage ? "Copied" : "Export Storage to Clipboard"}
               </Button>
-              <Button onClick={() => clearAllStorage()}>Reset Osopcloud</Button>
+              <ResetOsopcloudOverlay />
             </Stack>
             <Stack
               direction="column"

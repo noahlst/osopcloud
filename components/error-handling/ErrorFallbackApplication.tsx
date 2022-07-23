@@ -16,7 +16,6 @@ import { FiTool } from "react-icons/fi";
 import Logo from "components/brand/Logo";
 import { version } from "components/Version";
 import { commit } from "components/Commit";
-import DeleteSettings from "lib/DeleteSettings";
 
 import React from "react";
 
@@ -58,8 +57,6 @@ export class ErrorFallbackApplication extends React.Component {
               <Button
                 leftIcon={<FiTool />}
                 onClick={(_) => {
-                  // Reset Settings
-                  DeleteSettings();
                   // Attempt to recover React state
                   this.setState({ hasError: false });
                   // Add to the counter
