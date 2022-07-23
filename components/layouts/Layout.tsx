@@ -145,13 +145,30 @@ export default function Layout({
         <Flex direction="column" p={5}>
           <Suspense fallback={<Loading />}>
             {CheckPWA() && (
-              <IconButton
-                icon={<FiArrowLeft />}
-                aria-label="Go Back"
-                size="lg"
-                mb={5}
-                onClick={router.back}
-              />
+              <>
+                <AnimatePresence exitBeforeEnter>
+                  <m.div
+                    initial={{ y: -10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 10, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    {/* @ts-ignore */}
+                    <DarkMode>
+                      <Suspense fallback={<Loading />}>
+                        <IconButton
+                          icon={<FiArrowLeft />}
+                          aria-label="Go Back"
+                          size="lg"
+                          mb={5}
+                          onClick={router.back}
+                          isDisabled={router.pathname === "/"}
+                        />
+                      </Suspense>
+                    </DarkMode>
+                  </m.div>
+                </AnimatePresence>
+              </>
             )}
           </Suspense>
           <Stack direction="column" spacing={2}>
@@ -185,46 +202,50 @@ export default function Layout({
             <Suspense fallback={<Loading />}>
               {showShareButton ?? (
                 <>
-                  {shareCompatibility ? (
-                    <AnimatePresence exitBeforeEnter>
-                      <m.div
-                        initial={{ y: 10, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -10, opacity: 0 }}
-                        transition={{ duration: 0.15 }}
-                      >
-                        {/* @ts-ignore */}
-                        <DarkMode>
-                          <IconButton
-                            icon={<FiShare />}
-                            size="lg"
-                            aria-label="Share"
-                            onClick={Share}
-                          />
-                        </DarkMode>
-                      </m.div>
-                    </AnimatePresence>
-                  ) : null}
-                  {showPrintButton && (
-                    <AnimatePresence exitBeforeEnter>
-                      <m.div
-                        initial={{ y: 10, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -10, opacity: 0 }}
-                        transition={{ duration: 0.15 }}
-                      >
-                        {/* @ts-ignore */}
-                        <DarkMode>
-                          <IconButton
-                            icon={<FiPrinter />}
-                            size="lg"
-                            aria-label="Print"
-                            onClick={Print}
-                          />
-                        </DarkMode>
-                      </m.div>
-                    </AnimatePresence>
-                  )}
+                  <Suspense fallback={<Loading />}>
+                    {shareCompatibility ? (
+                      <AnimatePresence exitBeforeEnter>
+                        <m.div
+                          initial={{ y: 10, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: -10, opacity: 0 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          {/* @ts-ignore */}
+                          <DarkMode>
+                            <IconButton
+                              icon={<FiShare />}
+                              size="lg"
+                              aria-label="Share"
+                              onClick={Share}
+                            />
+                          </DarkMode>
+                        </m.div>
+                      </AnimatePresence>
+                    ) : null}
+                  </Suspense>
+                  <Suspense fallback={<Loading />}>
+                    {showPrintButton && (
+                      <AnimatePresence exitBeforeEnter>
+                        <m.div
+                          initial={{ y: 10, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: -10, opacity: 0 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          {/* @ts-ignore */}
+                          <DarkMode>
+                            <IconButton
+                              icon={<FiPrinter />}
+                              size="lg"
+                              aria-label="Print"
+                              onClick={Print}
+                            />
+                          </DarkMode>
+                        </m.div>
+                      </AnimatePresence>
+                    )}
+                  </Suspense>
                 </>
               )}
             </Suspense>

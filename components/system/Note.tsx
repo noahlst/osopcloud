@@ -1,5 +1,5 @@
 // Types
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 // Design
 import {
@@ -17,8 +17,8 @@ import { FiAlertTriangle, FiCheck, FiInfo } from "react-icons/fi";
 import { Suspense } from "react";
 
 interface NoteProps {
-  children: ReactElement | string;
-  type: string | boolean;
+  children: ReactNode | string;
+  type?: string | boolean;
   isToast?: boolean;
   errorCode?: number;
   m?: boolean;

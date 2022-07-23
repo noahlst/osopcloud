@@ -469,12 +469,7 @@ export default function Home({
           exit={{ x: -10, opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-          <Stack
-            direction="column"
-            spacing={10}
-            p={{ base: 0, sm: 20 }}
-            pe={{ base: 5, sm: "inherit" }}
-          >
+          <Stack direction="column" spacing={10}>
             <Box>
               <Badge>Product Preview</Badge>
             </Box>

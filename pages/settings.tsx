@@ -62,6 +62,8 @@ export default function Settings() {
   );
   const [immediateUpdate] = useLocalStorage("forceUpdate");
 
+  const [composerName] = useLocalStorage("composerName");
+
   const [applyingCustomFont, setApplyingCustomFont] = useState(false);
 
   // Icons from the array
@@ -123,6 +125,18 @@ export default function Settings() {
         });
 
       importCB(importErrorToast);
+
+      if (composerName) {
+        toast({
+          position: "top",
+          duration: 9000,
+          render: (props: any) => (
+            <Note>
+              "{composerName}" is now available in Osopcloud Composer.
+            </Note>
+          ),
+        });
+      }
 
       // For 3 seconds, make hasExportedStorage true
       // This will disable the button
