@@ -18,7 +18,7 @@ export default function Custom404() {
   return (
     <>
       <Head>
-        <title>There's Nothing to Show Here &mdash; Osopcloud</title>
+        <title>Osopcloud &mdash; 404</title>
         <meta name="description" content="There isn't a page to show here." />
         <meta name="og:title" content="Page Not Found" />
         <meta

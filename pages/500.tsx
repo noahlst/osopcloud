@@ -18,7 +18,7 @@ export default function Custom500() {
   return (
     <>
       <Head>
-        <title>Server Error &mdash; Osopcloud</title>
+        <title>Osopcloud &mdash; 500</title>
         <meta
           name="description"
           content="An expected condition prevented the completion of this request."

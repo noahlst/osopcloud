@@ -34,7 +34,7 @@ export default function About({ source, componentOverrides }: OSPageTypes) {
   return (
     <>
       <Head>
-        <title>{source.frontmatter.name} &mdash; Osopcloud</title>
+        <title>Osopcloud &mdash; {source.frontmatter.name}</title>
         <meta
           name="description"
           content={`${source.frontmatter.name} on Osopcloud.`}

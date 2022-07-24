@@ -6,6 +6,7 @@ import Link from "next/link";
 
 // SEO
 import Head from "next/head";
+import CheckPWA from "lib/CheckPWA";
 
 // Design
 import {
@@ -35,6 +36,7 @@ import { AnimatePresence, m } from "framer-motion";
 
 // First party components
 import DynamicModal from "components/system/DynamicModal";
+import Note from "components/system/Note";
 import ResetOsopcloudOverlay from "components/settings/ResetOsopcloudOverlay";
 import { version } from "components/Version";
 
@@ -46,7 +48,6 @@ import useLocalStorage, { writeStorage } from "@rehooks/local-storage";
 import { exportCB, importCB, version as versionMXUPS } from "@hikium/mxups";
 
 import { useState, useEffect, useRef } from "react";
-import Note from "components/system/Note";
 
 // Start page
 export default function Settings() {
@@ -195,7 +196,7 @@ export default function Settings() {
   return (
     <>
       <Head>
-        <title>Settings &mdash; Osopcloud</title>
+        <title>Osopcloud Settings</title>
         <meta name="description" content="Customise and configure Osopcloud." />
         <meta name="og:title" content="Osopcloud Settings" />
         <meta

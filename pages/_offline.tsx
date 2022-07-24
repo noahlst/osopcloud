@@ -18,7 +18,7 @@ export default function Offline() {
   return (
     <>
       <Head>
-        <title>You're Offline &mdash; Osopcloud</title>
+        <title>Osopcloud &mdash; Offline</title>
         <meta name="description" content="It looks like you're offline." />
         <meta name="og:title" content="You're Offline" />
         <meta name="og:description" content="It looks like you're offline." />

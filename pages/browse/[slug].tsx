@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 
 // SEO
 import Head from "next/head";
+import CheckPWA from "lib/CheckPWA";
 
 // Design
 import {
@@ -263,7 +264,7 @@ export default function OSPage({ source, rawJSONLink }: OSPageTypes) {
   return (
     <>
       <Head>
-        <title>{source.name} &mdash; Osopcloud</title>
+        <title>Osopcloud &mdash; {source.name}</title>
         <meta
           name="description"
           content={`Discover ${source.name} on Osopcloud.`}

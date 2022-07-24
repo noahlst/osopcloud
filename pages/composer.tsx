@@ -123,7 +123,7 @@ export default function Composer() {
   return (
     <>
       <Head>
-        <title>Composer &mdash; Osopcloud</title>
+        <title>Osopcloud Composer</title>
         <meta
           name="description"
           content="Composer an operating system page ready for publication on Osopcloud."

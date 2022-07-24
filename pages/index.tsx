@@ -26,6 +26,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { m } from "framer-motion";
+import { FiPlus } from "react-icons/fi";
 
 // First-party components
 import { LogoNoColour } from "components/brand/Logo";
@@ -55,7 +56,6 @@ import {
 import Layout from "components/layouts/Layout";
 
 import { useState, useRef } from "react";
-import { FiPlus } from "react-icons/fi";
 
 interface MetadataTypes {
   map: any;
@@ -447,7 +447,7 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>Discover Open-Source Operating Systems &mdash; Osopcloud</title>
+        <title>Osopcloud</title>
         <meta
           name="description"
           content="Discover Open-Source Operating Systems and Build Open-Source Operating System Culture."

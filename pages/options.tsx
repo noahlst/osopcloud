@@ -33,7 +33,7 @@ export default function Options() {
   return (
     <>
       <Head>
-        <title>Options &mdash; Osopcloud</title>
+        <title>Osopcloud Options</title>
         <meta
           name="description"
           content="Access additional functions and settings on Osopcloud."
