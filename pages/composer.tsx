@@ -26,6 +26,7 @@ import {
   IconButton,
   Input,
   Select,
+  SimpleGrid,
   Spacer,
   Stack,
   Table,
@@ -51,6 +52,7 @@ import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
 import Layout from "components/layouts/Layout";
 
 import { useState } from "react";
+import Card from "components/system/Card";
 
 // Start page
 export default function Composer() {
@@ -221,37 +223,59 @@ export default function Composer() {
             >
               <Flex w="100%">
                 <Container
-                  maxWidth="container.sm"
+                  maxWidth="container.lg"
                   mt={{ base: "none", lg: "15vh" }}
                 >
-                  <Stack direction="column" spacing={5}>
-                    <Heading size="md">What's the name of the OS?</Heading>
-                    <Input
-                      placeholder="Enter the Operating System name"
-                      // @ts-ignore
-                      value={name}
-                      onChange={(e) => {
-                        writeStorage("composerName", e.target.value);
-                      }}
-                      shadow="inner"
-                      borderRadius="xl"
-                    />
-                    <Stack direction="column" spacing={2}>
-                      <Button
-                        leftIcon={<FiArrowRight />}
-                        onClick={() => {
-                          setComposerGreeting(false);
-                        }}
-                        isDisabled={!name}
-                      >
-                        Get Started {name && `on ${name}`}
-                      </Button>
-                      <Text fontSize="xs">
-                        To edit an operating system that's already on Osopcloud,
-                        open it and select "Open in Composer".
-                      </Text>
-                    </Stack>
-                  </Stack>
+                  <SimpleGrid minChildWidth="150px" spacing={10}>
+                    <Center>
+                      <Stack direction="column" spacing={5}>
+                        <Heading size="md">
+                          What should we call this OS?
+                        </Heading>
+                        <Input
+                          placeholder="Enter the operating system name"
+                          // @ts-ignore
+                          value={name}
+                          onChange={(e) => {
+                            writeStorage("composerName", e.target.value);
+                          }}
+                          shadow="inner"
+                          borderRadius="xl"
+                        />
+                        <Button
+                          leftIcon={<FiArrowRight />}
+                          onClick={() => {
+                            setComposerGreeting(false);
+                          }}
+                          isDisabled={!name}
+                        >
+                          Create {name ? name : "this OS"}
+                        </Button>
+                        <Text fontSize="xs">
+                          To edit an existing operating system, open it and
+                          select "Open in Composer".
+                        </Text>
+                      </Stack>
+                    </Center>
+                    <Box display={{ base: "none", lg: "flex" }}>
+                      <Card useBrandColours>
+                        <Stack direction="column" spacing={5}>
+                          <Text textStyle="miniHeading">
+                            The Osopcloud Composer
+                          </Text>
+                          <Text>
+                            Osopcloud Composer makes it easy to get operating
+                            systems ready for Osopcloud.
+                          </Text>
+                          <Text>
+                            With Osopcloud Composer, you'll compose together
+                            information about the open-source operating system.
+                            Then, use the export tools to get the OS on GitHub.
+                          </Text>
+                        </Stack>
+                      </Card>
+                    </Box>
+                  </SimpleGrid>
                 </Container>
               </Flex>
             </m.div>
