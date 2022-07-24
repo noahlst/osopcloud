@@ -26,7 +26,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { m } from "framer-motion";
-import { FiPlus } from "react-icons/fi";
+import { FiAlertTriangle, FiPlus } from "react-icons/fi";
 
 // First-party components
 import { LogoNoColour } from "components/brand/Logo";
@@ -54,6 +54,9 @@ import {
 
 // Layouts
 import Layout from "components/layouts/Layout";
+
+// Storage
+import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
 
 import { useState, useRef } from "react";
 
@@ -433,16 +436,51 @@ export default function Home({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
 
-  function SearchEmptyState() {
+  // Search empty state
+  const [composerName] = useLocalStorage("composerName");
+  const [composerNameTemp, setComposerNameTemp] = useState(composerName);
+  function SearchEmptyState(query: string) {
+    // If queryCapitalisedFirstLetter includes "Os" or "os", capitalise OS
+    const queryCapitalisedOS = query.includes("Os")
+      ? query.replace("Os", "OS")
+      : query.includes("os")
+      ? query.replace("os", "OS")
+      : query;
+
+    // For each word in query, capitalise the first letter
+    const queryCapitalisedFirstLetters = queryCapitalisedOS
+      .split(" ")
+      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
     return (
       <Stack direction="column" spacing={5} px={5} py={2.5}>
-        <Text>Nothing to Show</Text>
-        <Link href="/composer" passHref>
-          <Button leftIcon={<FiPlus />}>Create with Osopcloud Composer</Button>
-        </Link>
+        <Stack direction="row" spacing={5}>
+          <Center>
+            <Icon as={FiAlertTriangle} aria-label="Error" w={6} h={6} />
+          </Center>
+          <Text>Nothing to Show</Text>
+        </Stack>
+        {!composerNameTemp && (
+          <Link href="/composer" passHref>
+            <Button
+              leftIcon={<FiPlus />}
+              onClick={() =>
+                writeStorage("composerName", queryCapitalisedFirstLetters)
+              }
+              isLoading={composerName !== composerNameTemp}
+              loadingText="Preparing Composer"
+            >
+              Create {queryCapitalisedFirstLetters}
+            </Button>
+          </Link>
+        )}
       </Stack>
     );
   }
+
+  // Input handling
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <>
@@ -475,13 +513,16 @@ export default function Home({
             </Box>
 
             <Suspense fallback={<Loading />}>
-              <AutoComplete emptyState={SearchEmptyState}>
+              <AutoComplete emptyState={SearchEmptyState(searchQuery)}>
                 <AutoCompleteInput
                   variant="outline"
                   size="md"
                   borderRadius="xl"
                   shadow="inner"
                   placeholder="Find an Operating System"
+                  // Handle this
+                  onChange={(e: any) => setSearchQuery(e.target.value)}
+                  value={searchQuery}
                 />
                 <AutoCompleteList borderRadius="xl">
                   {SortedNameData.map(
