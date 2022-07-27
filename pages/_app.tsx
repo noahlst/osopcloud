@@ -43,20 +43,11 @@ export default function Application({
   useKeyboardShortcut("g then c", () => {
     router.push("/composer");
   });
-  useKeyboardShortcut(["g then s", ", then 1"], () => {
-    router.push("/settings/general");
+  useKeyboardShortcut(["g then o"], () => {
+    router.push("/options");
   });
-  useKeyboardShortcut([", then 2"], () => {
-    router.push("/settings/accessibility");
-  });
-  useKeyboardShortcut([", then 3"], () => {
-    router.push("/settings/sharing");
-  });
-  useKeyboardShortcut([", then 4"], () => {
-    router.push("/settings/network");
-  });
-  useKeyboardShortcut([", then 5"], () => {
-    router.push("/settings/storage");
+  useKeyboardShortcut(["g then s", "g then ,"], () => {
+    router.push("/settings");
   });
 
   // Use the layout defined at the page level, if available

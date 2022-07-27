@@ -328,7 +328,7 @@ export default function Settings() {
                     />
                   </Stack>
                 </Flex>
-                <Flex>
+                <Flex display={{ base: "none", sm: "flex" }}>
                   <Center>
                     <Text>Disable Character-Only Keyboard Shortcuts</Text>
                   </Center>

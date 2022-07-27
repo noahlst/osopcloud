@@ -313,7 +313,7 @@ export default function Layout({
         direction="column"
         ps={{ base: 0, sm: 150 }}
       >
-        <Flex flex={1} ps={5} pe={{ base: 5, sm: 10 }} pt={20} pb={5}>
+        <Flex flex={1} ps={5} pe={{ base: 5, sm: 10 }} pt={20} pb={20}>
           <Box w="100%" id="printRegion" as="main">
             {children}
           </Box>
