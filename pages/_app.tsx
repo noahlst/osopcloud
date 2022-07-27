@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 // Design
 import "@fontsource/public-sans/400.css";
 import "@fontsource/public-sans/600.css";
+import "@fontsource/dosis/700.css";
 
 // Keyboard shortcuts
 import { useKeyboardShortcut } from "hooks/useKeyboardShortcut";

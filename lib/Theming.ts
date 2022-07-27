@@ -22,6 +22,7 @@ const theme = extendTheme({
   config,
   textStyles: {
     miniHeading: {
+      fontFamily: "Dosis",
       fontSize: "sm",
       fontWeight: 600,
       lineHeight: "200%",
