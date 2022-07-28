@@ -9,6 +9,7 @@ import theme from "lib/Theming";
 import UpdateServices from "lib/UpdateServices";
 import { ErrorFallbackApplication } from "components/error-handling/ErrorFallbackApplication";
 import { domAnimation, LazyMotion, MotionConfig } from "framer-motion";
+import PersistentStorageFallback from "components/error-handling/PersistentStorageFallback";
 
 // Routing
 import { useRouter } from "next/router";
@@ -20,6 +21,9 @@ import "@fontsource/dosis/700.css";
 
 // Keyboard shortcuts
 import { useKeyboardShortcut } from "hooks/useKeyboardShortcut";
+
+import { Suspense } from "react";
+import Loading from "components/system/Loading";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactElement;
@@ -50,20 +54,38 @@ export default function Application({
     router.push("/settings");
   });
 
+  // Check if the user has local storage enabled
+  function isLocalStorageAvailable() {
+    const test = "test";
+    try {
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
     <ChakraProvider theme={theme}>
       <ErrorFallbackApplication>
-        <UpdateServices>
-          <MotionConfig reducedMotion="user">
-            {/* Strict is preferred, however it will break Chakra UI components and always throw */}
-            <LazyMotion features={domAnimation}>
-              {getLayout(<Component {...pageProps} />)}
-            </LazyMotion>
-          </MotionConfig>
-        </UpdateServices>
+        <Suspense fallback={<Loading />}>
+          {isLocalStorageAvailable() ? (
+            <UpdateServices>
+              <MotionConfig reducedMotion="user">
+                {/* Strict is preferred, however it will break Chakra UI components and always throw */}
+                <LazyMotion features={domAnimation}>
+                  {getLayout(<Component {...pageProps} />)}
+                </LazyMotion>
+              </MotionConfig>
+            </UpdateServices>
+          ) : (
+            <PersistentStorageFallback />
+          )}
+        </Suspense>
       </ErrorFallbackApplication>
     </ChakraProvider>
   );

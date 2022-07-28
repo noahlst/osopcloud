@@ -12,10 +12,22 @@ const config: ThemeConfig = {
   useSystemColorMode: true,
 };
 
-export const systemFont =
-  typeof window !== "undefined"
+function isLocalStorageAvailable() {
+  const test = "test";
+  try {
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+export const systemFont = isLocalStorageAvailable()
+  ? typeof window !== "undefined"
     ? localStorage.getItem("settingsUseSystemFont") === "true"
-    : "";
+    : ""
+  : true;
 
 const theme = extendTheme({
   systemFont,
