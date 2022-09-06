@@ -78,6 +78,8 @@ export default function OSPage({ source, rawJSONLink }: OSPageTypes) {
     writeStorage("composerStartup", source.startupManagement);
     writeStorage("composerWebsite", source.website);
     writeStorage("composerRepository", source.repository);
+    writeStorage("composerDonationServiceName", source.donationServiceName);
+    writeStorage("composerDonationURL", source.donationURL);
     router.push("/composer");
   }
 
@@ -340,6 +342,13 @@ export default function OSPage({ source, rawJSONLink }: OSPageTypes) {
                 ))}
               </Stack>
               <Stack direction="column" spacing={2}>
+                {source.donationURL && (
+                  <Link href={source.donationURL} passHref>
+                    <Button as="a">
+                      Donate with {source.donationServiceName}
+                    </Button>
+                  </Link>
+                )}
                 <Link href={source.website} passHref>
                   <Button as="a">Visit Project Website</Button>
                 </Link>

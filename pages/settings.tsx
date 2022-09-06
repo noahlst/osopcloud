@@ -47,7 +47,7 @@ import useLocalStorage, { writeStorage } from "@rehooks/local-storage";
 import { exportCB, importCB, version as versionMXUPS } from "@hikium/mxups";
 
 // Application configuration
-import { config } from "../platform.config.json";
+import { config } from "../platform.config";
 
 import { useState, useEffect, useRef } from "react";
 

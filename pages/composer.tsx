@@ -40,9 +40,10 @@ import { FiArrowRight, FiMinus, FiPlus, FiX } from "react-icons/fi";
 import { AnimatePresence, m } from "framer-motion";
 
 // First party components
+import Card from "components/system/Card";
 import DeleteComposerDataOverlay from "components/composer/DeleteComposerDataOverlay";
 import ExportComposerDataOverlay from "components/composer/ExportComposerDataOverlay";
-import URLManagementOverlay from "components/composer/URLManagementOverlay";
+import DonationManagementOverlay from "components/composer/DonationManagementOverlay";
 import OrganisationNameOverlay from "components/composer/OrganisationNameOverlay";
 
 // Storage
@@ -52,7 +53,6 @@ import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
 import Layout from "components/layouts/Layout";
 
 import { useState } from "react";
-import Card from "components/system/Card";
 
 // Start page
 export default function Composer() {
@@ -71,6 +71,8 @@ export default function Composer() {
   );
   const [startup] = useLocalStorage("composerStartup");
   const [authors, setAuthors] = useLocalStorage("composerAuthors", []);
+  const [website] = useLocalStorage("composerWebsite");
+  const [sourceRepository] = useLocalStorage("composerRepository");
   const [organisationName] = useLocalStorage("composerOrganisationName");
 
   // Composer greeting
@@ -305,6 +307,48 @@ export default function Composer() {
                     />
                     <Table size="sm" variant="simple">
                       <Tbody>
+                        <Tr>
+                          <Td>Website URL</Td>
+                          <Td>
+                            <Editable
+                              // @ts-ignore
+                              value={website || "Click to Edit..."}
+                            >
+                              <EditablePreview />
+                              <Input
+                                as={EditableInput}
+                                onChange={(e) => {
+                                  writeStorage(
+                                    "composerWebsite",
+                                    e.target.value
+                                  );
+                                }}
+                                size="sm"
+                              />
+                            </Editable>
+                          </Td>
+                        </Tr>
+                        <Tr>
+                          <Td>Source Repository URL</Td>
+                          <Td>
+                            <Editable
+                              // @ts-ignore
+                              value={sourceRepository || "Click to Edit..."}
+                            >
+                              <EditablePreview />
+                              <Input
+                                as={EditableInput}
+                                onChange={(e) => {
+                                  writeStorage(
+                                    "composerRepository",
+                                    e.target.value
+                                  );
+                                }}
+                                size="sm"
+                              />
+                            </Editable>
+                          </Td>
+                        </Tr>
                         <Tr>
                           <Td>All Tags</Td>
                           <Td>
@@ -817,6 +861,27 @@ export default function Composer() {
                             )}
                           </Td>
                         </Tr>
+                        <Tr>
+                          <Td>Full Corporate Organisation Name</Td>
+                          <Td>
+                            <Editable
+                              // @ts-ignore
+                              value={organisationName || "Click to Edit..."}
+                            >
+                              <EditablePreview />
+                              <Input
+                                as={EditableInput}
+                                onChange={(e) => {
+                                  writeStorage(
+                                    "composerOrganisation",
+                                    e.target.value
+                                  );
+                                }}
+                                size="sm"
+                              />
+                            </Editable>
+                          </Td>
+                        </Tr>
                       </Tbody>
                     </Table>
                   </Stack>
@@ -829,7 +894,7 @@ export default function Composer() {
                 transition={{ duration: 0.175 }}
               >
                 <Stack direction="column" spacing={2} ms={{ base: 0, sm: 10 }}>
-                  <URLManagementOverlay />
+                  <DonationManagementOverlay />
                   <OrganisationNameOverlay />
                 </Stack>
               </m.div>
