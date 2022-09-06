@@ -23,7 +23,6 @@ import {
   Icon,
   Heading,
   useDisclosure,
-  Box,
 } from "@chakra-ui/react";
 import { m } from "framer-motion";
 import { FiAlertTriangle, FiPlus } from "react-icons/fi";
@@ -508,10 +507,6 @@ export default function Home({
           transition={{ duration: 0.2 }}
         >
           <Stack direction="column" spacing={10}>
-            <Box>
-              <Badge>Product Preview</Badge>
-            </Box>
-
             <Suspense fallback={<Loading />}>
               <AutoComplete emptyState={SearchEmptyState(searchQuery)}>
                 <AutoCompleteInput
