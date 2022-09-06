@@ -5,10 +5,10 @@ import type { AppProps } from "next/app";
 
 // Application-scope providers
 import { ChakraProvider } from "@chakra-ui/react";
+import { domAnimation, LazyMotion, MotionConfig } from "framer-motion";
 import theme from "lib/Theming";
 import UpdateServices from "lib/UpdateServices";
 import { ErrorFallbackApplication } from "components/error-handling/ErrorFallbackApplication";
-import { domAnimation, LazyMotion, MotionConfig } from "framer-motion";
 import PersistentStorageFallback from "components/error-handling/PersistentStorageFallback";
 
 // Routing

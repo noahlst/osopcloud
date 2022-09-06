@@ -6,7 +6,6 @@ import Link from "next/link";
 
 // SEO
 import Head from "next/head";
-import CheckPWA from "lib/CheckPWA";
 
 // Design
 import {
@@ -46,6 +45,9 @@ import Layout from "components/layouts/Layout";
 // Storage handling
 import useLocalStorage, { writeStorage } from "@rehooks/local-storage";
 import { exportCB, importCB, version as versionMXUPS } from "@hikium/mxups";
+
+// Application configuration
+import { config } from "../platform.config.json";
 
 import { useState, useEffect, useRef } from "react";
 
@@ -466,6 +468,55 @@ export default function Settings() {
                   </Link>
                 </Text>
               </Stack>
+              {!config.hideHikiumMarketing && (
+                <Stack
+                  direction="row"
+                  spacing={5}
+                  onMouseOver={() => setIconIndex(4)}
+                >
+                  <Icon width={5} height={5}>
+                    <svg
+                      id="Layer_1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 145 145"
+                    >
+                      <path d="M72.5,8c35.57,0,64.5,28.93,64.5,64.5s-28.93,64.5-64.5,64.5S8,108.07,8,72.5,36.93,8,72.5,8m0-8C32.46,0,0,32.46,0,72.5s32.46,72.5,72.5,72.5,72.5-32.46,72.5-72.5S112.54,0,72.5,0h0Z" />
+                      <line
+                        x1="73.26"
+                        y1="72.64"
+                        x2="6.26"
+                        y2="72.64"
+                        fill="none"
+                        stroke="#000"
+                        strokeMiterlimit="10"
+                        strokeWidth="8"
+                      />
+                      <path
+                        d="M122.26,25.5c0,26.06-21.92,47.14-49,47.14"
+                        fill="none"
+                        stroke="#000"
+                        strokeMiterlimit="10"
+                        strokeWidth="8"
+                      />
+                      <path
+                        d="M24.26,121.64c0-27.08,21.92-49,49-49"
+                        fill="none"
+                        stroke="#000"
+                        strokeMiterlimit="10"
+                        strokeWidth="8"
+                      />
+                    </svg>
+                  </Icon>
+                  <Center>
+                    <Text fontSize="xs">Founded with Hikium innovation</Text>
+                  </Center>
+                  <Center fontSize="xs">
+                    <Link href="https://www.hikium.com">
+                      Discover Hikium...
+                    </Link>
+                  </Center>
+                </Stack>
+              )}
             </Stack>
           </m.div>
           <Center h="50vh" display={{ base: "none", lg: "flex" }}>

@@ -1,0 +1,9 @@
+{
+  "config": {
+    "url": {
+      "repository": "https://github.com/noahlst/osopcloud",
+      "documentation": "https://github.com/noahlst/osopcloud/tree/main/docs"
+    },
+    "hideHikiumMarketing": false
+  }
+}

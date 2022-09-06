@@ -28,6 +28,9 @@ import { m } from "framer-motion";
 // Layouts
 import Layout from "components/layouts/Layout";
 
+// Application configuration
+import { config } from "../platform.config.json";
+
 // Start page
 export default function Options() {
   return (
@@ -60,15 +63,12 @@ export default function Options() {
                   Osopcloud Settings
                 </Button>
               </Link>
-              <Link href="https://github.com/osopcloud/osopcloud" passHref>
+              <Link href={config.url.repository} passHref>
                 <Button leftIcon={<FiGithub />} as="a" target="_blank">
                   Osopcloud GitHub Repository
                 </Button>
               </Link>
-              <Link
-                href="https://github.com/osopcloud/osopcloud/tree/main/docs"
-                passHref
-              >
+              <Link href={config.url.documentation} passHref>
                 <Button leftIcon={<FiLifeBuoy />} as="a" target="_blank">
                   Documentation on GitHub
                 </Button>
