@@ -1,6 +1,5 @@
 export const Badge = {
   baseStyle: {
-    fontFamily: "Dosis",
     fontWeight: 700,
     borderRadius: "md",
   },
@@ -27,7 +26,6 @@ export const Button = {
 
 export const Heading = {
   baseStyle: {
-    fontFamily: "Dosis",
     fontWeight: 700,
     fontSize: "xl",
   },
