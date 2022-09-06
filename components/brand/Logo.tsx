@@ -63,6 +63,7 @@ export default function Logo() {
 }
 
 export function LogoNoColour() {
+  const colour = useColorModeValue("#1A202C", "white");
   return (
     <svg
       id="Layer_1"
@@ -76,7 +77,7 @@ export function LogoNoColour() {
         cy="89.66"
         r="80"
         fill="none"
-        stroke="white"
+        stroke={colour}
         strokeMiterlimit="10"
         strokeWidth="5"
       />
@@ -86,14 +87,14 @@ export function LogoNoColour() {
         x2="20.42"
         y2="129.79"
         fill="none"
-        stroke="white"
+        stroke={colour}
         strokeMiterlimit="10"
         strokeWidth="5"
       />
       <polygon
         points="169.4 42.11 56.5 117.87 47.34 102 169.4 42.11"
         fill="none"
-        stroke="white"
+        stroke={colour}
         strokeMiterlimit="10"
         strokeWidth="5"
       />
@@ -103,7 +104,7 @@ export function LogoNoColour() {
         x2="39.09"
         y2="150.43"
         fill="none"
-        stroke="white"
+        stroke={colour}
         strokeMiterlimit="10"
         strokeWidth="5"
       />
@@ -113,7 +114,7 @@ export function LogoNoColour() {
         x2="142.05"
         y2="150.81"
         fill="none"
-        stroke="white"
+        stroke={colour}
         strokeMiterlimit="10"
         strokeWidth="5"
       />

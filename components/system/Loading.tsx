@@ -10,5 +10,5 @@ import { Spinner, Text, usePrefersReducedMotion } from "@chakra-ui/react";
 export default function Loading() {
   // Honour system accessibility preferences
   const animation = usePrefersReducedMotion();
-  return animation ? <Spinner /> : <Text>Loading</Text>;
+  return animation ? <Text>Loading</Text> : <Spinner />;
 }

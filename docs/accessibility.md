@@ -1,8 +1,3 @@
----
-name: "Accessibility"
-date: "2022-06-18"
----
-
 # Accessibility Options
 
 Making Osopcloud accessible is a big priority for our team.
@@ -14,8 +9,7 @@ We've implemented a handful of accessibility settings, which are described below
 The app uses a custom font. To enable or disable this behaviour, use Settings:
 
 1. Go to Settings.
-2. Select "Accessibility".
-3. Enable (or disable) "Use System Font".
+2. Enable (or disable) "Use System Font".
 
 ## Motion
 
@@ -30,17 +24,8 @@ Osopcloud implements a set of keyboard shortcuts. These use character-keys only,
 To enable or disable character-only keyboard shortcuts, use Settings:
 
 1. Go to Settings.
-2. Select "Accessibility".
-3. Enable (or disable) "Disable Character-Only Keyboard Shortcuts".
+2. Enable (or disable) "Disable Character-Only Keyboard Shortcuts".
 
 ### Tab Button
 
 The `tab` button on your keyboard can be used to go through buttons, links, and other input elements, starting at sidebar or header. To select that button, press `enter` or `return`.
-
-## Switch Labels
-
-Switches indicate whether a setting is enabled or disabled. They work like checkboxes. To make it clearer if the switch is on or off, you can enable switch labels:
-
-1. Go to Settings.
-2. Select "Accessibility".
-3. Enable (or disable) "Show Labels on Switches".

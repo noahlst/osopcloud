@@ -24,9 +24,11 @@ import {
   Heading,
   useDisclosure,
 } from "@chakra-ui/react";
+import { m } from "framer-motion";
+import { FiAlertTriangle, FiPlus } from "react-icons/fi";
 
 // First-party components
-import Logo from "components/brand/Logo";
+import { LogoNoColour } from "components/brand/Logo";
 import DynamicModal from "components/system/DynamicModal";
 
 // JSON processing
@@ -52,8 +54,10 @@ import {
 // Layouts
 import Layout from "components/layouts/Layout";
 
+// Storage
+import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
+
 import { useState, useRef } from "react";
-import { FiPlus } from "react-icons/fi";
 
 interface MetadataTypes {
   map: any;
@@ -431,21 +435,56 @@ export default function Home({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
 
-  function SearchEmptyState() {
+  // Search empty state
+  const [composerName] = useLocalStorage("composerName");
+  const [composerNameTemp, setComposerNameTemp] = useState(composerName);
+  function SearchEmptyState(query: string) {
+    // If queryCapitalisedFirstLetter includes "Os" or "os", capitalise OS
+    const queryCapitalisedOS = query.includes("Os")
+      ? query.replace("Os", "OS")
+      : query.includes("os")
+      ? query.replace("os", "OS")
+      : query;
+
+    // For each word in query, capitalise the first letter
+    const queryCapitalisedFirstLetters = queryCapitalisedOS
+      .split(" ")
+      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
     return (
       <Stack direction="column" spacing={5} px={5} py={2.5}>
-        <Text>Nothing to Show</Text>
-        <Link href="/composer" passHref>
-          <Button leftIcon={<FiPlus />}>Create with Osopcloud Composer</Button>
-        </Link>
+        <Stack direction="row" spacing={5}>
+          <Center>
+            <Icon as={FiAlertTriangle} aria-label="Error" w={6} h={6} />
+          </Center>
+          <Text>Nothing to Show</Text>
+        </Stack>
+        {!composerNameTemp && (
+          <Link href="/composer" passHref>
+            <Button
+              leftIcon={<FiPlus />}
+              onClick={() =>
+                writeStorage("composerName", queryCapitalisedFirstLetters)
+              }
+              isLoading={composerName !== composerNameTemp}
+              loadingText="Preparing Composer"
+            >
+              Create {queryCapitalisedFirstLetters}
+            </Button>
+          </Link>
+        )}
       </Stack>
     );
   }
 
+  // Input handling
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
     <>
       <Head>
-        <title>Discover Open-Source Operating Systems &mdash; Osopcloud</title>
+        <title>Osopcloud</title>
         <meta
           name="description"
           content="Discover Open-Source Operating Systems and Build Open-Source Operating System Culture."
@@ -461,178 +500,191 @@ export default function Home({
       </Head>
 
       <SimpleGrid minChildWidth="340px" spacing={10}>
-        <Stack
-          direction="column"
-          spacing={10}
-          p={{ base: 0, sm: 20 }}
-          pe={{ base: 5, sm: "inherit" }}
+        <m.div
+          initial={{ x: 10, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: -10, opacity: 0 }}
+          transition={{ duration: 0.2 }}
         >
-          <Suspense fallback={<Loading />}>
-            <AutoComplete emptyState={SearchEmptyState}>
-              <AutoCompleteInput
-                variant="outline"
-                size="md"
-                borderRadius="xl"
-                shadow="inner"
-                placeholder="Find an Operating System"
-              />
-              <AutoCompleteList borderRadius="xl">
-                {SortedNameData.map(
-                  ({
-                    slug,
-                    name,
-                    tags,
-                    platforms,
-                    packageManagement,
-                  }: MetadataTypes) => (
-                    <Link
-                      href={`/browse/${slug}`}
-                      key={`/browse/${slug}`}
-                      passHref
-                    >
-                      <AutoCompleteItem
-                        value={name}
-                        key={`option-${name}`}
-                        textDecoration="none"
-                        borderRadius="xl"
-                        p={4}
-                        mb={1}
-                        as="a"
+          <Stack direction="column" spacing={10}>
+            <Suspense fallback={<Loading />}>
+              <AutoComplete emptyState={SearchEmptyState(searchQuery)}>
+                <AutoCompleteInput
+                  variant="outline"
+                  size="md"
+                  borderRadius="xl"
+                  shadow="inner"
+                  placeholder="Find an Operating System"
+                  // Handle this
+                  onChange={(e: any) => setSearchQuery(e.target.value)}
+                  value={searchQuery}
+                />
+                <AutoCompleteList borderRadius="xl">
+                  {SortedNameData.map(
+                    ({
+                      slug,
+                      name,
+                      tags,
+                      platforms,
+                      packageManagement,
+                    }: MetadataTypes) => (
+                      <Link
+                        href={`/browse/${slug}`}
+                        key={`/browse/${slug}`}
+                        passHref
                       >
-                        <Stack direction="column" spacing={0}>
-                          <Text fontWeight={600}>{name}</Text>
-                          <Stack
-                            direction="row"
-                            spacing={2}
-                            fontWeight="normal"
-                            fontSize="sm"
-                          >
-                            <Badge pt="0.5">
-                              {tags.map((tag: string) => (
-                                <>
-                                  {/* Limit to 1 tag */}
-                                  {tags.indexOf(tag) < 1 && <>{tag}</>}
-                                </>
-                              ))}
-                            </Badge>
-                            <Text>
-                              {platforms.map((platform: string) => (
-                                <>
-                                  {/* Limit to 2 platforms */}
-                                  {platforms.indexOf(platform) < 2 && (
-                                    <>{platform}</>
-                                  )}
-                                  {/* Add a comma if not the last date */}
-                                  {platforms.indexOf(platform) < 1 &&
-                                    platforms.indexOf(platform) <
-                                      platforms.length - 1 && <>, </>}
-                                </>
-                              ))}
-                            </Text>
-                            <Text>
-                              {packageManagement.map((manager: string) => (
-                                <>
-                                  {/* Limit to 2 platforms */}
-                                  {packageManagement.indexOf(manager) < 2 && (
-                                    <>{manager}</>
-                                  )}
-                                  {/* Add a comma if not the last date */}
-                                  {packageManagement.indexOf(manager) < 1 &&
-                                    packageManagement.indexOf(manager) <
-                                      packageManagement.length - 1 && <>, </>}
-                                </>
-                              ))}
-                            </Text>
-                          </Stack>
-                        </Stack>
-                      </AutoCompleteItem>
-                    </Link>
-                  )
-                )}
-              </AutoCompleteList>
-            </AutoComplete>
-          </Suspense>
-          <Stack direction="column" spacing={2}>
-            <Suspense fallback={<Loading />}>
-              <Text fontSize="xs">
-                {activeTab > 0
-                  ? `Grouping ${tabArray[activeTab].label}s`
-                  : `
-                    ${SortedNameData.length} Operating System${
-                      SortedNameData.length <= 1 ? "" : "s"
-                    } (Beta Preview)`}
-              </Text>
-            </Suspense>
-            <Suspense fallback={<Loading />}>
-              <Stack direction="row" spacing={2} fontSize="xs">
-                {/* Show 4 tabs at most on large windows */}
-                {tabArray.slice(0, 4).map(({ label }, index) => (
-                  <Button
-                    key={`tab-${label}`}
-                    isActive={activeTab === index}
-                    onClick={() => setActiveTab(index)}
-                    size="sm"
-                    display={{ base: "none", sm: "flex" }}
-                  >
-                    {label}
-                  </Button>
-                ))}
-                {/* Show 1 tab at most on small windows */}
-                {tabArray.slice(0, 1).map(({ label }, index) => (
-                  <Button
-                    key={`tab-${label}`}
-                    isActive={activeTab === index}
-                    onClick={() => setActiveTab(index)}
-                    size="sm"
-                    display={{ base: "flex", sm: "none" }}
-                  >
-                    {label}
-                  </Button>
-                ))}
-                <Button size="sm" onClick={onOpen}>
-                  More
-                </Button>
-                <DynamicModal
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  useAlertDialog={false}
-                  cancelRef={cancelRef}
-                >
-                  <Stack direction="column" spacing={5}>
-                    <Heading size="md">Group the List by:</Heading>
-                    <Stack direction="column" spacing={2}>
-                      {/* All tab buttons */}
-                      {tabArray.map(({ label }, index) => (
-                        <Button
-                          key={`tab-${label}`}
-                          isActive={activeTab === index}
-                          onClick={() => {
-                            setActiveTab(index);
-                            onClose();
-                          }}
+                        <AutoCompleteItem
+                          value={name}
+                          key={`option-${name}`}
+                          textDecoration="none"
+                          borderRadius="xl"
+                          p={4}
+                          mb={1}
+                          as="a"
                         >
-                          {label}
-                        </Button>
-                      ))}
-                    </Stack>
-                    <Button onClick={onClose} ref={cancelRef}>
-                      Cancel
+                          <Stack direction="column" spacing={0}>
+                            <Text fontWeight={600}>{name}</Text>
+                            <Stack
+                              direction="row"
+                              spacing={2}
+                              fontWeight="normal"
+                              fontSize="sm"
+                            >
+                              <Badge pt="0.5">
+                                {tags.map((tag: string) => (
+                                  <>
+                                    {/* Limit to 1 tag */}
+                                    {tags.indexOf(tag) < 1 && <>{tag}</>}
+                                  </>
+                                ))}
+                              </Badge>
+                              <Text>
+                                {platforms.map((platform: string) => (
+                                  <>
+                                    {/* Limit to 2 platforms */}
+                                    {platforms.indexOf(platform) < 2 && (
+                                      <>{platform}</>
+                                    )}
+                                    {/* Add a comma if not the last date */}
+                                    {platforms.indexOf(platform) < 1 &&
+                                      platforms.indexOf(platform) <
+                                        platforms.length - 1 && <>, </>}
+                                  </>
+                                ))}
+                              </Text>
+                              <Text>
+                                {packageManagement.map((manager: string) => (
+                                  <>
+                                    {/* Limit to 2 platforms */}
+                                    {packageManagement.indexOf(manager) < 2 && (
+                                      <>{manager}</>
+                                    )}
+                                    {/* Add a comma if not the last date */}
+                                    {packageManagement.indexOf(manager) < 1 &&
+                                      packageManagement.indexOf(manager) <
+                                        packageManagement.length - 1 && <>, </>}
+                                  </>
+                                ))}
+                              </Text>
+                            </Stack>
+                          </Stack>
+                        </AutoCompleteItem>
+                      </Link>
+                    )
+                  )}
+                </AutoCompleteList>
+              </AutoComplete>
+            </Suspense>
+
+            <Stack direction="column" spacing={2}>
+              <Suspense fallback={<Loading />}>
+                <Text fontSize="xs">
+                  {activeTab > 0
+                    ? `Grouping ${tabArray[activeTab].label}s`
+                    : `
+                    ${SortedNameData.length} Operating System${
+                        SortedNameData.length <= 1 ? "" : "s"
+                      }`}
+                </Text>
+              </Suspense>
+              <Suspense fallback={<Loading />}>
+                <Stack direction="row" spacing={2} fontSize="xs">
+                  {/* Show 4 tabs at most on large windows */}
+                  {tabArray.slice(0, 4).map(({ label }, index) => (
+                    <Button
+                      key={`tab-${label}`}
+                      isActive={activeTab === index}
+                      onClick={() => setActiveTab(index)}
+                      size="sm"
+                      display={{ base: "none", sm: "flex" }}
+                    >
+                      {label}
                     </Button>
-                  </Stack>
-                </DynamicModal>
-              </Stack>
-            </Suspense>
-            <Suspense fallback={<Loading />}>
-              {/* Current tab */}
-              {tabArray[activeTab].component}
-            </Suspense>
+                  ))}
+                  {/* Show 1 tab at most on small windows */}
+                  {tabArray.slice(0, 1).map(({ label }, index) => (
+                    <Button
+                      key={`tab-${label}`}
+                      isActive={activeTab === index}
+                      onClick={() => setActiveTab(index)}
+                      size="sm"
+                      display={{ base: "flex", sm: "none" }}
+                    >
+                      {label}
+                    </Button>
+                  ))}
+                  <Button size="sm" onClick={onOpen}>
+                    More
+                  </Button>
+                  <DynamicModal
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    useAlertDialog={false}
+                    cancelRef={cancelRef}
+                  >
+                    <Stack direction="column" spacing={5}>
+                      <Heading size="md">Group the List by:</Heading>
+                      <Stack direction="column" spacing={2}>
+                        {/* All tab buttons */}
+                        {tabArray.map(({ label }, index) => (
+                          <Button
+                            key={`tab-${label}`}
+                            isActive={activeTab === index}
+                            onClick={() => {
+                              setActiveTab(index);
+                              onClose();
+                            }}
+                          >
+                            {label}
+                          </Button>
+                        ))}
+                      </Stack>
+                      <Button onClick={onClose} ref={cancelRef}>
+                        Cancel
+                      </Button>
+                    </Stack>
+                  </DynamicModal>
+                </Stack>
+              </Suspense>
+              <Suspense fallback={<Loading />}>
+                {/* Current tab */}
+                {tabArray[activeTab].component}
+              </Suspense>
+            </Stack>
           </Stack>
-        </Stack>
-        <Center h="100vh" pb={200} display={{ base: "none", lg: "flex" }}>
-          <Icon w={250} h={250} aria-label="Osopcloud Logo">
-            <Logo />
-          </Icon>
-        </Center>
+        </m.div>
+        <m.div
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -10, opacity: 0 }}
+          transition={{ duration: 0.15 }}
+        >
+          <Center h="75vh" display={{ base: "none", lg: "flex" }}>
+            <Icon w={300} h={300} aria-label="Osopcloud Logo">
+              <LogoNoColour />
+            </Icon>
+          </Center>
+        </m.div>
       </SimpleGrid>
     </>
   );

@@ -1,8 +1,3 @@
----
-name: "About Osopcloud for Organisations"
-date: "2022-07-18"
----
-
 # About Osopcloud for Organisations
 
 Osopcloud for Organisations is our initiative that allows organisations to create premium experiences on the platform.
@@ -13,13 +8,11 @@ At the moment this initiative is confined to content presented by organisations.
 
 Using Osopcloud Composer, organisations can set their organisation name to make it clear that their organisation is presenting the content.
 
-<Note m={true}>
-  So, if "Fruit Operating Systems, Inc." published "Banana" on Osopcloud, Banana
-  would have this notice: "This content presented by Fruit Operating Systems,
-  Inc."
-</Note>
+> So, if "Fruit Operating Systems, Inc." published "Banana" on Osopcloud, Banana would have this notice: "This content presented by Fruit Operating Systems, Inc."
 
-<DeepDive title="How to Create Organisation Content using Osopcloud Composer">
+<details>
+
+<summary>How to Create Organisation Content using Osopcloud Composer</summary>
 
 With Osopcloud Composer, you can set your organisation name to:
 
@@ -33,8 +26,8 @@ Now we can create a new work, proudly presented by your organisation:
 1. Open Osopcloud Composer
 2. Enter the Operating System name
 3. Select Set Organisation Name
-4. In the modal that appears, enter your organisation's corporate name.
+4. In the modal that appears, enter your organisation's corporate name
 
 To mark this change, the "Composer" badge changes to "Composer for Organisations". You have now enabled organisation features for your Osopcloud Composer work.
 
-</DeepDive>
+</details>

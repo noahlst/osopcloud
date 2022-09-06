@@ -8,21 +8,35 @@ import Link from "next/link";
 import Head from "next/head";
 
 // Design
-import { Button, Heading, Stack } from "@chakra-ui/react";
-import { FiFileText, FiGithub, FiLifeBuoy } from "react-icons/fi";
-
-// First party components
-import SettingsOverlay from "components/settings/SettingsOverlay";
+import {
+  Button,
+  Center,
+  Heading,
+  Icon,
+  SimpleGrid,
+  Stack,
+} from "@chakra-ui/react";
+import {
+  FiFileText,
+  FiGithub,
+  FiLifeBuoy,
+  FiMoreVertical,
+  FiSettings,
+} from "react-icons/fi";
+import { m } from "framer-motion";
 
 // Layouts
 import Layout from "components/layouts/Layout";
 
+// Application configuration
+import { config } from "../platform.config";
+
 // Start page
-export default function Settings() {
+export default function Options() {
   return (
     <>
       <Head>
-        <title>Options &mdash; Osopcloud</title>
+        <title>Osopcloud Options</title>
         <meta
           name="description"
           content="Access additional functions and settings on Osopcloud."
@@ -34,40 +48,61 @@ export default function Settings() {
         />
       </Head>
 
-      <Stack direction="column" spacing={5}>
+      <Stack direction="column" spacing={10}>
         <Heading>Options</Heading>
-        <Stack direction="column" spacing={2}>
-          <SettingsOverlay directLink={0} useMenuItem={false} />
-          <SettingsOverlay directLink={1} useMenuItem={false} />
-          <SettingsOverlay directLink={2} useMenuItem={false} />
-        </Stack>
-        <Link href="https://github.com/osopcloud/osopcloud" passHref>
-          <Button leftIcon={<FiGithub />} as="a" target="_blank">
-            GitHub
-          </Button>
-        </Link>
-        <Link href="/docs" passHref>
-          <Button leftIcon={<FiLifeBuoy />} as="a">
-            Osopcloud Documentation
-          </Button>
-        </Link>
-        <Stack direction="column" spacing={2}>
-          <Link href="/about/privacy" passHref>
-            <Button leftIcon={<FiFileText />} as="a">
-              Osopcloud Privacy Statement
-            </Button>
-          </Link>
-          <Link href="/about/terms" passHref>
-            <Button leftIcon={<FiFileText />} as="a">
-              Terms
-            </Button>
-          </Link>
-        </Stack>
+        <SimpleGrid minChildWidth="340px" spacing={10}>
+          <m.div
+            initial={{ x: 10, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -10, opacity: 0 }}
+            transition={{ duration: 0.175 }}
+          >
+            <Stack direction="column" spacing={5}>
+              <Link href="/settings" passHref>
+                <Button leftIcon={<FiSettings />} as="a">
+                  Osopcloud Settings
+                </Button>
+              </Link>
+              <Link href={config.repositoryURL} passHref>
+                <Button leftIcon={<FiGithub />} as="a" target="_blank">
+                  Osopcloud GitHub Repository
+                </Button>
+              </Link>
+              <Link href={config.documentationURL} passHref>
+                <Button leftIcon={<FiLifeBuoy />} as="a" target="_blank">
+                  Documentation on GitHub
+                </Button>
+              </Link>
+              <Stack direction="column" spacing={2}>
+                <Link href="/about/privacy" passHref>
+                  <Button leftIcon={<FiFileText />} as="a">
+                    Osopcloud Privacy Statement
+                  </Button>
+                </Link>
+                <Link href="/about/terms" passHref>
+                  <Button leftIcon={<FiFileText />} as="a">
+                    Terms
+                  </Button>
+                </Link>
+              </Stack>
+            </Stack>
+          </m.div>
+          <m.div
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -10, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            <Center h="50vh" display={{ base: "none", lg: "flex" }}>
+              <Icon as={FiMoreVertical} w={150} h={150} aria-label="Options" />
+            </Center>
+          </m.div>
+        </SimpleGrid>
       </Stack>
     </>
   );
 }
-Settings.getLayout = function getLayout(page: ReactElement) {
+Options.getLayout = function getLayout(page: ReactElement) {
   return (
     <Layout
       showToTopButton={false}

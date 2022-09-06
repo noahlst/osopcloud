@@ -1,16 +1,8 @@
----
-name: "Create with Osopcloud Composer"
-date: "2022-06-25"
----
-
 # Create with Osopcloud Composer
 
 Osopcloud Composer makes it easy to create, edit and publish Operating System Pages.
 
-<Note>
-  Remember to read the contributor code of conduct and the contributing
-  guidelines before you start.
-</Note>
+> Remember to read the contributor code of conduct and the contributing guidelines before you start.
 
 ## Starting a Project
 
@@ -31,7 +23,9 @@ It's also easy to import an existing operating system into Osopcloud Composer. U
 2. In it's Operating System Page, select "Open in Composer".
 3. If you're already working on something in Osopcloud Composer, you will be prompted if you want to override your work with this OS. Select "Continue & Reset".
 
-<DeepDive title="Building Off an OS to Implement it's Variant">
+<details>
+
+<summary>Building Off an OS to Implement it's Variant</summary>
 
 Let's say there's an already OS on Osopcloud. But, then, a new OS comes onto the market with very similar characteristics. They share the same desktop, shell, package managers, startup frameworks, etc. A real-life example of this might be Ubuntu and Ubuntu MATE, or Fedora and Fedora Silverblue.
 
@@ -44,7 +38,7 @@ First, follow the steps above to edit an existing operating system. Then, simply
 3. Change the website and source repository.
 4. Then edit everything else that is specific to that OS!
 
-</DeepDive>
+</details>
 
 ## Working with Osopcloud Composer
 
@@ -52,10 +46,7 @@ Osopcloud Composer is designed to be easy to use.
 
 To simplify editing, the description and metadata are combined on the same editing pane.
 
-<Note m={true}>
-  A description, tags, platforms, what the OS is based on, and a website URL are
-  required.
-</Note>
+> A description, tags, platforms, what the OS is based on, and a website URL are required.
 
 ### Description
 
@@ -63,10 +54,7 @@ The description is an expository paragraph describing the quirks, features, and 
 
 To edit the description, select on the textarea at the top of the editor.
 
-<Note m={true}>
-  On devices with a mouse, you can adjust the height of the textarea by moving
-  your cursor to the textarea border and dragging vertically.
-</Note>
+> On devices with a mouse, you can adjust the height of the textarea by moving your cursor to the textarea border and dragging vertically.
 
 ### Metadata
 
@@ -76,20 +64,15 @@ Some columns on the table are single-value items. This applies to metadata field
 
 Other columns accept multiple values. Select the column's plus icon button, then type in or select a value, and click the add button.
 
-<Note m={true}>
-  Like in OS Pages, metadata items with multiple values are automatically sorted
-  alphabetically.
-</Note>
+> Like in OS Pages, metadata items with multiple values are automatically sorted alphabetically.
 
-<Note m={true}>
-  The first tag of an OS gets priority throughout the interface.
-</Note>
+> The first tag of an OS gets priority throughout the interface.
 
 ### Website & Source repository
 
 To configure the operating systems's website and source repository links, select "Edit Website & Repository" from the editor sidebar. Simply select the text in the column to set them.
 
-<Note m={true}>URLs must include `https://`.</Note>
+> URLs must include `https://`.
 
 ### Set Organisation Name
 

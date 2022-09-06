@@ -1,5 +1,5 @@
 // Types
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 // Design
 import {
@@ -7,17 +7,18 @@ import {
   Center,
   Code,
   Flex,
+  Icon,
   Spacer,
-  Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { FiAlertTriangle, FiCheck, FiInfo } from "react-icons/fi";
 
 import { Suspense } from "react";
 
 interface NoteProps {
-  children: ReactElement | string;
-  type: string | boolean;
+  children: ReactNode | string;
+  type?: string | boolean;
   isToast?: boolean;
   errorCode?: number;
   m?: boolean;
@@ -53,44 +54,25 @@ export default function Note({
   isToast,
   m,
 }: NoteProps) {
-  // const greenFocusColour = useColorModeValue("green.400", "green.100");
-  // const redFocusColour = useColorModeValue("red.400", "red.100");
-  // const focusColour =
-  //   type === "success"
-  //     ? greenFocusColour
-  //     : type === "warning"
-  //     ? redFocusColour
-  //     : type === "error"
-  //     ? redFocusColour
-  //     : "inherit";
-
-  // Colours
-  const bgGreenFocusColour = useColorModeValue("green.50", "green.700");
-  const bgRedFocusColour = useColorModeValue("red.50", "red.700");
-  const bgFocusColour =
+  const greenFocusColour = useColorModeValue("green.800", "green.200");
+  const orangeFocusColour = useColorModeValue("orange.800", "orange.200");
+  const redFocusColour = useColorModeValue("red.800", "red.200");
+  const focusColour =
     type === "success"
-      ? bgGreenFocusColour
+      ? greenFocusColour
       : type === "warning"
-      ? bgRedFocusColour
+      ? orangeFocusColour
       : type === "error"
-      ? bgRedFocusColour
-      : "whiteAlpha.400";
-  const bgFocusColourToast =
-    type === "success"
-      ? "green.100"
-      : type === "warning"
-      ? "red.100"
-      : type === "error"
-      ? "red.100"
-      : "white.50";
+      ? redFocusColour
+      : "inherit";
 
   // Children
-  function NoteContent() {}
   return (
     <Box
-      bg={isToast ? bgFocusColourToast : bgFocusColour}
       px={5}
       py={2}
+      border="1px solid"
+      borderColor="inherit"
       borderRadius="xl"
       shadow="md"
       my={m ? 2 : 0}
@@ -99,22 +81,24 @@ export default function Note({
     >
       <Suspense fallback={children}>
         <Flex>
-          <Stack direction="row" spacing={5}>
-            <Center>
-              {type !== false && (
-                <Text fontSize="sm" fontWeight={600}>
-                  {type === "success"
-                    ? "Success:"
+          <Center>
+            {type !== false && (
+              <Icon
+                as={
+                  type === "success"
+                    ? FiCheck
                     : type === "warning"
-                    ? "Warning:"
+                    ? FiInfo
                     : type === "error"
-                    ? "Error:"
-                    : "Note:"}
-                </Text>
-              )}
-            </Center>
-            <Text fontSize="sm">{children}</Text>
-          </Stack>
+                    ? FiAlertTriangle
+                    : FiInfo
+                }
+                color={focusColour}
+                me={5}
+              />
+            )}
+          </Center>
+          <Text fontSize="sm">{children}</Text>
           {errorCode && (
             <>
               <Spacer />

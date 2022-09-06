@@ -1,19 +1,16 @@
----
-name: "About Storage"
-date: "2022-07-18"
----
-
 # About Storage and Application Data
 
 With Storage on Osopcloud, your Settings and works in Osopcloud Composer persist after you close your current session. You can come back to Osopcloud tomorrow and each of these will be the same.
 
 Storage is stored by your web browser. If you've installed Osopcloud as an app, this is the web browser that's "hosting" the app.
 
-<DeepDive title="Caching and Osopcloud Storage Usage">
+<details>
+
+<summary>About Osopcloud Storage Usage</summary>
 
 In addition to storing Osopcloud Composer data and Settings Osopcloud automatically downloads content in the background. This lets you use the app without a network connection.
 
-On compatible browsers, you can find a storage usage estimate in Application Storage Management. You might notice that this is quite large.
+On compatible browsers, you can find a storage usage estimate in Settings. Sometimes this can be quite large.
 
 There's a couple of factors that impact this size measure:
 
@@ -23,7 +20,7 @@ There's a couple of factors that impact this size measure:
 
 So, if you use Osopcloud across many browsers, you may get into a situation where Osopcloud is storing more than 100 megabytes on a single device. You will need to use your browser settings if you want to clear caches.
 
-</DeepDive>
+</details>
 
 ## Import or Export Storage
 
@@ -40,20 +37,17 @@ This will copy a JSON string to your clipboard which you can paste into a file o
 
 1. Select "Manage Storage" from the three-dots menu.
 2. Then select "Import Storage from Clipboard"
-3. If prompted with a permissions dialog, select "Allow" or "Paste"
+3. If prompted with a permissions dialogue, select "Allow" or "Paste"
 
 The imported settings will overwrite your current settings.
 
-<Note m={true}>
-  When you use the Import Storage from Clipboard feature, your full clipboard is
-  revealed to the application.
-</Note>
+> **Important:** When you use the Import Storage from Clipboard feature, your full clipboard is revealed to the application.
 
-<Note m={true}>It isn't possible to import settings on Mozilla Firefox.</Note>
+> It isn't possible to import settings on Mozilla Firefox.
 
 ## Clearing Storage
 
-<Note type="warning">Both of these methods are irreversible.</Note>
+> **Warning:** Both of these methods are irreversible.
 
 ### Resetting Osopcloud Composer
 
@@ -69,5 +63,6 @@ Reset Osopcloud to:
 - Reset Osopcloud Composer
 - Restore the default settings
 
-1. Select "Manage Storage" from the three-dots menu.
-2. Select "Reset Osopcloud"
+1. Open Options from header or sidebar
+2. Select "Osopcloud Settings"
+3. Select "Reset Osopcloud"
